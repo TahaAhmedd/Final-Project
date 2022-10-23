@@ -1,0 +1,32 @@
+.parent_login_form{
+
+        margin-top: 100px;
+}
+
+.login_form{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+}
+
+.login_btn{
+        text-align: center;
+        padding: 10px 30px;
+        color: #000;
+        font-size: 22px;
+        font-weight: bold;
+        border: 2px solid #ffb200;
+        border-radius: 10px;
+}
+
+/* media  */
+@media (max-width:992px) {
+        .login_form{
+                width: 70%;
+        }
+}
+@media (max-width:768px) {
+        .login_form{
+                width: 80%;
+        }
+}
