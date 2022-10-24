@@ -14,6 +14,7 @@ import Totop from './component/Totop/Totop';
 import { useEffect, useState } from 'react';
 import Snai3yCardPage from './pages/Snai3yCardPage';
 import Addjops from './component/AddJops/Addjops';
+import AddjopsIcon_fixed from './component/AddJops/AddjopsIcon_fixed';
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
   return (
     <>
       <Navpar/>
+      <AddjopsIcon_fixed/>
       <Routes>
         <Route index element={<Landing/>}/>
         <Route path='/index' element={<Landing/>}/>

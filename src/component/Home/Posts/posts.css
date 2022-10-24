@@ -48,11 +48,13 @@
 .post .app_di_img {
     border-bottom: 1px solid var(--secend-color);
     margin-bottom: 20px;
+    cursor: pointer;
 }
 .post .post_image {
     padding: 5px;
+    width: 50%;
 
-    border: 1px solid var(--secend-color);
+    /* border: 1px solid var(--secend-color); */
 }
 .post .post_image img {
     width: 100%;
@@ -217,5 +219,92 @@
 .label_me {
     color: #888;
     font-size: 14px;
+}
+
+
+
+/* Ditails Posts 
+*/
+.edit_close {
+
+    margin:0  !important;
+    font-size: 12px;
+    transition: all .5s;
+   
+
+}
+
+
+
+.edit_header {
+    background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF);
+    color: #000;
+    height: 38px;
+    padding: 0;
+   
+
+}
+.edit_header h1 {
+    font-size: 16px !important;
+    padding-right: 10px;
+}
+.edit_button {
+    background-color: #FFF!important;
+    color: var(--main-color)!important;
+    border: 1px solid var(--main-color)!important;
+    transition: all .5s!important;
+    padding: 4px 40px !important;
+    font-size: 20px !important;
+}
+
+.edit_button:hover {
+    background-color: var(--main-color) !important;
+    color: #fff!important;
+    border: 1px solid var(--main-color)!important;
+
+}
+.edit_close_button {
+    padding: 4px 40px !important;
+    font-size: 20px !important;
+}
+.edit_close_button:hover {
+    background-color: #dc3545!important;
+   
+    color: #FFF!important;
+    border: 1px solid #dc3545!important;
+}
+
+.edit_image_about_job {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+}
+.edit_image_about_job img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+
+
+.edit_data_about_job {
+    margin-top: 10px;
+}
+.edit_data_about_job h5 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.edit_data_about_job p {
+    font-size: 12px;
+    background: #dbe8d8;
+    display: inline;
+    padding: 1px 10px;
+    border-radius: 15px;
+    color: #000;
+}
+
+.edit_footer_job {
+    
 }
 

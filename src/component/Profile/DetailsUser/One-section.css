@@ -18,6 +18,7 @@
 .data_profile h4 {
     border-right: 2px solid #999;
     padding-right: 5px;
+    font-size: 20px;
 }
 
 .data_profile ul {
@@ -26,7 +27,7 @@
     border-bottom:1px solid #99999947;
 }
 .data_profile ul li {
-    padding: 5px;
+    font-size: 14px;
 }
 .data_profile ul li i {
     margin: 10px;

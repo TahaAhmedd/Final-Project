@@ -27,27 +27,38 @@ function Navpar() {
                         <ul className="navbar-nav mr-auto ">
                             <li className="nav-item active list_navpar">
                                 <NavLink to="/home">
+                                    {/* <lord-icon
+                                    src="https://cdn.lordicon.com/dxjqoygy.json"
+                                    trigger="hover"
+                                    colors="primary:#000000,secondary:#ffb200"
+                                    style={{ width: '30px', height: '30px' }}>
+                                </lord-icon> */}
+
+                                    <i className="fa-solid fa-house-user"></i>
                                     الصفحة الرئيسيه
                                 </NavLink>
                             </li>
 
                             <li className="nav-item list_navpar" >
                                 <NavLink to="/allsnai3y">
-                                    الخدمات
+                                    <i className="fa-solid fa-helmet-safety"></i>
+                                    الحرفين
                                 </NavLink>
                             </li>
 
                             <li className="nav-item list_navpar">
                                 <NavLink to="/index">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/yyecauzv.json"
+                                        trigger="click"
+                                        colors="primary:#fff,secondary:#ffb200"
+                                        style={{ width: '30px', height: '30px' }}>
+                                    </lord-icon>
                                     سياسة الأستخدام
                                 </NavLink>
                             </li>
                             <li className="nav-item list_navpar ">
-                                <NavLink to="/addjops">
-                                    <i className="fa-solid fa-plus">
-                                        إنشاء وظيفة
-                                    </i>
-                                </NavLink>
+                                
                             </li>
 
 
