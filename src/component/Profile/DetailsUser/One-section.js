@@ -16,15 +16,15 @@ function OneSection() {
               <h4>احمد محمد احمد علي</h4>
               <ul>
                 <li>
-                  <i class="fa-solid fa-location-dot"></i>
+                  <i className="fa-solid fa-location-dot"></i>
                   <span> السيل </span>
                 </li>
                 <li>
-                  <i class="fa-solid fa-network-wired"></i>
+                  <i className="fa-solid fa-network-wired"></i>
                   <span> نقاش </span>
                 </li>
                 <li>
-                  <i class="fa-solid fa-thumbs-up"></i>
+                  <i className="fa-solid fa-thumbs-up"></i>
                   <span>
                     التوصيات :<strong> 12</strong>{" "}
                   </span>
