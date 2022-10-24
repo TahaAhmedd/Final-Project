@@ -24,6 +24,8 @@ function Login() {
                     if (res.status == 200) {
                         console.log(res)
                         localStorage.setItem("token", res.headers.authorization);
+                        localStorage.setItem("snai3yRole", res.data.rule);
+                        localStorage.setItem("Name", res.data.name);
                         navigate("/home")
                     }
                     else {

@@ -11,6 +11,11 @@
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.863) ;
 }
+
+li i{
+    color: var(--main-color);
+    margin-left: 8px;
+}
 .navbar > div{
     border-bottom: 1px solid #444;
 }
