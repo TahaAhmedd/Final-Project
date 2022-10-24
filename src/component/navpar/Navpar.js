@@ -32,7 +32,7 @@ function Navpar() {
                             </li>
 
                             <li className="nav-item list_navpar" >
-                                <NavLink to="/index">
+                                <NavLink to="/allsnai3y">
                                     الخدمات
                                 </NavLink>
                             </li>
@@ -43,8 +43,10 @@ function Navpar() {
                                 </NavLink>
                             </li>
                             <li className="nav-item list_navpar ">
-                                <NavLink to="/index">
-                                    اتصل بنا
+                                <NavLink to="/addjops">
+                                    <i className="fa-solid fa-plus">
+                                        إنشاء وظيفة
+                                    </i>
                                 </NavLink>
                             </li>
 
