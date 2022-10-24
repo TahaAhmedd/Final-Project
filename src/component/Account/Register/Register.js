@@ -41,7 +41,6 @@ function Register() {
 
       axios.post("http://localhost:7000/sanai3y/signup", data).then(res => {
         if (res.status == 200) {
-          // localStorage.setItem('token', res.headers.authorization);
           navigate("/login")
         }
       }).catch((err) => {
@@ -82,7 +81,7 @@ function Register() {
 
       axios.post("http://localhost:7000/client/signup", data).then(res => {
         if (res.status == 200) {
-          localStorage.setItem('token', res.headers.authorization);
+          navigate("/login")
         }
       })
     },

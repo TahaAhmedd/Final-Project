@@ -3,6 +3,7 @@ import Posts from "../component/Home/Posts/posts";
 import HeaderHome from "../component/Home/Header/Headerhome";
 
 
+
 function Home() {
 
  
@@ -20,7 +21,8 @@ function Home() {
           </div>
 
           <div className="col-md-9 twoBody">
-            <Posts />
+              <Posts/>
+            
           </div>
         </div>
 

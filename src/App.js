@@ -12,21 +12,26 @@ import Home from './pages/Home';
 import Chat from './component/Chat/Chat'
 import Totop from './component/Totop/Totop';
 import { useEffect, useState } from 'react';
+import Snai3yCardPage from './pages/Snai3yCardPage';
+import Addjops from './component/AddJops/Addjops';
+import AddjopsIcon_fixed from './component/AddJops/AddjopsIcon_fixed';
 
 function App() {
   
  let [scroll,setScroll]= useState()
  useEffect(()=>{window.addEventListener("scroll",()=>{setScroll(window.scrollY)})} ,[])
- console.log(scroll)
   return (
     <>
       <Navpar/>
+      <AddjopsIcon_fixed/>
       <Routes>
         <Route index element={<Landing/>}/>
         <Route path='/index' element={<Landing/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/home' element={<Home/>}/>
         <Route path='/chat' element={<Chat />}/>
+        <Route path='/allsnai3y' element={<Snai3yCardPage />}/>
+        <Route path='/addjops' element={<Addjops />}/>
         <Route path='/regiser' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
       </Routes>
