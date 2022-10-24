@@ -1,15 +1,42 @@
+input:focus{
+border: 2px solid var(--main-color);
+}
+input{
+    outline: none;
+    border: none;
+    background-color: rgb(246, 245, 245);
+    border: 2px solid rgb(246, 245, 245);
+
+}
+select,textarea{
+   outline: none;
+   background-color: rgb(246, 245, 245);
+ border: 2px solid rgb(246, 245, 245);
+}
+option:hover{
+    background-color: var(--main-color);
+}
+select:focus, textarea:focus{
+    border: 2px solid var(--main-color);
+}
 body{
     background-color: gainsboro;
   }
   main .container{
       font-size: .8rem;
-      width:60%;
       color: var(--main-color);
+      background-color: white;
+      box-shadow: 0 0 15px black;
+      margin-top: 80px;
+      margin-bottom: 40px;
+      border-radius: 10px;
+
   }
   label{
       font-weight: bold;
       margin: 6px 0;
   }
+  
   main .container h1{
   margin-bottom: 20px;
   }
@@ -29,18 +56,18 @@ body{
   }
   
   main .container form{
-      background-color: white;
       padding: 14px;
       border-radius: 10px;
-      box-shadow: 0 0 25px black;
+   
   }
   main .container form .detail-addr {
   display: flex;
   flex-direction: column;
   width: 50%;
+
   }
   main .container form .detail-addr input{
-      padding: 3px 0;
+      padding: 12px 2px;
   
   }
   
@@ -58,6 +85,16 @@ body{
       color: white;
       padding: 10px;
       border-radius: 5px;
+      border: 1px solid var(--button-color);
+      transition: all .4s;
+
+  }
+  main .container form .add-pic label:hover{
+    background-color: white;
+    color: var(--button-color);
+    border: 1px solid var(--button-color);
+    transition: all .4s;
+
   }
   main .container form .business #business{
       width: 100%;
@@ -80,17 +117,26 @@ body{
   main .container form #submit{
      padding: 8px;
      background-color: var(--main-color);
+    border: 1px solid var(--button-color);
      color: white;
-     border: none;
      border-radius: 5px;
      font-weight: 900;
+     transition: all .4s;
+  }
+  main .container form #submit:hover{
+    padding: 8px;
+
+    color: var(--main-color);
+    border: 1px solid var(--button-color);
+    background-color: white;
+    transition: all .4s;
   }
   
   /* responsive */
   @media (min-width:1200px) {
 
         main .container{
-          width: 60%;
+          width: 70%;
       }
       
   }
