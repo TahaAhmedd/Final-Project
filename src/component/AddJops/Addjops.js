@@ -30,7 +30,7 @@ function Addjops() {
         }),
     });
 
-    console.log(formik.values);
+    // console.log(formik.values);
     // console.log(formik.handleSubmit);
     return (
         <main>

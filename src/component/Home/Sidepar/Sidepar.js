@@ -57,7 +57,9 @@ function Sidepar() {
             <span>12</span>
           </li>
         </ul>
-        <ul className="c_two">
+
+        
+        {/* <ul className="c_two">
           <h4>مستوي العميل </h4>
           <li>
             <input
@@ -112,7 +114,7 @@ function Sidepar() {
             <label htmlFor="trusted_identity">هوية موثوقة</label>
             <br />
           </li>
-        </ul>
+        </ul> */}
 
         <ul className="c_three">
           <h4>تحديد مكان العمل</h4>

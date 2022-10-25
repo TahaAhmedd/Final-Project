@@ -21,8 +21,7 @@ function Home() {
           </div>
 
           <div className="col-md-9 twoBody">
-              <Posts/>
-            
+              <Posts />
           </div>
         </div>
 
