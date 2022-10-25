@@ -8,7 +8,7 @@ function Sidepar() {
           <h4>الاقسام</h4>
           <li>
             <i className="fa-brands fa-pied-piper"></i>
-            سباكة
+             سباكة
             <span>10</span>
           </li>
           <li>

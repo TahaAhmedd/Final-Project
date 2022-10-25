@@ -15,13 +15,13 @@ function Profile() {
                 <div className="row my-5">
 
                     {/* slider */}
-                    <div className="col-4 mt-5">
+                    <div className="col-3 mt-5">
                         <OneSlider /> 
                         <TwoSlider />
                     </div>
 
                     {/* body */}
-                    <div className="col-8 mt-5"> 
+                    <div className="col-9 mt-5"> 
                         <OneSection />
                         <BusinesFaire />
                     </div>

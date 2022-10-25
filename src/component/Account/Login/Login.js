@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import coverLogin from './loginCover.jpeg'
-import { red } from '@mui/material/colors';
 function Login() {
 
     let navigate = useNavigate()
