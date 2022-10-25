@@ -12,6 +12,7 @@ function Addjops() {
     let headers = {
         'Authorization': token
     }
+    var i=0;
     const formik = useFormik({
         initialValues: {
             address: "",
@@ -36,8 +37,11 @@ function Addjops() {
         }),
         onSubmit: (values) => {
             
-            console.log(values)
-              axios.post("http://localhost:7000/jobs/postjob",values,{headers:headers}).then(
+            console.log(values);
+            const formData = new FormData()
+            formData.append('jobImage', values.photo);
+
+              axios.post("http://localhost:7000/jobs/postjob",formData,{headers:headers}).then(
                 (result)=>{
                     console.log(result)
                 }
@@ -59,7 +63,7 @@ function Addjops() {
     //   console.log(formik.values);
     // console.log(formik.handleSubmit);
     return (
-        <main>
+        <main className="form_Addjops">
             <div className="container">
                 <form method="post" onSubmit={formik.handleSubmit} encType="multipart/form-data">
                     <h2 className="Title_Addjops">أضف مشكلتك</h2>
@@ -205,7 +209,9 @@ function Addjops() {
                             id="upload-files"
                             accept="image/*"
                             multiple
-                            
+                             onChange={(e) =>
+                            formik.setFieldValue('photo', e.currentTarget.files[0])
+          }
                         />
                         <div>
 

@@ -5,22 +5,16 @@ import { useState, useEffect } from "react";
 import dateFormat, { masks } from "dateformat";
 import axios from "axios";
 
-function Posts() {
+function Posts({datas}) {
+  
   // Fetch Fake Api   < Test >
   let role = localStorage.getItem("snai3yRole");
-  const [data, setData] = useState([]);
-  useEffect(() => {
-
-    axios.get("http://localhost:7000/jobs/all").then(
-      (result)=>{
-        let res = result.data.data;
-        console.log(res)
-        setData(res)
-      }
-      )
-      // console.log(date)
-    }, []);
-
+  const[data,setData]=useState(datas)
+  console.log(data)
+useEffect(()=>
+{
+  setData(datas)
+},[datas])
   // Function Hidden Post
   // let [show, setShow] = useState(false);
   function showAndHidden(index) {

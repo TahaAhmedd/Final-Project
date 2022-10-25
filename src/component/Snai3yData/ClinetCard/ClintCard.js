@@ -1,5 +1,7 @@
 import React from 'react'
 import './ClintCard.css'
+
+import dateFormat, { masks } from "dateformat";
 function ClintCard({ data }) {
     console.log(data)
     return (
@@ -27,7 +29,7 @@ function ClintCard({ data }) {
                         {/* Date  */}
                         <small>
                         <i className="fa-solid fa-clock" style={{fontSize:"18px"}}></i>
-                            {data.joinedDate}
+                            {dateFormat(data.joinedDate,"mmmm dS, yyyy , h:MM  TT")}
                         </small>
 
                         {/* address */}
