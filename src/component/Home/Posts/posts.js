@@ -9,35 +9,12 @@ function Posts() {
   // Fetch Fake Api   < Test >
   let role = localStorage.getItem("snai3yRole");
   const [data, setData] = useState([]);
-  const [date, setDate] = useState([]);
-  // dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
   useEffect(() => {
-    // fetch("http://localhost:7000/jobs/all").then(
-    //   (result) => {
-    //     console.log(result)
-    //     result.json().then((res) => {
-    //       // let arr=res.map((item)=>{...item,show:false})
-    //       let arr = [];
-    //       for (var i = 0; i < res.length; i++) {
-    //         arr.push({ ...res[i], show: false });
-    //       }
-    //       setData(arr);
-    //     });
-    //   }
-    // );
 
     axios.get("http://localhost:7000/jobs/all").then(
       (result)=>{
-        // console.log(result.data)
         let res = result.data.data;
-        // res.map((date)=>{
-        //   // let hireddate = ;
-        //   // console.log(hireddate)
-        //   setDate(dateFormat(date.hiredDate, "dddd, mmmm dS, yyyy, h:MM:ss TT"))
-
-        // })
-
-        // console.log(res)
+        console.log(res)
         setData(res)
       }
       )
@@ -191,7 +168,7 @@ function Posts() {
           {/* Show Details */}
           <div
             className="modal modal-xl fade"
-            id={`Taha${data.id}`}
+            id={`Taha${data._id}`}
             data-bs-backdrop="static"
             data-bs-keyboard="false"
             tabIndex="-1"
