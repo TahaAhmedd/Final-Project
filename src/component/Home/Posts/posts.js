@@ -2,26 +2,19 @@ import "./posts.css";
 import img from "../../../images/home/postOne.jpg";
 import prfile from "../../../images/home/abdelhafez.jpg";
 import { useState, useEffect } from "react";
+import dateFormat, { masks } from "dateformat";
+import axios from "axios";
 
-function Posts() {
+function Posts({datas}) {
+  
   // Fetch Fake Api   < Test >
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch("https://mocki.io/v1/2aa618ff-cb24-4151-9b13-7bf7af74dad6").then(
-      (result) => {
-        result.json().then((res) => {
-          // let arr=res.map((item)=>{...item,show:false})
-          let arr = [];
-          for (var i = 0; i < res.length; i++) {
-            arr.push({ ...res[i], show: false });
-          }
-          setData(arr);
-        });
-      }
-    );
-  }, []);
-
+  let role = localStorage.getItem("snai3yRole");
+  const[data,setData]=useState(datas)
+  console.log(data)
+useEffect(()=>
+{
+  setData(datas)
+},[datas])
   // Function Hidden Post
   // let [show, setShow] = useState(false);
   function showAndHidden(index) {
@@ -57,7 +50,7 @@ function Posts() {
                 <i className="fa-regular fa-flag"></i>ابلاغ عن المنشور
               </span>
 
-              <span onClick={() => delet(data.id)}>
+              <span onClick={() => delet(data._id)}>
                 <i className="fa-regular fa-eye"></i>اخفاء المنشور
               </span>
             </div>
@@ -69,8 +62,8 @@ function Posts() {
             </div>
 
             <div className="name">
-              <span>{data.user}</span>
-              <span>منذ دقيقة</span>
+              <span>{`${data.firstName} ${data.lastName}`}</span>
+              <span>{dateFormat(data.hiredDate," h:MM  TT")}</span>
               {/* <span>{data.adressuder}</span> */}
             </div>
           </div>
@@ -78,14 +71,14 @@ function Posts() {
           <div
             className="app_di_img"
             data-bs-toggle="modal"
-            data-bs-target={`#Taha${data.id}`}
+            data-bs-target={`#Taha${data._id}`}
           >
             <div className="row p-2 ">
               <div className="dis">
-                <p>{data.dis} </p>
+                <p>{data.description} </p>
                 <p>
                   <strong>العنوان : </strong>
-                  {data.adresswork}
+                  {data.city}
                 </p>
                 <p>
                   <strong>مده التسليم : </strong>يوم
@@ -99,19 +92,21 @@ function Posts() {
           <div className="row">
             <div className="col-6">
               <div className="suggestion_me">
-                <span>{data.optionone}</span>
-                <span>{data.optiontwo}</span>
+                <span>{data.category}</span>
+                {/* <span>{data.optiontwo}</span> */}
               </div>
             </div>
 
             <div className="buttons col-6">
-              <button
+
+              {role == "sanai3y" &&<button
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
                 data-bs-whatever="@getbootstrap"
               >
                 طلب
-              </button>
+              </button>}
+
             </div>
           </div>
 
@@ -167,7 +162,7 @@ function Posts() {
           {/* Show Details */}
           <div
             className="modal modal-xl fade"
-            id={`Taha${data.id}`}
+            id={`Taha${data._id}`}
             data-bs-backdrop="static"
             data-bs-keyboard="false"
             tabIndex="-1"
@@ -213,11 +208,9 @@ function Posts() {
                       <div className=" g-0 px-3 py-2">
                         <div className="col-md-8">
                           <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
+                            <h5 className="card-title">{data.title}</h5>
                             <p className="card-text">
-                              This is a wider card with supporting text below as
-                              a natural lead-in to additional content. This
-                              content is a little bit longer.
+                             {data.description}
                             </p>
                           </div>
                         </div>

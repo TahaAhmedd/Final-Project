@@ -2,8 +2,6 @@ import React from 'react'
 import './login.css'
 import { useFormik } from 'formik';
 import { loginSchema } from './LoginSchema'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import coverLogin from './loginCover.jpeg'
@@ -19,12 +17,13 @@ function Login() {
             onSubmit: (values) => {
                 console.log(values)
                 axios.post("http://localhost:7000/client/signin", values).then((res) => {
-                    // console.log(res)
+                    console.log(res)
                     if (res.status == 200) {
                         console.log(res)
                         localStorage.setItem("token", res.headers.authorization);
-                        localStorage.setItem("snai3yRole", res.data.rule);
-                        localStorage.setItem("Name", res.data.name);
+                        localStorage.setItem("snai3yRole", res.data.data.rule);
+                        localStorage.setItem("Name", res.data.data.firstName +" "+ res.data.data.lastName);
+                        localStorage.setItem("image", res.data.data.image);
                         navigate("/home")
                     }
                     else {

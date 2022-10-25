@@ -216,7 +216,7 @@
     font-weight: bold;
     display: block;
     width: 60%;
-    background-color: var(--backgrond-color) ;
+    background-color: transparent;
     color: var(--font-color);
     border: none;
     border-radius: 10px;

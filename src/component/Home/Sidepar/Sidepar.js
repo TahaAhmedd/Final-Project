@@ -1,17 +1,22 @@
 import "./Sidepar.css";
 
-function Sidepar() {
+function Sidepar(props) {
+
+  function fliter(type)
+  {
+    props.press(type);
+  }
   return (
     <div className="twoSlid">
       <div className="categories">
         <ul className="c_one">
           <h4>الاقسام</h4>
-          <li>
+          <li onClick={()=>fliter("سباكة")}>
             <i className="fa-brands fa-pied-piper"></i>
              سباكة
             <span>10</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("بناء")}>
             <i className="fa-solid fa-rug"></i>
             نجارة
             <span>15</span>
@@ -21,7 +26,7 @@ function Sidepar() {
             دهانات
             <span>8</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("كهربائي")}>
             <i className="fa-solid fa-bolt"></i>
             كهرباء
             <span>5</span>
@@ -57,7 +62,9 @@ function Sidepar() {
             <span>12</span>
           </li>
         </ul>
-        <ul className="c_two">
+
+        
+        {/* <ul className="c_two">
           <h4>مستوي العميل </h4>
           <li>
             <input
@@ -112,11 +119,11 @@ function Sidepar() {
             <label htmlFor="trusted_identity">هوية موثوقة</label>
             <br />
           </li>
-        </ul>
+        </ul> */}
 
         <ul className="c_three">
           <h4>تحديد مكان العمل</h4>
-          <li>
+          <li onClick={()=>{props.press2('كوم امبو')}}>
             <input
               type="radio"
               id="trusted_identity"
