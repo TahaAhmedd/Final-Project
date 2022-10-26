@@ -19,12 +19,15 @@
     padding-right: 10px;
    
 }
-
+.navbar_right ul {
+    padding: 0;
+}
 .navbar_right ul li {
 
     padding: 10px 10px;
     list-style: none;
     position: relative;
+    font-size: 15px;
 }
 
 .navbar_right ul li a {

@@ -10,6 +10,7 @@
 }
 .edit button{
         border: none;
+        background-color: red;
         padding: 5px 10px;
         background-color: transparent;
         transition: margin 0.5s ease;
@@ -28,15 +29,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
     background-color: #eee;
+    overflow: hidden;
 }
 .cardWork img{
         width: 100%;
         transition: transform 0.3s ease-in-out;
+      
 }
 .cardWork img:hover{
         transform: scale(1.1);
+}
+.info_Card_Work {
+        padding: 7px;
+        background-color: #FFF;
 }
 .info_Card_Work h3{
         font-size: 18px;
@@ -45,4 +52,13 @@
 }
 .info_Card_Work p{
         font-size: 15px;
+}
+.swiper-button-next,
+.swiper-button-prev { 
+        
+        color: #ffb200!important;
+        background-color: #00000052;
+        padding: 27px;
+        border-radius: 50%;
+
 }

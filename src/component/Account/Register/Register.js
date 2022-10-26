@@ -1,14 +1,15 @@
 import './Register.css'
 import loginCover from "../../../images/landing/login.jpg";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { schemaCrafts, schemaUser } from './RegisterSchema';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import {  NavLink,useNavigate } from 'react-router-dom';
 
 function Register() {
   let navigate = useNavigate()
-  
+
+  let [flag, setFlag] = useState(false);
   // crafts formik Data
   const craftsFormik = useFormik({
     initialValues: {
@@ -40,11 +41,16 @@ function Register() {
       };
 
       axios.post("http://localhost:7000/sanai3y/signup", data).then(res => {
-        if (res.status == 200) {
+        if (res.data = "You already have acount, You can signin") {
+          console.log(res.data)
+          setFlag(true)
+          window.scrollTo(0, 0)
+        }
+        else {
           navigate("/login")
         }
-      }).catch((err) => {
-        console.log(err)
+      }).catch(() => {
+        setFlag(true)
       })
     },
     validationSchema: schemaCrafts
@@ -80,7 +86,11 @@ function Register() {
       };
 
       axios.post("http://localhost:7000/client/signup", data).then(res => {
-        if (res.status == 200) {
+        if (res.data = "You already have acount, You can signin") {
+          console.log(res.data)
+          setFlag(true)
+        }
+        else {
           navigate("/login")
         }
       })
@@ -127,9 +137,13 @@ function Register() {
     <div className="big_parent">
       <div className="child_big_parent row p-0">
         <div className="parent_form col-xl-6 col-lg-10  mx-lg-auto col-md-12 p-0">
-
           {/* start Form crafts  */}
           <form method="post" onSubmit={craftsFormik.handleSubmit}>
+            {flag && <div className='row'>
+              <div className='col-8 mx-auto mt-2'>
+                <p className='alert alert-danger'>هذا الحساب موجود بالفعل</p>
+              </div>
+            </div>}
             <div className="form_crafts" id="crafts_form">
               <div className="phead">
                 <h2 className="head_form">إنشاء حساب</h2>
@@ -181,6 +195,7 @@ function Register() {
                     <option value="0" selected>أختر المركز</option>
                     <option value="أسوان">أسوان</option>
                     <option value="أسوان الجديدة">أسوان الجديدة</option>
+                    <option value="أبو سمبل">أبو سمبل</option>
                     <option value="دراو">دراو</option>
                     <option value="كوم امبو">كوم امبو</option>
                     <option value="نصر النوبة">نصر النوبة</option>
@@ -202,10 +217,10 @@ function Register() {
                     <option value="مبيض محارة">مبيض محارة</option>
                     <option value="كهربائي">كهربائي</option>
                     <option value="فني تكييف">فني تكييف</option>
-                    <option value="نقاش">نقاش</option>
+                    <option value="دهانات">دهانات</option>
                     <option value="بناء">بناء</option>
                     <option value="الوميتال">الوميتال</option>
-                    <option value="اخري">اخري...</option>
+                    <option value="فني ارضيات">فني أرضيات</option>
                   </select>
                 </div>
 
@@ -245,7 +260,7 @@ function Register() {
                   trigger="loop-on-hover"
                   delay="500"
                   colors="primary:#ffb200"
-                  style={{width:'50px' ,height:'70px'}}>
+                  style={{ width: '50px', height: '70px' }}>
                 </lord-icon>
               </div>
             </div>
@@ -264,6 +279,18 @@ function Register() {
               <br />
               <input type="button" defaultValue="سجل كعميل" className="input_choose" id="input_user" />
               <input type="button" defaultValue="سجل كحرفي" className="input_choose" id="input_crafts" />
+
+              <div className='row mt-4'>
+                <div className='col-12'>
+                  <p style={{fontSize:"22px ", marginBottom:"0"}}>
+                  لدي حساب بالفعل :
+
+                    <NavLink to='/login'>
+                      دخول
+                    </NavLink>
+                  </p>
+                </div>
+              </div>
             </div>
           </form>
           {/* --------------End Choose Form-------------- */}
@@ -361,9 +388,19 @@ function Register() {
                 <button className="submit_btn btn" type="submit" id="submit_crafts">تسجيل</button>
               </div>
 
-              <div className="return_input_user" id="">
-                <input type="reset" value="رجوع ←" id="return_input_user" onReset={userFormik.handleReset} />
+              {/* <div className="return_input_user" id=""> */}
+              <div className="return_input_user" id="return_input_user">
+                {/* <input type="button" defaultValue="→ رجوع" id="return_input" /> */}
+                <lord-icon
+                  src="https://cdn.lordicon.com/zmkotitn.json"
+                  trigger="loop-on-hover"
+                  delay="500"
+                  colors="primary:#ffb200"
+                  style={{ width: '50px', height: '70px', transform: "rotate(180deg)" }}>
+                </lord-icon>
               </div>
+              {/* <input type="reset" value="رجوع ←" id="return_input_user" onReset={userFormik.handleReset} /> */}
+              {/* </div> */}
             </div>
           </form>
         </div>

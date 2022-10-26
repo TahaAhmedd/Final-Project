@@ -2,40 +2,63 @@ import "./posts.css";
 import img from "../../../images/home/postOne.jpg";
 import prfile from "../../../images/home/abdelhafez.jpg";
 import { useState, useEffect } from "react";
-
-function Posts() {
-  // Fetch Fake Api   < Test >
-  const [data, setData] = useState([]);
-
+import dateFormat, { masks } from "dateformat";
+import { Formik, useFormik } from "formik";
+import * as yup from "yup";
+import axios from "axios";
+function Posts({ datas }) {
+  let role = localStorage.getItem("snai3yRole");
+  let token = localStorage.getItem("token");
+  const [data, setData] = useState(datas)
+  
   useEffect(() => {
-    fetch("https://mocki.io/v1/2aa618ff-cb24-4151-9b13-7bf7af74dad6").then(
-      (result) => {
-        result.json().then((res) => {
-          // let arr=res.map((item)=>{...item,show:false})
-          let arr = [];
-          for (var i = 0; i < res.length; i++) {
-            arr.push({ ...res[i], show: false });
-          }
-          setData(arr);
-        });
-      }
-    );
-  }, []);
-
-  // Function Hidden Post
-  // let [show, setShow] = useState(false);
+    setData(datas)
+  }, [datas])
+  // console.log(data[13].proposals.length)
+  
+  // Hidden of jops
   function showAndHidden(index) {
-    // show ? setShow(false) : setShow(true);
-    // console.log(data[index].show)
     data[index].show = !data[index].show;
     setData([...data]);
   }
-
   // Function Delete Post
   function delet(id) {
     setData((prev) => prev.filter((item) => item.id != id));
   }
 
+  const [dis , setDis] = useState("")
+
+  function disChange(event){
+    setDis(event.target.value)
+    // console.log(dis)
+  }
+  // const formik = useFormik({
+  //   initialValues:{
+  //     description:"",
+  //   },
+  //   onSubmit: (val)=>{
+  //     
+      
+  //     console.log(val)
+      
+
+      
+  //   }
+  // })
+  let headers={
+      'Authorization': token
+  }
+  function sendid (id){
+    let body ={
+      id:id,
+      description: dis
+    }
+    console.log(id)
+    axios.put("http://localhost:7000/jobs/addproposal",body,{headers:headers})
+    .then(res=>{
+      console.log(res)
+    })
+  }
   return (
     <>
       {data.map((data, index) => (
@@ -57,7 +80,7 @@ function Posts() {
                 <i className="fa-regular fa-flag"></i>ابلاغ عن المنشور
               </span>
 
-              <span onClick={() => delet(data.id)}>
+              <span onClick={() => delet(data._id)}>
                 <i className="fa-regular fa-eye"></i>اخفاء المنشور
               </span>
             </div>
@@ -69,8 +92,8 @@ function Posts() {
             </div>
 
             <div className="name">
-              <span>{data.user}</span>
-              <span>منذ دقيقة</span>
+              <span>{`${data.firstName} ${data.lastName}`}</span>
+              <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
               {/* <span>{data.adressuder}</span> */}
             </div>
           </div>
@@ -78,17 +101,18 @@ function Posts() {
           <div
             className="app_di_img"
             data-bs-toggle="modal"
-            data-bs-target={`#Taha${data.id}`}
+            data-bs-target={`#Taha${data._id}`}
           >
             <div className="row p-2 ">
               <div className="dis">
-                <p>{data.dis} </p>
+                <p>{data.description} </p>
                 <p>
                   <strong>العنوان : </strong>
-                  {data.adresswork}
+                  {data.city}
                 </p>
                 <p>
-                  <strong>مده التسليم : </strong>يوم
+                  عدد الطلبات المقدمه:
+                  <strong> {data.proposals.length}</strong>
                 </p>
               </div>
 
@@ -99,25 +123,27 @@ function Posts() {
           <div className="row">
             <div className="col-6">
               <div className="suggestion_me">
-                <span>{data.optionone}</span>
-                <span>{data.optiontwo}</span>
+                <span>{data.category}</span>
+                {/* <span>{data.optiontwo}</span> */}
               </div>
             </div>
 
             <div className="buttons col-6">
-              <button
+
+              {role == "sanai3y" && <button
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target={`#abdo${data._id}`}
                 data-bs-whatever="@getbootstrap"
               >
                 طلب
-              </button>
+              </button>}
+
             </div>
           </div>
 
           <div
             className="modal fade"
-            id="exampleModal"
+            id={`abdo${data._id}`}
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
@@ -130,7 +156,9 @@ function Posts() {
                   </h5>
                 </div>
                 <div className="modal-body">
-                  <form>
+
+                  {/* Add probosal Form */}
+                  <form >
                     <div className="mb-3">
                       <label
                         htmlFor="message-text"
@@ -141,10 +169,15 @@ function Posts() {
                       <textarea
                         className="form-control"
                         id="message-text"
+                        name="description"
+                        onChange={disChange}
+                        value={dis}
                       ></textarea>
                     </div>
-                  </form>
-                </div>
+                  
+
+
+
                 <div className="modal-footer">
                   <button
                     type="button"
@@ -154,11 +187,16 @@ function Posts() {
                     اغلاق
                   </button>
                   <button
+                    onClick={()=> sendid(data._id) }
                     type="button"
                     className="btn btn-primary button_me test"
                   >
                     ارسال الطلب
                   </button>
+
+
+                </div>
+                </form>
                 </div>
               </div>
             </div>
@@ -167,7 +205,7 @@ function Posts() {
           {/* Show Details */}
           <div
             className="modal modal-xl fade"
-            id={`Taha${data.id}`}
+            id={`Taha${data._id}`}
             data-bs-backdrop="static"
             data-bs-keyboard="false"
             tabIndex="-1"
@@ -201,7 +239,7 @@ function Posts() {
 
                       <div className="col-5 p-0">
                         <div className="edit_data_about_job">
-                          <h5>{data.user}</h5>
+                          <h5>{`${data.firstName} ${data.lastName}`}</h5>
                           <p>اسوان</p>
                         </div>
                       </div>
@@ -213,11 +251,9 @@ function Posts() {
                       <div className=" g-0 px-3 py-2">
                         <div className="col-md-8">
                           <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
+                            <h5 className="card-title">{data.title}</h5>
                             <p className="card-text">
-                              This is a wider card with supporting text below as
-                              a natural lead-in to additional content. This
-                              content is a little bit longer.
+                              {data.description}
                             </p>
                           </div>
                         </div>
@@ -225,11 +261,11 @@ function Posts() {
                         <div className="col-md-4">
                           <div className="row">
                             <div className="col-6">
-                              <img className="img-thumbnail" src={img} alt="" />
+                              <img className="img-thumbnail" src={data.images[0]} alt="" />
                             </div>
-                            <div className="col-6">
-                              <img className="img-thumbnail" src={img} alt="" />
-                            </div>
+                            {/* <div className="col-6">
+                              <img className="img-thumbnail" src={data.images} alt="" />
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -246,7 +282,7 @@ function Posts() {
                     اغلاق
                   </button>
 
-                  <button
+                  {role == "snai3y" && <button
                     type="button"
                     className="btn btn-primary edit_button"
                     data-bs-toggle="modal"
@@ -254,7 +290,7 @@ function Posts() {
                     data-bs-whatever="@getbootstrap"
                   >
                     طلب
-                  </button>
+                  </button>}
                 </div>
               </div>
             </div>

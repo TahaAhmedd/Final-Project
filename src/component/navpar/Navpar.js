@@ -4,10 +4,16 @@ import user from '../../images/landing/user.png'
 import { useNavigate, NavLink } from 'react-router-dom'
 function Navpar() {
     let token = localStorage.getItem("token")
-    const navigate = useNavigate()
+    const navigate = useNavigate() 
+    const imageUser = localStorage.getItem("image");
+    const userName = localStorage.getItem("Name");
+
 
     function logout() {
-        localStorage.removeItem("token")
+        localStorage.removeItem("token");
+        localStorage.removeItem("Name");
+        localStorage.removeItem("snai3yRole");
+        localStorage.removeItem("image");
         navigate("/login");
     }
     return (
@@ -99,7 +105,7 @@ function Navpar() {
                             {/* image User  */}
                             {token && <div>
                                 <div className=' position-relative toggle' data-bs-toggle="collapse" data-bs-target="#userToogel" aria-controls="userToogel" aria-expanded="false" aria-label="Toggle navigation">
-                                    <img src={user} style={{ width: '30px', height: '30px', borderRadius: "50%" }}></img>
+                                    <img src={imageUser} style={{ width: '30px', height: '30px', borderRadius: "50%" ,cursor:"pointer"}}></img>
                                 </div>
                                 <div id='userToogel' className='collapse  user_toogel'>
                                     <div>
@@ -107,8 +113,8 @@ function Navpar() {
                                         <div className='user_content_navpar'>
                                             <div className='user_img_name'>
                                                 <NavLink to="/profile" className='user_img_name'>
-                                                    <img src={user} style={{ width: '70px', height: '70px', borderRadius: "50%" }}></img>
-                                                    <h4>User Name</h4>
+                                                    <img src={imageUser} style={{ width: '70px', height: '70px', borderRadius: "50%" }}></img>
+                                                    <h4>{userName}</h4>
                                                 </NavLink>
                                             </div>
                                             <div>

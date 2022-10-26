@@ -12,7 +12,7 @@
     background-color: rgba(0, 0, 0, 0.863) ;
 }
 
-li i{
+.navbar li i{
     color: var(--main-color);
     margin-left: 8px;
 }
@@ -64,7 +64,9 @@ li i{
     top: 100%;
     left: 5%;
     background-color: #fff;
-    padding: 15px;
+    /* padding: 15px; */
+    width: 220px;
+    height: auto;
 }
 .user_content_navpar{
     display: flex;
@@ -72,7 +74,8 @@ li i{
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    padding: 10px;
+    box-shadow: 0 3px 8px 2px #eee;
 }
 .user_img_name{
     display: flex;
