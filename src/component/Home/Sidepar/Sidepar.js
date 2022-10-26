@@ -11,17 +11,17 @@ function Sidepar(props) {
       <div className="categories">
         <ul className="c_one">
           <h4>الاقسام</h4>
-          <li onClick={()=>fliter("سباكة")}>
+          <li onClick={()=>fliter("سباك")}>
             <i className="fa-brands fa-pied-piper"></i>
              سباكة
             <span>10</span>
           </li>
-          <li onClick={()=>fliter("بناء")}>
+          <li onClick={()=>fliter("نجار")}>
             <i className="fa-solid fa-rug"></i>
             نجارة
             <span>15</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("دهانات")}>
             <i className="fa-solid fa-paint-roller"></i>
             دهانات
             <span>8</span>
@@ -31,36 +31,27 @@ function Sidepar(props) {
             كهرباء
             <span>5</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("بناء")}>
             <i className="fa-solid fa-building"></i>
             بناء
             <span>4</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("فني ارضيات")}>
             <i className="fa-solid fa-house-flood-water"></i>
             ارضيات
             <span>11</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("مبيض محارة")}>
             <i className="fa-solid fa-chalkboard"></i>
-            تبيض
+            مبيض محارة
             <span>8</span>
           </li>
-          <li>
+          <li onClick={()=>fliter("فني تكييف")}>
             <i className="fa-solid fa-fan"></i>
             تكيف
             <span>10</span>
           </li>
-          <li>
-            <i className="fa-brands fa-pied-piper"></i>
-            سباكة
-            <span>6</span>
-          </li>
-          <li>
-            <i className="fa-brands fa-pied-piper"></i>
-            سباكة
-            <span>12</span>
-          </li>
+          
         </ul>
 
         
@@ -123,7 +114,17 @@ function Sidepar(props) {
 
         <ul className="c_three">
           <h4>تحديد مكان العمل</h4>
-          <li onClick={()=>{props.press2('كوم امبو')}}>
+          <li onClick={()=>{props.press2('أسوان')}}>
+            <input
+              type="radio"
+              id="trusted_identity"
+              name="trusted_identity"
+              value="trusted_identity"
+            />
+            <label htmlFor="trusted_identity">أسوان</label>
+            <i className="fa-solid fa-location-dot"></i>
+          </li>
+          <li onClick={()=>{props.press2('أسوان الجديدة')}}>
             <input
               type="radio"
               id="trusted_identity"
@@ -133,7 +134,7 @@ function Sidepar(props) {
             <label htmlFor="trusted_identity">أسوان الجديدة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+          <li onClick={()=>{props.press2('أبو سمبل')}}>
             <input
               type="radio"
               id="trusted_identity"
@@ -143,7 +144,7 @@ function Sidepar(props) {
             <label htmlFor="trusted_identity">أبو سمبل</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+          <li onClick={()=>{props.press2('دراو')}}>
             <input
               type="radio"
               id="trusted_identity"
@@ -153,7 +154,7 @@ function Sidepar(props) {
             <label htmlFor="trusted_identity">دراو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+          <li onClick={()=>{props.press2('كوم امبو')}}>
             <input
               type="radio"
               id="trusted_identity"
@@ -163,7 +164,7 @@ function Sidepar(props) {
             <label htmlFor="trusted_identity">كوم أمبو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+          <li onClick={()=>{props.press2('نصر النوبة')}}>
             <input
               type="radio"
               id="trusted_identity"
@@ -173,7 +174,7 @@ function Sidepar(props) {
             <label htmlFor="trusted_identity">نصر النوبة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+          <li onClick={()=>{props.press2('كلابشة')}}>
             <input
               type="radio"
               id="trusted_identity"
@@ -183,7 +184,7 @@ function Sidepar(props) {
             <label htmlFor="trusted_identity">كلابشة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+          <li onClick={()=>{props.press2('أدفو')}}>
             <input
               type="radio"
               id="trusted_identity"

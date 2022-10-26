@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ClintCard.css'
 
-import dateFormat, { masks } from "dateformat";
-function ClintCard({ data }) {
-    console.log(data)
+import dateFormat from "dateformat";
+function ClintCard({ datas }) {
+    let [data , setData] = useState(datas)
     return (
         <>
             <div className='parent_card'>

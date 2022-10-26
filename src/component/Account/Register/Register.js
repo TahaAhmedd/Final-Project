@@ -195,6 +195,7 @@ function Register() {
                     <option value="0" selected>أختر المركز</option>
                     <option value="أسوان">أسوان</option>
                     <option value="أسوان الجديدة">أسوان الجديدة</option>
+                    <option value="أبو سمبل">أبو سمبل</option>
                     <option value="دراو">دراو</option>
                     <option value="كوم امبو">كوم امبو</option>
                     <option value="نصر النوبة">نصر النوبة</option>
@@ -216,10 +217,10 @@ function Register() {
                     <option value="مبيض محارة">مبيض محارة</option>
                     <option value="كهربائي">كهربائي</option>
                     <option value="فني تكييف">فني تكييف</option>
-                    <option value="نقاش">نقاش</option>
+                    <option value="دهانات">دهانات</option>
                     <option value="بناء">بناء</option>
                     <option value="الوميتال">الوميتال</option>
-                    <option value="اخري">اخري...</option>
+                    <option value="فني ارضيات">فني أرضيات</option>
                   </select>
                 </div>
 
