@@ -3,31 +3,62 @@ import img from "../../../images/home/postOne.jpg";
 import prfile from "../../../images/home/abdelhafez.jpg";
 import { useState, useEffect } from "react";
 import dateFormat, { masks } from "dateformat";
-
-function Posts({datas}) {
-  
-  // Fetch Fake Api   < Test >
+import { Formik, useFormik } from "formik";
+import * as yup from "yup";
+import axios from "axios";
+function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
-  const[data,setData]=useState(datas)
-  console.log(data)
-useEffect(()=>
-{
-  setData(datas)
-},[datas])
-  // Function Hidden Post
-  // let [show, setShow] = useState(false);
+  let token = localStorage.getItem("token");
+  const [data, setData] = useState(datas)
+  
+  useEffect(() => {
+    setData(datas)
+  }, [datas])
+  // console.log(data[13].proposals.length)
+  
+  // Hidden of jops
   function showAndHidden(index) {
-    // show ? setShow(false) : setShow(true);
-    // console.log(data[index].show)
     data[index].show = !data[index].show;
     setData([...data]);
   }
-
   // Function Delete Post
   function delet(id) {
     setData((prev) => prev.filter((item) => item.id != id));
   }
 
+  const [dis , setDis] = useState("")
+
+  function disChange(event){
+    setDis(event.target.value)
+    // console.log(dis)
+  }
+  // const formik = useFormik({
+  //   initialValues:{
+  //     description:"",
+  //   },
+  //   onSubmit: (val)=>{
+  //     
+      
+  //     console.log(val)
+      
+
+      
+  //   }
+  // })
+  let headers={
+      'Authorization': token
+  }
+  function sendid (id){
+    let body ={
+      id:id,
+      description: dis
+    }
+    console.log(id)
+    axios.put("http://localhost:7000/jobs/addproposal",body,{headers:headers})
+    .then(res=>{
+      console.log(res)
+    })
+  }
   return (
     <>
       {data.map((data, index) => (
@@ -62,7 +93,7 @@ useEffect(()=>
 
             <div className="name">
               <span>{`${data.firstName} ${data.lastName}`}</span>
-              <span>{dateFormat(data.hiredDate," h:MM  TT")}</span>
+              <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
               {/* <span>{data.adressuder}</span> */}
             </div>
           </div>
@@ -80,7 +111,8 @@ useEffect(()=>
                   {data.city}
                 </p>
                 <p>
-                  <strong>مده التسليم : </strong>يوم
+                  عدد الطلبات المقدمه:
+                  <strong> {data.proposals.length}</strong>
                 </p>
               </div>
 
@@ -98,9 +130,9 @@ useEffect(()=>
 
             <div className="buttons col-6">
 
-              {role == "sanai3y" &&<button
+              {role == "sanai3y" && <button
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target={`#abdo${data._id}`}
                 data-bs-whatever="@getbootstrap"
               >
                 طلب
@@ -111,7 +143,7 @@ useEffect(()=>
 
           <div
             className="modal fade"
-            id="exampleModal"
+            id={`abdo${data._id}`}
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
@@ -124,7 +156,9 @@ useEffect(()=>
                   </h5>
                 </div>
                 <div className="modal-body">
-                  <form>
+
+                  {/* Add probosal Form */}
+                  <form >
                     <div className="mb-3">
                       <label
                         htmlFor="message-text"
@@ -135,10 +169,15 @@ useEffect(()=>
                       <textarea
                         className="form-control"
                         id="message-text"
+                        name="description"
+                        onChange={disChange}
+                        value={dis}
                       ></textarea>
                     </div>
-                  </form>
-                </div>
+                  
+
+
+
                 <div className="modal-footer">
                   <button
                     type="button"
@@ -148,11 +187,16 @@ useEffect(()=>
                     اغلاق
                   </button>
                   <button
+                    onClick={()=> sendid(data._id) }
                     type="button"
                     className="btn btn-primary button_me test"
                   >
                     ارسال الطلب
                   </button>
+
+
+                </div>
+                </form>
                 </div>
               </div>
             </div>
@@ -209,7 +253,7 @@ useEffect(()=>
                           <div className="card-body">
                             <h5 className="card-title">{data.title}</h5>
                             <p className="card-text">
-                             {data.description}
+                              {data.description}
                             </p>
                           </div>
                         </div>
@@ -238,7 +282,7 @@ useEffect(()=>
                     اغلاق
                   </button>
 
-                  {role == "snai3y" &&<button
+                  {role == "snai3y" && <button
                     type="button"
                     className="btn btn-primary edit_button"
                     data-bs-toggle="modal"

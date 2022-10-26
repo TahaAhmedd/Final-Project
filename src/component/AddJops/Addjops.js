@@ -5,14 +5,27 @@ import * as yup from "yup";
 import axios from "axios";
 import addpost from "../../images/landing/loginbackground.jpg";
 import { upload } from "@testing-library/user-event/dist/upload";
+import Dropzone from "react-dropzone";
+
 function Addjops() {
+    const dropzoneStyle = {
+        width: "100%",
+        height: "auto",
+        borderWidth: 2,
+        borderColor: "rgb(102, 102, 102)",
+        borderStyle: "dashed",
+        borderRadius: 5
+      };
     const [values, setValues] = useState({});
     const [file, setFile] = useState([]);
+
+    // token of clint
     let token = localStorage.getItem("token");
+    // headers
     let headers = {
         'Authorization': token
     }
-    var i=0;
+    
     const formik = useFormik({
         initialValues: {
             address: "",
@@ -20,9 +33,8 @@ function Addjops() {
             title: "",
             category: "",
             description: "",
-            // cost: "",
-            // days: "",
             jobImage: "",
+            files: []
         },
         validationSchema: yup.object().shape({
             address: yup.string().required("الرجاء اختيار العنوان"),
@@ -36,7 +48,7 @@ function Addjops() {
             // jobImage: yup.mixed().required("الرجاء اختيار صورة "),
         }),
         onSubmit: (values) => {
-            
+
             console.log(values);
             const formData = new FormData()
             formData.append('jobImage', values.photo);
@@ -46,13 +58,13 @@ function Addjops() {
             formData.append('city', values.city);
             formData.append('description', values.description);
 
-              axios.post("http://localhost:7000/jobs/postjob",formData,{headers:headers}).then(
-                (result)=>{
+            axios.post("http://localhost:7000/jobs/postjob", formData, { headers: headers }).then(
+                (result) => {
                     console.log(result)
                 }
-              ).catch((err)=>{
+            ).catch((err) => {
                 console.log(err)
-              });
+            });
         },
     });
     //   var imagearr = [];
@@ -195,38 +207,79 @@ function Addjops() {
                             ) : null}
                         </div>
 
-                        <div className="add-pic btn btn-secondary">
-                        <label htmlFor="upload-files" className="">
-                            <i className="fa fa-download fs-5 " aria-hidden="true">
-                                اضف صورة
-                            </i>
-                        </label>
+                        <div className="">
+                            {/* <label htmlFor="upload-files" className="">
+                                <i className="fa fa-download fs-5 " aria-hidden="true">
+                                    اضف صورة
+                                </i>
+                            </label> */}
 
-                        <input
-                            type="file"
-                            {...formik.getFieldProps("jobImage")}
-                            //   onChange={uploadimage}
-                            style={{ display: "none" }}
-                            name="jobImage"
-                            // defaultValue="upload"
-                            id="upload-files"
-                            accept="image/*"
-                            multiple
-                             onChange={(e) =>
-                            formik.setFieldValue('photo', e.currentTarget.files[0])
-          }
-                        />
-                        <div>
+                            {/* <input
+                                type="file"
+                                {...formik.getFieldProps("jobImage")}
+                                //   onChange={uploadimage}
+                                style={{ display: "none" }}
+                                name="jobImage"
+                                // defaultValue="upload"
+                                id="upload-files"
+                                accept="image/*"
+                                multiple
+                                onChange={(e) =>
+                                    formik.setFieldValue('photo', e.currentTarget.files[0])
+                                }
+                            /> */}
 
+                            <Dropzone
+                                style={dropzoneStyle}
+                                accept="image/*"
+                                onDrop={(acceptedFiles) => {
+                                    // do nothing if no files
+                                    if (acceptedFiles.length === 0) {
+                                        return;
+                                    }
+
+                                    // on drop we add to the existing files
+                                    formik.setFieldValue("files", formik.values.files.concat(acceptedFiles));
+                                }}
+                            >
+                                {({
+                                    isDragActive,
+                                    isDragReject,
+                                    acceptedFiles,
+                                    rejectedFiles
+                                }) => {
+                                    if (isDragActive) {
+                                        return "This file is authorized";
+                                    }
+
+                                    if (isDragReject) {
+                                        return "This file is not authorized";
+                                    }
+
+                                    if (formik.values.files.length === 0) {
+                                        return <p>Try dragging a file here!</p>;
+                                    }
+
+                                    return formik.values.files.map((file, i) => (
+                                        <img src={file}
+                                        alt={file.name}
+                                        className="img-thumbnail mt-2"
+                                        height={50}
+                                        width={50} />
+                                    ));
+                                }}
+                            </Dropzone>
+                            <div>
+
+                            </div>
+                            {formik.touched.upload && formik.errors.upload ? (
+                                <div style={{ color: "red" }}>{formik.errors.upload}</div>
+                            ) : null}
                         </div>
-                        {formik.touched.upload && formik.errors.upload ? (
-                            <div style={{ color: "red" }}>{formik.errors.upload}</div>
-                        ) : null}
-                    </div>
                     </div>
 
 
-                    
+
 
                     <button type="submit" id="submit" >اضف حرفتك</button>
                 </form>
@@ -234,5 +287,6 @@ function Addjops() {
         </main>
     );
 }
+
 
 export default Addjops;
