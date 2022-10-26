@@ -3,40 +3,33 @@ import "./Two-slide.css";
 function TwoSlider() {
   return (
     <>
-      <div className="navbar_right_secend">
+      <div className="navbar_right">
+        {/* <h3>عمليات التحقق</h3> */}
         <ul>
           <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fa-solid fa-house-user"></i>
-              </span>
-              <span className="titel">الصفحة الرئيسية </span>{" "}
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fa-solid fa-house-user"></i>
-              </span>
-              <span className="titel"> المهام </span>{" "}
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fa-sharp fa-solid fa-backward"></i>
-              </span>
-              <span className="titel">الطلبات المقدمة</span>
-            </a>
+            <span>
+              <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+              <lord-icon
+                src="https://cdn.lordicon.com/gmzxduhd.json"
+                trigger="hover"
+                colors="primary:#121331,secondary:#ffb200"
+                style={{ width: "30px", height: "30px" }}
+              ></lord-icon>
+            </span>
+            <span>الصفحة الرئيسية</span>
           </li>
 
           <li>
-            <a href="#">
-              <span className="icon">
-                <i className="fa-solid fa-message"></i>
-              </span>
-              <span className="titel">الرسائل</span>
-            </a>
+            <span>
+              <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+              <lord-icon
+                src="https://cdn.lordicon.com/zpxybbhl.json"
+                trigger="hover"
+                colors="primary:#121331,secondary:#ffb200"
+                style={{ width: "30px", height: "30px" }}
+              ></lord-icon>
+            </span>
+            <span>الرسائل</span>
           </li>
         </ul>
       </div>
