@@ -20,8 +20,8 @@ function Addjops() {
             title: "",
             category: "",
             description: "",
-            cost: "",
-            days: "",
+            // cost: "",
+            // days: "",
             jobImage: "",
         },
         validationSchema: yup.object().shape({
@@ -40,6 +40,11 @@ function Addjops() {
             console.log(values);
             const formData = new FormData()
             formData.append('jobImage', values.photo);
+            formData.append('title', values.title);
+            formData.append('address', values.address);
+            formData.append('category', values.category);
+            formData.append('city', values.city);
+            formData.append('description', values.description);
 
               axios.post("http://localhost:7000/jobs/postjob",formData,{headers:headers}).then(
                 (result)=>{
@@ -59,9 +64,6 @@ function Addjops() {
 
     //     }
     //   };
-
-    //   console.log(formik.values);
-    // console.log(formik.handleSubmit);
     return (
         <main className="form_Addjops">
             <div className="container">
@@ -98,9 +100,10 @@ function Addjops() {
                             <option value="مبيض محارة">مبيض محارة</option>
                             <option value="كهربائي">كهربائي</option>
                             <option value="فني تكييف">فني تكييف</option>
-                            <option value="نقاش">نقاش</option>
+                            <option value="دهانات">نقاش</option>
                             <option value="بناء">بناء</option>
                             <option value="الوميتال">الوميتال</option>
+                            <option value="فني ارضيات">فني أرضيات</option>
                         </select>
                         {formik.touched.category && formik.errors.category ? (
                             <div style={{ color: "red" }}>{formik.errors.category}</div>

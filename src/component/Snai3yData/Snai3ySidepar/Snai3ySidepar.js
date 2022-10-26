@@ -1,62 +1,69 @@
 import "./Snai3ySidepar.css";
 
-function Snai3ySidepar() {
+function Snai3ySidepar(props) {
   return (
     <div className="twoSlid">
       <div className="categories">
         <ul className="c_one">
           <h4>الاقسام</h4>
-          <li>
+          <li onClick={()=>props.filter1("سباك")}>
             <i className="fa-brands fa-pied-piper"></i>
             سباكة
             <span>10</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("نجار")}>
             <i className="fa-solid fa-rug"></i>
             نجارة
             <span>15</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("دهانات")}>
             <i className="fa-solid fa-paint-roller"></i>
             دهانات
             <span>8</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("كهربائي")}>
             <i className="fa-solid fa-bolt"></i>
             كهرباء
             <span>5</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("بناء")}>
             <i className="fa-solid fa-building"></i>
             بناء
             <span>4</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("فني ارضيات")}>
             <i className="fa-solid fa-house-flood-water"></i>
             ارضيات
             <span>11</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("مبيض محارة")}>
             <i className="fa-solid fa-chalkboard"></i>
             تبيض
             <span>8</span>
           </li>
-          <li>
+
+          <li onClick={()=>props.filter1("فني تكييف")}>
             <i className="fa-solid fa-fan"></i>
             تكيف
             <span>10</span>
           </li>
-          <li>
-            <i className="fa-brands fa-pied-piper"></i>
-            سباكة
-            <span>6</span>
+
+          <li onClick={()=>props.filter1("الوميتال")}>
+            <i className="fa-solid fa-fan"></i>
+            الوميتال
+            <span>10</span>
           </li>
-          <li>
-            <i className="fa-brands fa-pied-piper"></i>
-            سباكة
-            <span>12</span>
-          </li>
+         
         </ul>
+
+
+        {/* #region  */}
 
 
 
@@ -118,10 +125,23 @@ function Snai3ySidepar() {
             <br />
           </li>
         </ul> */}
-
+      {/* #endregion */}
+        
+        
         <ul className="c_three">
           <h4>تحديد مكان العمل</h4>
-          <li>
+          <li onClick={()=> props.filter2("أسوان")}>
+            <input
+              type="radio"
+              id="trusted_identity"
+              name="trusted_identity"
+              value="trusted_identity"
+            />
+            <label htmlFor="trusted_identity">أسوان</label>
+            <i className="fa-solid fa-location-dot"></i>
+          </li>
+
+          <li onClick={()=> props.filter2("أسوان الجديدة")}>
             <input
               type="radio"
               id="trusted_identity"
@@ -131,7 +151,8 @@ function Snai3ySidepar() {
             <label htmlFor="trusted_identity">أسوان الجديدة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+
+          <li onClick={()=> props.filter2("أبو سمبل")}>
             <input
               type="radio"
               id="trusted_identity"
@@ -141,7 +162,8 @@ function Snai3ySidepar() {
             <label htmlFor="trusted_identity">أبو سمبل</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+
+          <li onClick={()=> props.filter2("دراو")}>
             <input
               type="radio"
               id="trusted_identity"
@@ -151,7 +173,8 @@ function Snai3ySidepar() {
             <label htmlFor="trusted_identity">دراو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+
+          <li onClick={()=> props.filter2("كوم امبو")}>
             <input
               type="radio"
               id="trusted_identity"
@@ -161,7 +184,8 @@ function Snai3ySidepar() {
             <label htmlFor="trusted_identity">كوم أمبو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+
+          <li onClick={()=> props.filter2("نصر النوبة")}>
             <input
               type="radio"
               id="trusted_identity"
@@ -171,7 +195,8 @@ function Snai3ySidepar() {
             <label htmlFor="trusted_identity">نصر النوبة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+
+          <li onClick={()=> props.filter2("كلابشة")}>
             <input
               type="radio"
               id="trusted_identity"
@@ -181,7 +206,8 @@ function Snai3ySidepar() {
             <label htmlFor="trusted_identity">كلابشة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
-          <li>
+
+          <li onClick={()=> props.filter2("أدفو")}>
             <input
               type="radio"
               id="trusted_identity"

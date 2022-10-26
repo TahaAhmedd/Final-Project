@@ -3,7 +3,6 @@ import img from "../../../images/home/postOne.jpg";
 import prfile from "../../../images/home/abdelhafez.jpg";
 import { useState, useEffect } from "react";
 import dateFormat, { masks } from "dateformat";
-import axios from "axios";
 
 function Posts({datas}) {
   
@@ -196,7 +195,7 @@ useEffect(()=>
 
                       <div className="col-5 p-0">
                         <div className="edit_data_about_job">
-                          <h5>{data.user}</h5>
+                          <h5>{`${data.firstName} ${data.lastName}`}</h5>
                           <p>اسوان</p>
                         </div>
                       </div>
@@ -218,11 +217,11 @@ useEffect(()=>
                         <div className="col-md-4">
                           <div className="row">
                             <div className="col-6">
-                              <img className="img-thumbnail" src={img} alt="" />
+                              <img className="img-thumbnail" src={data.images[0]} alt="" />
                             </div>
-                            <div className="col-6">
-                              <img className="img-thumbnail" src={img} alt="" />
-                            </div>
+                            {/* <div className="col-6">
+                              <img className="img-thumbnail" src={data.images} alt="" />
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -239,7 +238,7 @@ useEffect(()=>
                     اغلاق
                   </button>
 
-                  <button
+                  {role == "snai3y" &&<button
                     type="button"
                     className="btn btn-primary edit_button"
                     data-bs-toggle="modal"
@@ -247,7 +246,7 @@ useEffect(()=>
                     data-bs-whatever="@getbootstrap"
                   >
                     طلب
-                  </button>
+                  </button>}
                 </div>
               </div>
             </div>
