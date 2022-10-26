@@ -13,7 +13,7 @@ function Sidepar(props) {
           <h4>الاقسام</h4>
           <li onClick={()=>fliter("سباك")}>
             <i className="fa-brands fa-pied-piper"></i>
-            سباكة
+             سباكة
             <span>10</span>
           </li>
           <li onClick={()=>fliter("نجار")}>
