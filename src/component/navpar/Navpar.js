@@ -2,7 +2,15 @@ import './navpar.css'
 import logo from '../../images/landing/logo.png'
 import user from '../../images/landing/user.png'
 import { useNavigate, NavLink } from 'react-router-dom'
+import {  useState } from 'react'
+import { Snai3ycontext } from '../ProfileSnai3y/context'
+import { useSelector } from 'react-redux'
 function Navpar() {
+
+    const {data, setData} = useState(Snai3ycontext)
+    let snai3yData = useSelector(state => state.Snai3yReducer.data)
+    // console.log(data)
+
     let token = localStorage.getItem("token")
     const navigate = useNavigate() 
     const imageUser = localStorage.getItem("image");
@@ -105,7 +113,7 @@ function Navpar() {
                             {/* image User  */}
                             {token && <div>
                                 <div className=' position-relative toggle' data-bs-toggle="collapse" data-bs-target="#userToogel" aria-controls="userToogel" aria-expanded="false" aria-label="Toggle navigation">
-                                    <img src={imageUser} style={{ width: '30px', height: '30px', borderRadius: "50%" ,cursor:"pointer"}}></img>
+                                    <img src={snai3yData.img} style={{ width: '30px', height: '30px', borderRadius: "50%" ,cursor:"pointer"}}></img>
                                 </div>
                                 <div id='userToogel' className='collapse  user_toogel'>
                                     <div>
@@ -113,8 +121,8 @@ function Navpar() {
                                         <div className='user_content_navpar'>
                                             <div className='user_img_name'>
                                                 <NavLink to="/profile" className='user_img_name'>
-                                                    <img src={imageUser} style={{ width: '70px', height: '70px', borderRadius: "50%" }}></img>
-                                                    <h4>{userName}</h4>
+                                                    <img src={snai3yData.img} style={{ width: '70px', height: '70px', borderRadius: "50%" }}></img>
+                                                    <h4>{`${snai3yData.firstName} ${snai3yData.lastName}`}</h4>
                                                 </NavLink>
                                             </div>
                                             <div>
