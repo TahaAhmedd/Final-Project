@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import Snai3yCardPage from './pages/Snai3yCardPage';
 import Addjops from './component/AddJops/Addjops';
 import AddjopsIcon_fixed from './component/AddJops/AddjopsIcon_fixed';
+import ProfilesClients from './pages/ProfilesClients';
 
 function App() {
   
@@ -34,6 +35,8 @@ function App() {
         <Route path='/addjops' element={<Addjops />}/>
         <Route path='/regiser' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/client' element={<ProfilesClients/>}/>
+
       </Routes>
       {scroll>400 && <Totop />}
       <Footer/>
