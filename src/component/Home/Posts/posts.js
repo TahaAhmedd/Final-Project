@@ -10,7 +10,7 @@ function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
   const [data, setData] = useState(datas)
-  
+  // console.log(data)
   useEffect(() => {
     setData(datas)
   }, [datas])

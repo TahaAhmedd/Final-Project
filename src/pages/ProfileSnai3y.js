@@ -5,7 +5,7 @@ import OneSection from '../component/ProfileSnai3y/DetailsUser/One-section'
 import {  useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDataSnai3y, getSnai3y, showSnai3yData } from '../Redux/Slices/Snai3yReducer';
+import {  getSnai3y } from '../Redux/Slices/Snai3yReducer';
 
 
 function ProfileSnai3y() {
@@ -13,10 +13,10 @@ function ProfileSnai3y() {
     const dispatch = useDispatch()
     
 
-    useEffect(()=>{
+    // useEffect(()=>{
         
-        dispatch(getSnai3y())
-    },[])
+    //     dispatch(getSnai3y())
+    // },[])
 
 
 

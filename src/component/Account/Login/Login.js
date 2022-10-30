@@ -24,6 +24,7 @@ function Login() {
                         localStorage.setItem("snai3yRole", res.data.data.rule);
                         localStorage.setItem("id", res.data.data._id);
                         navigate("/home")
+                        window.location.reload(true);
                     }
                     else {
                         console.log("eror")

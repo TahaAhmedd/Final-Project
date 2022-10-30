@@ -4,38 +4,22 @@ import { useEffect, useState } from "react";
 import TalpatSending from "../component/ProfileClient/TalpatSending";
 import '../component/ProfileClient/ProfileClient.css'
 import dateFormat from "dateformat";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataClient } from "../Redux/Slices/ClientReducer";
 function ProfilesClients() {
 
-  const [Profile, setProfile] = useState();
+  // const [Profile, setProfile] = useState();
+
+  const Profile = useSelector(state => state.ClientReducer.clintdata)
+  
   const [JobsClient, setJobsClient] = useState()
-
-  useEffect(() => {
-    // Get Client By Id
-    axios
-      .get("http://localhost:7000/client/clients/6359c56cfcb59db620f7e197")
-      .then((res) => {
-        let test = res.data.Data;
-        setProfile(test);
-      });
-
-
-    
-
-    // Get Jobs The Client
-    let token = localStorage.getItem("token");
-    axios
-      .get("http://localhost:7000/client/jobs/", {
-        headers: { Authorization: ` ${token}` },
-      })
-      .then((res) => {
-
-        let jobClient = res.data.Data
-        setJobsClient([...jobClient])
-        
-      });
-
-
-  }, []);
+  const id = localStorage.getItem("id")
+  
+  
+  
+  
+  
+  
 
 
 
@@ -72,7 +56,7 @@ function ProfilesClients() {
                 <li>
                 <i className="fa-solid fa-at ed_fonts"></i>
                   <span className='ed_text_c'> البريد الالكتروني :</span>
-                  <span className="data_client"><strong> {Profile.email }</strong></span>
+                  <span className="data_client"><strong> {Profile.email}</strong></span>
                 </li>
                 <li>
                 <i className="fa-solid fa-location-dot ed_fonts"></i>

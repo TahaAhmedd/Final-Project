@@ -9,10 +9,22 @@ import "./TalpatSending.css";
 
 function TalpatSending({ jobs }) {
 
-const [Job, setJobs] = useState(jobs)
+const [Job, setJobs] = useState([])
 
 useEffect(() => {
-  setJobs(jobs)
+  // setJobs(jobs)
+  // Get Jobs The Client
+  let token = localStorage.getItem("token");
+  axios
+    .get("http://localhost:7000/client/jobs/", {
+      headers: { Authorization: ` ${token}` },
+    })
+    .then((res) => {
+
+      let jobClient = res.data.Data
+      setJobs([...jobClient])
+      
+    });
 }, [])
 // console.log(Job)
 
@@ -36,7 +48,7 @@ function compareId(i) {
               <p>{d.description}</p>
               <span className="category">{d.category}</span>
               <span className="ellipsis" onClick={() => compareId(index)}>
-                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
               </span>
               <h1>{d.show}</h1>
               {/* Start ellipsis Option  */}

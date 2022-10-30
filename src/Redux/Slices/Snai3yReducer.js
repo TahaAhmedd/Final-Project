@@ -11,9 +11,7 @@ export const Snai3yReducer = createSlice({
             // console.log("jjiijjijii")
             state.data=action.payload
         },
-        getDataSnai3y: (state,action)=>{
-            state.data = action.payload
-        }
+        
     }
 })
 
@@ -21,9 +19,9 @@ export const Snai3yReducer = createSlice({
 const id = localStorage.getItem("id")
 export const getSnai3y =()=> async (dispatch) =>{
         const res = await axios.get(`http://localhost:7000/sanai3y/sanai3ies/${id}`);
-        //  console.log(res.data);
-         dispatch(setData(res.data.Data));
-    }
+        // console.log(res.data);
+        dispatch(setData(res.data.Data));
+}
 
 
 

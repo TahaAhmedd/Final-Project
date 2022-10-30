@@ -17,15 +17,26 @@ import AddjopsIcon_fixed from './component/AddJops/AddjopsIcon_fixed';
 import BusinesFaire from './component/ProfileSnai3y/BusnisFaire/BusinesFaire'
 import TalpatSnai3y from './component/ProfileSnai3y/Talpat/TalpatSnai3y';
 import ProfileSnai3y from './pages/ProfileSnai3y';
+import ProfilesClients from './pages/ProfilesClients';
+import { getDataClient } from './Redux/Slices/ClientReducer';
+import { useDispatch } from 'react-redux';
+import {  getSnai3y } from './Redux/Slices/Snai3yReducer';
 
 function App() {
-
+  let role = localStorage.getItem("snai3yRole")
   let [scroll, setScroll] = useState()
-  useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])
+  useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])    
 
-
-
+  const dispatch = useDispatch()
+  useEffect(() => {
+    // Get Client By Id    
+      dispatch(getDataClient())
+  }, []);
+  useEffect(() => {
+    // Get Client By Id
+      dispatch(getSnai3y())
     
+  }, []);
 
   return (
     <>
@@ -36,7 +47,7 @@ function App() {
           <Route path='/index' element={<Landing />} />
 
 
-          <Route path='/profile' element={<AuthGuard><ProfileSnai3y /></AuthGuard>}>
+          <Route path='/profileS' element={<AuthGuard><ProfileSnai3y /></AuthGuard>}>
 
             <Route index element={<BusinesFaire />} />
             <Route path='one' element={<BusinesFaire />} />
@@ -44,7 +55,7 @@ function App() {
 
           </Route>
 
-
+          <Route path='/profileC' element={<AuthGuard><ProfilesClients /></AuthGuard>}></Route>
           <Route path='/home' element={<AuthGuard><Home /></AuthGuard>} />
           <Route path='/chat' element={<AuthGuard><Chat /></AuthGuard>} />
           <Route path='/allsnai3y' element={<Snai3yCardPage />} />
