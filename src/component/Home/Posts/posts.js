@@ -50,11 +50,11 @@ function Posts({ datas }) {
   }
   function sendid (id){
     let body ={
-      id:id,
+      // id:id,
       description: dis
     }
     console.log(id)
-    axios.put("http://localhost:7000/jobs/addproposal",body,{headers:headers})
+    axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
     .then(res=>{
       console.log(res)
     })

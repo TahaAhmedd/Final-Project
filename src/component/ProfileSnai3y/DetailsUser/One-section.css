@@ -8,11 +8,12 @@
 
 .image_profile {
     border:  1px solid rgb(187, 187, 187);
-    padding: 5px;
     position: relative;
     height: 280px;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    align-items: center;
    
 }
 .image_profile img {

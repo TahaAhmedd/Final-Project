@@ -1,18 +1,54 @@
+import axios from "axios";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./One-section.css";
-import profilImage from "./person_profil.jpg";
+
 function OneSection() {
+  let token = localStorage.getItem("token")
+  let role = localStorage.getItem("snai3yRole")
+  let [flag,setFlag]=useState(false)
+
+  let data = useSelector(state => state.Snai3yReducer.data) // redux for snai3y Data
+
+  // Formik in use add profile pictchre
+  const formik = useFormik({
+    initialValues:{
+      sanai3yImage:""
+    },
+    onSubmit:(values)=>{
+      const formData = new FormData()
+      formData.append('sanai3yImage', values.photo);
+
+
+      let header={
+        "Authorization":token
+      }
+      console.log(values)
+      axios.post("http://localhost:7000/sanai3y/addimage",formData,{headers:header}).then
+      ((res)=>{
+            if(res == 200){
+              // console.log(res)
+              // setFlag(true)
+            }
+      })
+      
+    }
+  });
+
+
   return (
     <>
       <div className="app_profil">
         <div className="row">
           <div className="col-4">
             <div className="image_profile">
-              <img src={profilImage} />
+              <img src={data.img} />
               <div>
                 <span>
                   <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-                  <lord-icon  
-                   data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  <lord-icon
+                    data-bs-toggle="modal" data-bs-target="#exampleModal"
                     src="https://cdn.lordicon.com/vixtkkbk.json"
                     trigger="hover"
                     colors="primary:#121331,secondary:#ffb200"
@@ -25,22 +61,24 @@ function OneSection() {
 
           <div className="col-8">
             <div className="data_profile">
-              <h4>احمد محمد احمد علي</h4>
+              <h4>{`${data.firstName} ${data.lastName}`}</h4>
               <ul>
                 <li>
                   <i className="fa-solid fa-location-dot"></i>
-                  <span> السيل </span>
+                  <span>{data.address}</span>
                 </li>
-                <li>
+                {role == "snai3y" && <li>
                   <i className="fa-solid fa-network-wired"></i>
-                  <span> نقاش </span>
-                </li>
+                  <span> { data.skills}</span>
+                </li>}
+
                 <li>
                   <i className="fa-solid fa-thumbs-up"></i>
                   <span>
                     التوصيات :<strong> 12</strong>{" "}
                   </span>
                 </li>
+
               </ul>
               <h6>الوصف المهني</h6>
               <p className="_ditails_snai3y">
@@ -76,22 +114,36 @@ function OneSection() {
             </div>
 
             <div className="modal-body">
-              <form>
+
+
+              <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                 <div className="mb-3">
                   <input
                     type="file"
-                    className="form-control"
-                    id="recipient-name"
+                    value={formik.values.sanai3yImage}
+                      //  onChange={formik.handleChange("sanai3yImage")}
+                    
+                    name="sanai3yImage"
+                    // defaultValue="upload"
+                    id="upload-files"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) =>
+                     formik.setFieldValue('photo', e.currentTarget.files[0])
+                    }
                   />
                 </div>
+                <div className="modal-footer">
+                  <button type="submit" className="btn btn-primary" data-bs-dismiss="modal"
+                    aria-label={flag ? "Close":""}>
+                    اضافة
+                  </button>
+                </div>
               </form>
+
+
             </div>
 
-            <div className="modal-footer">
-              <button type="button" className="btn btn-primary">
-                اضافة
-              </button>
-            </div>
           </div>
         </div>
       </div>
