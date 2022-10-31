@@ -20,7 +20,7 @@ function Navpar() {
     if( role == "sanai3y"){
         // setDataUser(snai3yData)
         dataUser = snai3yData
-        console.log(dataUser)
+        // console.log(dataUser)
     }
     else if(role == "client") {
         // setDataUser(clientData)
@@ -142,7 +142,9 @@ function Navpar() {
                                         <div className='user_content_navpar'>
                                             <div className='user_img_name'>
                                                 <NavLink to={role == "sanai3y"? "/profileS":"/profileC"} className='user_img_name'>
-                                                    <img src={dataUser.img} style={{ width: '70px', height: '70px', borderRadius: "50%" }}></img>
+                                                    <div style={{ width: '130px', height: '130px',marginBottom:"15px"}}>
+                                                        <img src={dataUser.img} style={{ width: '100%', height: '100%', borderRadius: "50%"}}/>
+                                                    </div>
                                                     <h4>{`${dataUser.firstName} ${dataUser.lastName}`}</h4>
                                                 </NavLink>
                                             </div>

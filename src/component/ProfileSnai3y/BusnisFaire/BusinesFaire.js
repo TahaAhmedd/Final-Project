@@ -45,6 +45,9 @@ function BusinesFaire() {
 
                         axios.post("http://localhost:7000/sanai3y/addwork",formdata,{headers:headers}).then((res)=>{
                                 console.log(res)
+                                if(res.status == 200){
+                                        window.location.reload(true)
+                                }
                         })
 
                 }
@@ -60,7 +63,7 @@ function BusinesFaire() {
                                 if(res.status == 200){
 
                                         setData(res.data.Data)
-                                        
+                                
                                 }
                         }
                 )        

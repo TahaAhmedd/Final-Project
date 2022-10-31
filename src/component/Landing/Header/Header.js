@@ -1,5 +1,7 @@
+import { NavLink } from 'react-router-dom'
 import './header.css'
 function Header() {
+    let token = localStorage.getItem("token")
     return (
         <div>
             <div className="cover position-relative d-flex justify-content-center align-items-center">
@@ -9,7 +11,15 @@ function Header() {
                         <h1>أطلب<span className="otlop"> صنايعي</span> </h1>
                         <p>لو عندك مشكلة في البيت تتطلب حرفي معين احنا عندنا الحل اعرض مشكلتك وفي خلال اقل من 24 ساعة
                             هتكون اتحلت <br />نحن هنا في <span>خدمتك دائما</span></p>
+
+                        {!token && <div className="container d-flex justify-content-start align-items-center mb-5">
+                            <NavLink to="/login">
+                                <button type="button" className="showmore lh-lg">سجل الان</button>
+
+                            </NavLink>
+                        </div>}
                     </div>
+
                 </div>
                 <div className="custom-shape-divider-bottom-1664047801">
                     <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"

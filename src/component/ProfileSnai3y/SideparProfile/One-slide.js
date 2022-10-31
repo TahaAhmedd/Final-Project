@@ -7,7 +7,7 @@ import { store } from "../../../Redux/Store";
 
 function OneSlider() {
   let data = useSelector(state => state.Snai3yReducer.data)
-
+  console.log(data)
   return (  
     <>
       <div className="navbar_right">

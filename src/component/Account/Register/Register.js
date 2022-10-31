@@ -40,9 +40,10 @@ function Register() {
         gender: values.gender
       };
 
+      console.log(data)
       axios.post("http://localhost:7000/sanai3y/signup", data).then(res => {
-        if (res.data = "You already have acount, You can signin") {
-          console.log(res.data)
+        console.log(res)
+        if (res.data != 200) {
           setFlag(true)
           window.scrollTo(0, 0)
         }
@@ -87,7 +88,7 @@ function Register() {
 
       axios.post("http://localhost:7000/client/signup", data).then(res => {
         if (res.data = "You already have acount, You can signin") {
-          console.log(res.data)
+          console.log(res)
           setFlag(true)
         }
         else {

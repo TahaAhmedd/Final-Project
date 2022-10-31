@@ -2,22 +2,9 @@ import { Outlet } from 'react-router-dom';
 import OneSlider from '../component/ProfileSnai3y/SideparProfile/One-slide'
 import TwoSlider from '../component/ProfileSnai3y/SideparProfile/Two-slide'
 import OneSection from '../component/ProfileSnai3y/DetailsUser/One-section'
-import {  useEffect, useState } from 'react';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import {  getSnai3y } from '../Redux/Slices/Snai3yReducer';
 
 
 function ProfileSnai3y() {
-    
-    const dispatch = useDispatch()
-    
-
-    // useEffect(()=>{
-        
-    //     dispatch(getSnai3y())
-    // },[])
-
 
 
     return (
@@ -29,16 +16,26 @@ function ProfileSnai3y() {
                 <div className="row my-5">
 
                     {/* slider */}
-                    <div className="col-3 mt-5">
+                    {/* <div className="col-3 mt-5">
                         <OneSlider /> 
-                        <TwoSlider />
-                    </div>
+                    </div> */}
 
                     {/* body */}
-                    <div className="col-9 mt-5"> 
+                    <div className="col-12 mt-5"> 
                         <OneSection/>
+
+                        <div className='row'>
+                            <div className='col-3'>
+                                <TwoSlider />
+
+                            </div>
+                            <div className='col-9'>
+
+                                <Outlet />
+                            </div>
+
+                        </div>
                         {/* <BusinesFaire /> */}
-                        <Outlet />
                     </div>
 
 

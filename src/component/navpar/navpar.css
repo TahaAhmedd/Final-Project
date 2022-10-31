@@ -75,7 +75,7 @@
     align-items: center;
     width: 100%;
     padding: 10px;
-    box-shadow: 0 3px 8px 2px #eee;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .user_img_name{
     display: flex;

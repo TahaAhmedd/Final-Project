@@ -13,17 +13,7 @@ function ProfilesClients() {
   const Profile = useSelector(state => state.ClientReducer.clintdata)
   
   const [JobsClient, setJobsClient] = useState()
-  const id = localStorage.getItem("id")
   
-  
-  
-  
-  
-  
-
-
-
-
   return (
     <>
       <div className="container">

@@ -14,7 +14,6 @@ function Posts({ datas }) {
   useEffect(() => {
     setData(datas)
   }, [datas])
-  // console.log(data[13].proposals.length)
   
   // Hidden of jops
   function showAndHidden(index) {
@@ -32,28 +31,15 @@ function Posts({ datas }) {
     setDis(event.target.value)
     // console.log(dis)
   }
-  // const formik = useFormik({
-  //   initialValues:{
-  //     description:"",
-  //   },
-  //   onSubmit: (val)=>{
-  //     
-      
-  //     console.log(val)
-      
 
-      
-  //   }
-  // })
   let headers={
       'Authorization': token
   }
   function sendid (id){
     let body ={
-      // id:id,
-      description: dis
+      sanai3yProposal: dis
     }
-    console.log(id)
+    console.log(body)
     axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
     .then(res=>{
       console.log(res)
@@ -112,7 +98,9 @@ function Posts({ datas }) {
                 </p>
                 <p>
                   عدد الطلبات المقدمه:
-                  <strong> {data.proposals.length}</strong>
+                  <strong> 
+                    {data.proposals.length}
+                  </strong>
                 </p>
               </div>
 

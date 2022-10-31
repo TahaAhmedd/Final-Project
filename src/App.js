@@ -20,51 +20,47 @@ import ProfileSnai3y from './pages/ProfileSnai3y';
 import ProfilesClients from './pages/ProfilesClients';
 import { getDataClient } from './Redux/Slices/ClientReducer';
 import { useDispatch } from 'react-redux';
-import {  getSnai3y } from './Redux/Slices/Snai3yReducer';
+import { getSnai3y } from './Redux/Slices/Snai3yReducer';
 
 function App() {
-  let role = localStorage.getItem("snai3yRole")
   let [scroll, setScroll] = useState()
-  useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])    
+  useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])
 
   const dispatch = useDispatch()
   useEffect(() => {
     // Get Client By Id    
-      dispatch(getDataClient())
+    dispatch(getDataClient())
+    dispatch(getSnai3y())
   }, []);
-  useEffect(() => {
-    // Get Client By Id
-      dispatch(getSnai3y())
-    
-  }, []);
+
 
   return (
     <>
-        <Navpar />
-        <AddjopsIcon_fixed />
-        <Routes>
-          <Route index element={<Landing />} />
-          <Route path='/index' element={<Landing />} />
+      <Navpar />
+      <AddjopsIcon_fixed />
+      <Routes>
+        <Route index element={<Landing />} />
+        <Route path='/index' element={<Landing />} />
 
 
-          <Route path='/profileS' element={<AuthGuard><ProfileSnai3y /></AuthGuard>}>
+        <Route path='/profileS' element={<AuthGuard><ProfileSnai3y /></AuthGuard>}>
 
-            <Route index element={<BusinesFaire />} />
-            <Route path='one' element={<BusinesFaire />} />
-            <Route path='two' element={< TalpatSnai3y />} />
+          <Route index element={<BusinesFaire />} />
+          <Route path='one' element={<BusinesFaire />} />
+          <Route path='two' element={< TalpatSnai3y />} />
 
-          </Route>
+        </Route>
 
-          <Route path='/profileC' element={<AuthGuard><ProfilesClients /></AuthGuard>}></Route>
-          <Route path='/home' element={<AuthGuard><Home /></AuthGuard>} />
-          <Route path='/chat' element={<AuthGuard><Chat /></AuthGuard>} />
-          <Route path='/allsnai3y' element={<Snai3yCardPage />} />
-          <Route path='/addjops' element={<Addjops />} />
-          <Route path='/regiser' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-        </Routes>
-        {scroll > 400 && <Totop />}
-        <Footer />
+        <Route path='/profileC' element={<AuthGuard><ProfilesClients /></AuthGuard>}></Route>
+        <Route path='/home' element={<AuthGuard><Home /></AuthGuard>} />
+        <Route path='/chat' element={<AuthGuard><Chat /></AuthGuard>} />
+        <Route path='/allsnai3y' element={<Snai3yCardPage />} />
+        <Route path='/addjops' element={<Addjops />} />
+        <Route path='/regiser' element={<Register />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+      {scroll > 400 && <Totop />}
+      <Footer />
     </>
   );
 }

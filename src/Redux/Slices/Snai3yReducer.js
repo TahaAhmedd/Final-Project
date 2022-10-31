@@ -17,9 +17,10 @@ export const Snai3yReducer = createSlice({
 
 
 const id = localStorage.getItem("id")
+console.log(id)
 export const getSnai3y =()=> async (dispatch) =>{
         const res = await axios.get(`http://localhost:7000/sanai3y/sanai3ies/${id}`);
-        // console.log(res.data);
+        // console.log(res.data.Data);
         dispatch(setData(res.data.Data));
 }
 
