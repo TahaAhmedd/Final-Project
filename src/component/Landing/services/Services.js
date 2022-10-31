@@ -1,6 +1,8 @@
+import { NavLink } from "react-router-dom"
 import "./Services.css"
 
 function Services() {
+    let token = localStorage.getItem("token")
     return (
         <div className="container">
 
@@ -74,8 +76,10 @@ function Services() {
 
             </div>
             <div className="container d-flex justify-content-center align-items-center mb-5">
+                <NavLink to={token? "/home": "/login"}>
+                    <button type="button" className="showmore lh-lg">شاهد أكثر</button>
 
-                <button type="button" className="showmore lh-lg">شاهد أكثر</button>
+                </NavLink>
             </div>
         </div>
     )

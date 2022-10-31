@@ -2,12 +2,47 @@ import './navpar.css'
 import logo from '../../images/landing/logo.png'
 import user from '../../images/landing/user.png'
 import { useNavigate, NavLink } from 'react-router-dom'
+import {  useEffect, useState } from 'react'
+import { Snai3ycontext } from '../ProfileSnai3y/context'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDataClient } from '../../Redux/Slices/ClientReducer'
+import { getSnai3y } from '../../Redux/Slices/Snai3yReducer'
 function Navpar() {
+
+    // const {data, setData} = useState(Snai3ycontext)
+    const role = localStorage.getItem("snai3yRole");
+    // let [dataUser,setDataUser] = useState() ;//Snai3y Data
+    let snai3yData = useSelector(state => state.Snai3yReducer.data);
+    let clientData = useSelector(state => state.ClientReducer.clintdata) 
+
+    let dataUser ;
+
+    if( role == "sanai3y"){
+        // setDataUser(snai3yData)
+        dataUser = snai3yData
+        // console.log(dataUser)
+    }
+    else if(role == "client") {
+        // setDataUser(clientData)
+        dataUser = clientData
+        // console.log(dataUser)
+    }
+    else dataUser = ""
+
+    // console.log(data)
+
+
     let token = localStorage.getItem("token")
-    const navigate = useNavigate()
+    const navigate = useNavigate() 
+    const imageUser = localStorage.getItem("image");
+    const userName = localStorage.getItem("Name");
+
 
     function logout() {
-        localStorage.removeItem("token")
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("Name");
+        // localStorage.removeItem("snai3yRole");
+        localStorage.clear()
         navigate("/login");
     }
     return (
@@ -99,16 +134,18 @@ function Navpar() {
                             {/* image User  */}
                             {token && <div>
                                 <div className=' position-relative toggle' data-bs-toggle="collapse" data-bs-target="#userToogel" aria-controls="userToogel" aria-expanded="false" aria-label="Toggle navigation">
-                                    <img src={user} style={{ width: '30px', height: '30px', borderRadius: "50%" }}></img>
+                                    <img src={dataUser.img} style={{ width: '30px', height: '30px', borderRadius: "50%" ,cursor:"pointer"}}></img>
                                 </div>
                                 <div id='userToogel' className='collapse  user_toogel'>
                                     <div>
 
                                         <div className='user_content_navpar'>
                                             <div className='user_img_name'>
-                                                <NavLink to="/profile" className='user_img_name'>
-                                                    <img src={user} style={{ width: '70px', height: '70px', borderRadius: "50%" }}></img>
-                                                    <h4>User Name</h4>
+                                                <NavLink to={role == "sanai3y"? "/profileS":"/profileC"} className='user_img_name'>
+                                                    <div style={{ width: '130px', height: '130px',marginBottom:"15px"}}>
+                                                        <img src={dataUser.img} style={{ width: '100%', height: '100%', borderRadius: "50%"}}/>
+                                                    </div>
+                                                    <h4>{`${dataUser.firstName} ${dataUser.lastName}`}</h4>
                                                 </NavLink>
                                             </div>
                                             <div>

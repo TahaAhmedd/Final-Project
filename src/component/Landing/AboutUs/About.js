@@ -30,7 +30,7 @@ function About() {
                     {crafts.map((item ,index) =>  
                         <div className='card_About col-lg-4 col-md-12' key={index}>
                             <div className='img_About'>
-                                <img src={Carousel}></img>
+                                <img src={item.img}></img>
                             </div>
 
                             <div className='About_name'>

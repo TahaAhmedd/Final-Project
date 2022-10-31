@@ -1,8 +1,8 @@
-input:focus {
+.form_Addjops input:focus {
     border: 2px solid var(--main-color);
 }
 
-input {
+.form_Addjops input {
     outline: none;
     border: none;
     background-color: rgb(246, 245, 245);
@@ -10,7 +10,7 @@ input {
 
 }
 
-select,
+.form_Addjops select,
 textarea {
     outline: none;
     background-color: rgb(246, 245, 245);

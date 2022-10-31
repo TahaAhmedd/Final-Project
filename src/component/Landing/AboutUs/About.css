@@ -59,10 +59,14 @@
 .img_About{
     width: 100%;
     height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .img_About img{
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
+    
 }
 .About_name{
     width: 100%;

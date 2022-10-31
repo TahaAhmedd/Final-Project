@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ClintCard.css'
-function ClintCard({ data }) {
-    console.log(data)
+
+import dateFormat from "dateformat";
+function ClintCard({ datas }) {
+    let [data , setData] = useState(datas)
     return (
         <>
             <div className='parent_card'>
@@ -27,7 +29,7 @@ function ClintCard({ data }) {
                         {/* Date  */}
                         <small>
                         <i className="fa-solid fa-clock" style={{fontSize:"18px"}}></i>
-                            {data.joinedDate}
+                            {dateFormat(data.joinedDate,"mmmm dS, yyyy , h:MM  TT")}
                         </small>
 
                         {/* address */}

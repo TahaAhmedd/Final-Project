@@ -64,7 +64,9 @@
     top: 100%;
     left: 5%;
     background-color: #fff;
-    padding: 15px;
+    /* padding: 15px; */
+    width: 220px;
+    height: auto;
 }
 .user_content_navpar{
     display: flex;
@@ -72,7 +74,8 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .user_img_name{
     display: flex;

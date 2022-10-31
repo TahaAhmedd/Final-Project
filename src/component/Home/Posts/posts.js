@@ -3,38 +3,48 @@ import img from "../../../images/home/postOne.jpg";
 import prfile from "../../../images/home/abdelhafez.jpg";
 import { useState, useEffect } from "react";
 import dateFormat, { masks } from "dateformat";
+import { Formik, useFormik } from "formik";
+import * as yup from "yup";
 import axios from "axios";
-
-function Posts() {
-  // Fetch Fake Api   < Test >
+function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
-  const [data, setData] = useState([]);
+  let token = localStorage.getItem("token");
+  const [data, setData] = useState(datas)
+  // console.log(data)
   useEffect(() => {
-
-    axios.get("http://localhost:7000/jobs/all").then(
-      (result)=>{
-        let res = result.data.data;
-        console.log(res)
-        setData(res)
-      }
-      )
-      // console.log(date)
-    }, []);
-
-  // Function Hidden Post
-  // let [show, setShow] = useState(false);
+    setData(datas)
+  }, [datas])
+  
+  // Hidden of jops
   function showAndHidden(index) {
-    // show ? setShow(false) : setShow(true);
-    // console.log(data[index].show)
     data[index].show = !data[index].show;
     setData([...data]);
   }
-
   // Function Delete Post
   function delet(id) {
     setData((prev) => prev.filter((item) => item.id != id));
   }
 
+  const [dis , setDis] = useState("")
+
+  function disChange(event){
+    setDis(event.target.value)
+    // console.log(dis)
+  }
+
+  let headers={
+      'Authorization': token
+  }
+  function sendid (id){
+    let body ={
+      sanai3yProposal: dis
+    }
+    console.log(body)
+    axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
+    .then(res=>{
+      console.log(res)
+    })
+  }
   return (
     <>
       {data.map((data, index) => (
@@ -69,7 +79,7 @@ function Posts() {
 
             <div className="name">
               <span>{`${data.firstName} ${data.lastName}`}</span>
-              <span>{dateFormat(data.hiredDate," h:MM  TT")}</span>
+              <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
               {/* <span>{data.adressuder}</span> */}
             </div>
           </div>
@@ -87,7 +97,10 @@ function Posts() {
                   {data.city}
                 </p>
                 <p>
-                  <strong>مده التسليم : </strong>يوم
+                  عدد الطلبات المقدمه:
+                  <strong> 
+                    {data.proposals.length}
+                  </strong>
                 </p>
               </div>
 
@@ -105,9 +118,9 @@ function Posts() {
 
             <div className="buttons col-6">
 
-              {role == "sanai3y" &&<button
+              {role == "sanai3y" && <button
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                data-bs-target={`#abdo${data._id}`}
                 data-bs-whatever="@getbootstrap"
               >
                 طلب
@@ -118,7 +131,7 @@ function Posts() {
 
           <div
             className="modal fade"
-            id="exampleModal"
+            id={`abdo${data._id}`}
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
@@ -131,7 +144,9 @@ function Posts() {
                   </h5>
                 </div>
                 <div className="modal-body">
-                  <form>
+
+                  {/* Add probosal Form */}
+                  <form >
                     <div className="mb-3">
                       <label
                         htmlFor="message-text"
@@ -142,10 +157,15 @@ function Posts() {
                       <textarea
                         className="form-control"
                         id="message-text"
+                        name="description"
+                        onChange={disChange}
+                        value={dis}
                       ></textarea>
                     </div>
-                  </form>
-                </div>
+                  
+
+
+
                 <div className="modal-footer">
                   <button
                     type="button"
@@ -155,11 +175,16 @@ function Posts() {
                     اغلاق
                   </button>
                   <button
+                    onClick={()=> sendid(data._id) }
                     type="button"
                     className="btn btn-primary button_me test"
                   >
                     ارسال الطلب
                   </button>
+
+
+                </div>
+                </form>
                 </div>
               </div>
             </div>
@@ -202,7 +227,7 @@ function Posts() {
 
                       <div className="col-5 p-0">
                         <div className="edit_data_about_job">
-                          <h5>{data.user}</h5>
+                          <h5>{`${data.firstName} ${data.lastName}`}</h5>
                           <p>اسوان</p>
                         </div>
                       </div>
@@ -216,7 +241,7 @@ function Posts() {
                           <div className="card-body">
                             <h5 className="card-title">{data.title}</h5>
                             <p className="card-text">
-                             {data.description}
+                              {data.description}
                             </p>
                           </div>
                         </div>
@@ -224,11 +249,11 @@ function Posts() {
                         <div className="col-md-4">
                           <div className="row">
                             <div className="col-6">
-                              <img className="img-thumbnail" src={img} alt="" />
+                              <img className="img-thumbnail" src={data.images[0]} alt="" />
                             </div>
-                            <div className="col-6">
-                              <img className="img-thumbnail" src={img} alt="" />
-                            </div>
+                            {/* <div className="col-6">
+                              <img className="img-thumbnail" src={data.images} alt="" />
+                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -245,7 +270,7 @@ function Posts() {
                     اغلاق
                   </button>
 
-                  <button
+                  {role == "snai3y" && <button
                     type="button"
                     className="btn btn-primary edit_button"
                     data-bs-toggle="modal"
@@ -253,7 +278,7 @@ function Posts() {
                     data-bs-whatever="@getbootstrap"
                   >
                     طلب
-                  </button>
+                  </button>}
                 </div>
               </div>
             </div>

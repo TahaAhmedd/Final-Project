@@ -1,17 +1,13 @@
 
 
-
-.navication_bar {
-    margin-top: 30px;
-}
-.navbar_right {
+.navbar_right_secend {
     background-color: #fff;
     padding: 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-bottom: 50px;
 }
 
-.navbar_right h3 {
+.navbar_right_secend h3 {
     text-align: right;
     font-size: 20px;
     border-bottom: 1px solid #eee;
@@ -20,34 +16,38 @@
    
 }
 
-.navbar_right ul li {
+.navbar_right_secend ul li {
 
     padding: 10px 10px;
     list-style: none;
     position: relative;
 }
 
-.navbar_right ul li a {
+.navbar_right_secend ul li a {
     text-decoration: none;
     /* display: flex;
     justify-content: space-between; */
 
 }
-.navbar_right .titel {
+.navbar_right_secend .titel {
     margin-right: 7px;
     color: #000;
     font-size: 17px;
 
 }
-.navbar_right .check_title {
+.navbar_right_secend .check_title {
     position: absolute;
     left: 0;
 }
 
-.navbar_right ul li a .icon {
+.navbar_right_secend ul li a .icon {
     color: #198754; /* Test */
 }
 
-.navbar_right ul li a .icon ion-icon {
+.navbar_right_secend ul li a .icon ion-icon {
     font-size: 1.75em;
+}
+.navpar_tow li a{
+    color: #000;
+    font-size: 1rem;
 }
