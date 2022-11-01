@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './login.css'
 import { useFormik } from 'formik';
 import { loginSchema } from './LoginSchema'
@@ -6,7 +6,7 @@ import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import coverLogin from './loginCover.jpeg'
 function Login() {
-
+    let [err , setErr] = useState(false)
     let navigate = useNavigate()
     const loginFormik = useFormik(
         {
@@ -19,7 +19,7 @@ function Login() {
                 axios.post("http://localhost:7000/client/signin", values).then((res) => {
                     console.log(res.data.data.rule)
                     if (res.status == 200) {
-                        console.log(res)
+                        // console.log(res)
                         localStorage.setItem("token", res.headers.authorization);
                         localStorage.setItem("snai3yRole", res.data.data.rule);
                         localStorage.setItem("id", res.data.data._id);
@@ -28,9 +28,11 @@ function Login() {
                     }
                     else {
                         console.log("eror")
+                        setErr(true)
                     }
                 }).catch((err) => {
                     console.log(err)
+                    setErr(true)
                 })
             },
 
@@ -61,7 +63,7 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-
+                        {err &&<span className='alert alert-danger p-0 d-flex justify-content-center'>البريد الألكتروني او الباسورد غير صحيح</span>}
                         <div className='row'>
                             <div className='col-12'>
 

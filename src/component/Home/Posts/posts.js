@@ -11,7 +11,7 @@ function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
   const [data, setData] = useState(datas)
-  console.log(data)
+  // console.log(data)
   useEffect(() => {
     setData(datas)
   }, [datas])
@@ -43,7 +43,7 @@ function Posts({ datas }) {
     console.log(body)
     axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
     .then(res=>{
-      console.log(res)
+      // console.log(res)
     })
   }
   return (
@@ -72,15 +72,15 @@ function Posts({ datas }) {
               </span>
             </div>
           )}
-            <NavLink to={`/showprofileC/${data._id}`}>
+            <NavLink to={`/showprofileC/${data.clientData._id}`}>
 
               <div className="img_name">
                 <div className="images">
-                  {/* <img src={data.clintId.img} alt="" /> */}
+                  <img src={data.clientData.img} alt="" />
                 </div>
 
                 <div className="name">
-                  {/* <span>{`${data.clintId.firstName} ${data.clintId.lastName}`}</span> */}
+                  <span>{`${data.clientData.firstName} ${data.clientData.lastName}`}</span>
                   <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
                   {/* <span>{data.adressuder}</span> */}
                 </div>

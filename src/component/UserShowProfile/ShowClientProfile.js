@@ -3,29 +3,74 @@ import { useSelector } from 'react-redux'
 import dateFormat from 'dateformat'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
+import { Box } from "@mui/system";
+import Button from "@mui/joy/Button";
 function ShowClientProfile() {
     let [Profile,setProfile] = useState({})
+    let [data , setData] = useState([])
+    const [oopeen, setOpenUp] = useState(false)
+    const [open, setOpen] = useState(false);
     let params = useParams().data
-    console.log(params)
+    // console.log(params)
 
     useEffect(()=>{
         axios.get(`http://localhost:7000/client/clients/${params}`).then(
             (res)=>{
-                console.log(res)
-                setProfile(res.data.Data)
+              setProfile(res.data.Data)
+              setData(res.data.Data.jobs)
+              // console.log(data)
             }
         )
     },[])
+
+      // Style material-ui
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 900,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    backgroundColor: "#FFF",
+    boxShadow: 24,
+    p: 4,
+  };
+  const styleButton = {
+    position:"absolute",
+    bottom:"20px",
+    left:"20px",
+    cursor: "pointer",
+    background: "#FFF", 
+    color: "#fff",
+    borderRadius: "10px",
+    borderTop:"3px",
+    borderLeft:"10px",
+    borderRight:"10px",
+    borderWidth: "2px",
+    borderColor: "#ffb200",
+    color:"#ffb200",
+    borderStyle: "solid",
+    transitionProperty: "all",
+    transitionDuration: ".5s",
+    '&:hover': {
+      background: "#ffb200",
+      color:"#FFF"
+   },
+  }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
     <div className='container' style={{marginTop:"100px"}}>
 
-        {/* <div className="row">
+        <div className="row">
           
           <div className="col-lg-4 col-sm-4">
             <div className="image_profile">
-              <img src={'https://cdn.pixabay.com/photo/2018/08/28/13/29/avatar-3637561_1280.png'} />
+              <img src={Profile.img} />
               <div>
                 <span>
                   <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
@@ -78,54 +123,12 @@ function ShowClientProfile() {
               </ul>
             </div>
           </div>
-        </div> */}
+        </div>
     </div>
 
 
 
-        <div className='container'> {/* Talpat */}
-        <div className="box" >
-
-              <span className="badge badge-danger status">pending</span>
-              {/* <h1>{d.title}</h1> */}
-              {/* <span className="city">{d.city}</span> */}
-              {/* <p>{d.description}</p> */}
-              {/* <span className="category">{d.category}</span> */}
-              {/* <span className="ellipsis" onClick={() => compareId(index)}> */}
-                {/* <i className="fa fa-ellipsis-h" aria-hidden="true"></i> */}
-              {/* </span> */}
-              {/* <h1>{d.show}</h1> */}
-
-              {/* Start ellipsis Option  */}
-              {/* {d.show && (
-                <div className="popup hidd">
-                  <span  data-toggle="modal" data-target="#exampleModal">
-                    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-                    <lord-icon
-                      src="https://cdn.lordicon.com/wloilxuq.json"
-                      trigger="loop"
-                      delay="500"
-                      colors="primary:#121331,secondary:#ffb200"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-                    تعديل
-                  </span>
-                  <span>
-                    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-                    <lord-icon
-                      src="https://cdn.lordicon.com/gsqxdxog.json"
-                      trigger="loop"
-                      delay="500"
-                      colors="primary:#121331,secondary:#ffb200"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-                    حزف المنشور
-                  </span>
-                </div>
-              )} */}
-              {/* End ellipsis Option  */}
-            </div>
-        </div>
+        
     </>
   )
 }

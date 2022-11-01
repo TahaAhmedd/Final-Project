@@ -44,7 +44,7 @@ function Addjops() {
         onSubmit: (values) => {
 
             const formData = new FormData()
-            formData.append('jobImage', values.files);
+            formData.append('jobImage', values.photo);
             formData.append('title', values.title);
             formData.append('address', values.address);
             formData.append('category', values.category);

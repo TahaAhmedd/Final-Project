@@ -87,7 +87,7 @@ function Register() {
       };
 
       axios.post("http://localhost:7000/client/signup", data).then(res => {
-        if (res.data = "You already have acount, You can signin") {
+        if (res.status != 200) {
           console.log(res)
           setFlag(true)
         }
