@@ -78,7 +78,7 @@ function Navpar() {
                             </li>
 
                             <li className="nav-item list_navpar">
-                                <NavLink to="/index">
+                                <NavLink to="/terms">
                                     <lord-icon
                                         src="https://cdn.lordicon.com/yyecauzv.json"
                                         trigger="click"

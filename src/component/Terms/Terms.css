@@ -1,0 +1,26 @@
+main{
+    margin: 30px 0;
+    background-color: var(--backgrond-color);
+}
+main .container{
+    box-shadow: 0 0 10px black;
+padding: 20px;
+background-color: var(--hover-color);
+}
+main .container h1{
+    font-size: 2rem;
+    font-weight: 600;
+color: var(--main-color);
+margin-bottom: 25px;
+}
+main .container h3{
+    font-size: 1.4rem;
+    font-weight: 600;
+color: var(--main-color);
+
+}
+
+  main .container ol li{
+    margin-right:1rem ;
+    list-style: arabic-indic;
+  }

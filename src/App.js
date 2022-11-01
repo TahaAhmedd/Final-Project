@@ -25,6 +25,7 @@ import Showprofile from './component/UserShowProfile/ShowProfile';
 import ShowClientProfile from './component/UserShowProfile/ShowClientProfile';
 import Notfound from './component/notfound/Notfound';
 import Loader from './component/Loader/Loader';
+import Terms from './component/Terms/Terms';
 function App() {
   let [scroll, setScroll] = useState()
   useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])
@@ -61,6 +62,7 @@ function App() {
         <Route path='/showprofileC/:data' element={<AuthGuard><ShowClientProfile /></AuthGuard>} />
         <Route path='/allsnai3y' element={<Snai3yCardPage />} />
         <Route path='/addjops' element={<Addjops />} />
+        <Route path='/terms' element={<Terms />} />
         <Route path='/regiser' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/*' element={<Notfound />} />

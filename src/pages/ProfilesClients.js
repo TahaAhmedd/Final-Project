@@ -6,17 +6,30 @@ import '../component/ProfileClient/ProfileClient.css'
 import dateFormat from "dateformat";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataClient } from "../Redux/Slices/ClientReducer";
+import Loader from "../component/Loader/Loader";
 function ProfilesClients() {
 
-  // const [Profile, setProfile] = useState();
+  const [loader, setLoader] = useState(true);
+
+  useEffect(()=>{
+    setTimeout(() => {
+      setLoader(false)
+    }, 1000);
+
+    return()=>{
+      setLoader(true)
+    }
+  },[])
 
   const Profile = useSelector(state => state.ClientReducer.clintdata)
   
   const [JobsClient, setJobsClient] = useState()
+
   
   return (
     <>
-      <div className="container">
+    
+      {!loader && <div className="container">
       <div className="app_profil_client">
       {Profile && <div className="row">
           
@@ -122,7 +135,9 @@ function ProfilesClients() {
       </div>
 
       { Profile && <TalpatSending jobs={JobsClient} /> }
-      </div>
+      </div>}
+
+      {loader && <Loader/>}
     </>
   );
 }

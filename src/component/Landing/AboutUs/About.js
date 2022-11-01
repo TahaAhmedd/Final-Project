@@ -26,7 +26,7 @@ function About() {
                     أحدث الحرفين
                 </h2>
                 <div className='container AboutUs_content'>
-                    <div className='row parent_aboutUs'>
+                    <div className='row p-0 parent_aboutUs'>
                     {crafts.map((item ,index) =>  
                         <div className='card_About col-lg-4 col-md-12' key={index}>
                             <div className='img_About'>

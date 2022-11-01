@@ -23,10 +23,6 @@ function ClintCard({ datas }) {
                                 style={{ fontSize: "20px" }}></i> */}
                             {`${data.firstName} ${data.lastName}`}
                         </h2>
-
-                        <small>
-
-                        </small>
                         {/* Date  */}
                         <small>
                             <i className="fa-solid fa-clock" style={{ fontSize: "18px" }}></i>

@@ -157,31 +157,45 @@
     .twoSlid .categories .c_one li span {
         font-size: 10px;
     }
-  
+
     .twoSlid .categories .c_one li {
         font-size: 14px;
     }
+
     .twoSlid .categories .c_two h4 {
         font-size: 13px;
     }
+
     .twoSlid .categories .c_two li {
         font-size: 13px;
     }
+
     .twoSlid .categories .c_three li {
         font-size: 13px;
     }
+
     .twoSlid .categories .c_three h4 {
         font-size: 13px;
     }
+
     .twoSlid .categories .c_three {
         padding-right: 10px;
         padding-left: 15px;
     }
+
     .twoSlid .categories .c_two {
         padding-right: 10px;
     }
+
     .twoSlid .categories .c_one {
         padding-right: 15px;
         padding-left: 12px;
     }
+}
+
+@media (max-width:560px) {
+    .twoSlid .categories .c_one li span {
+        display: none;
+    }
+
 }

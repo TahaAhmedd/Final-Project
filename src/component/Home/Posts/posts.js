@@ -11,7 +11,7 @@ function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
   const [data, setData] = useState(datas)
-  // console.log(data)
+  console.log(data)
   useEffect(() => {
     setData(datas)
   }, [datas])
@@ -76,11 +76,11 @@ function Posts({ datas }) {
 
               <div className="img_name">
                 <div className="images">
-                  <img src={prfile} alt="" />
+                  {/* <img src={data.clintId.img} alt="" /> */}
                 </div>
 
                 <div className="name">
-                  <span>{`${data.firstName} ${data.lastName}`}</span>
+                  {/* <span>{`${data.clintId.firstName} ${data.clintId.lastName}`}</span> */}
                   <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
                   {/* <span>{data.adressuder}</span> */}
                 </div>
