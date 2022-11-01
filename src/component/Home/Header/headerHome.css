@@ -40,7 +40,7 @@
 }
 
 .box_search .search {
-    position: relative;
+    /* position: relative; */
     width: 350px;
     height: 50px;
 
@@ -55,10 +55,10 @@
     border-width: 3px;
     border-bottom-style: solid;
     border-image: linear-gradient(-1deg, var(--main-color), #fff, #fff, #fff, #fff, #fff, #fff,#FFF, #fff) 1;
-
+    position: relative;
 }
 
-.box_search .search button {
+.box_search .search i {
     padding: 5px 35px;
    
     position: absolute;
@@ -71,7 +71,7 @@
     overflow: hidden;
 }
 
-.box_search .search button::before {
+/* .box_search .search button::before {
     content: "بحث";
     line-height: 40px;
     position: absolute;
@@ -82,13 +82,13 @@
     transition: all .5s;
     color: var(--main-color);
     
-}
-.box_search .search button:hover::before {
+} */
+/* .box_search .search button:hover::before {
     background-color: var(--main-color);
     height: 100%;
     color: #FFF;
 
-}
+} */
 
 
 /* Start Lines */

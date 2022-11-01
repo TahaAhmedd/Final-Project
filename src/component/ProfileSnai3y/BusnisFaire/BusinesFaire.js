@@ -26,6 +26,7 @@ import axios from 'axios';
 function BusinesFaire() {
         const [open, setOpen] = useState(false);
         const [flag, setFlag] = useState(false);
+        let [errflag, setErrflag] = useState(false)
         const token = localStorage.getItem("token");
         let headers = {
                 'Authorization': token
@@ -47,6 +48,10 @@ function BusinesFaire() {
                                 console.log(res)
                                 if(res.status == 200){
                                         window.location.reload(true)
+                                }
+                        }).catch((err)=>{
+                                if(err){
+                                        setErrflag(true)
                                 }
                         })
 
@@ -124,6 +129,7 @@ function BusinesFaire() {
                                                                         <div>
 
                                                                                 <Typography id="modal-desc" textColor="text.tertiary">
+                                                                                {errflag &&<span className="my-4 p-0 d-flex justify-content-center alert alert-danger">هناك خطأ يرجي المحاولة مرة أخري</span>}
                                                                                         <form onSubmit={formik.handleSubmit} className='Add_image_snai3y' encType="multipart/form-data">
                                                                                                 <input type="file" 
                                                                                                         accept='image/*'

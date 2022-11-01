@@ -21,7 +21,10 @@ import ProfilesClients from './pages/ProfilesClients';
 import { getDataClient } from './Redux/Slices/ClientReducer';
 import { useDispatch } from 'react-redux';
 import { getSnai3y } from './Redux/Slices/Snai3yReducer';
-
+import Showprofile from './component/UserShowProfile/ShowProfile';
+import ShowClientProfile from './component/UserShowProfile/ShowClientProfile';
+import Notfound from './component/notfound/Notfound';
+import Loader from './component/Loader/Loader';
 function App() {
   let [scroll, setScroll] = useState()
   useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])
@@ -54,13 +57,18 @@ function App() {
         <Route path='/profileC' element={<AuthGuard><ProfilesClients /></AuthGuard>}></Route>
         <Route path='/home' element={<AuthGuard><Home /></AuthGuard>} />
         <Route path='/chat' element={<AuthGuard><Chat /></AuthGuard>} />
+        <Route path='/showprofile/:data' element={<AuthGuard><Showprofile /></AuthGuard>} />
+        <Route path='/showprofileC/:data' element={<AuthGuard><ShowClientProfile /></AuthGuard>} />
         <Route path='/allsnai3y' element={<Snai3yCardPage />} />
         <Route path='/addjops' element={<Addjops />} />
         <Route path='/regiser' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/*' element={<Notfound />} />
       </Routes>
       {scroll > 400 && <Totop />}
       <Footer />
+
+      
     </>
   );
 }

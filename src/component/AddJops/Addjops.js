@@ -3,14 +3,12 @@ import "./Addjops.css";
 import { Formik, useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import addpost from "../../images/landing/loginbackground.jpg";
-import { upload } from "@testing-library/user-event/dist/upload";
-import Dropzone from "react-dropzone";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Addjops() {
-    const dropzoneStyle = {
+    
+    let navigate = useNavigate() 
 
-    };
     const [values, setValues] = useState({});
     const [file, setFile] = useState([]);
 
@@ -29,7 +27,7 @@ function Addjops() {
             category: "",
             description: "",
             jobImage: "",
-            files: []
+            // files: []
         },
         validationSchema: yup.object().shape({
             address: yup.string().required("الرجاء اختيار العنوان"),
@@ -56,7 +54,9 @@ function Addjops() {
 
             axios.post("http://localhost:7000/jobs/postjob", formData, { headers: headers }).then(
                 (result) => {
-                    console.log(result)
+                    if(result.status == 200){
+                        navigate("/home")
+                    }
                 }
             ).catch((err) => {
                 console.log(err)
@@ -206,80 +206,32 @@ function Addjops() {
 
                             <div className="">
                                 {/* <label htmlFor="upload-files" className="">
-                    <i className="fa fa-download fs-5 " aria-hidden="true">
-                        اضف صورة
-                    </i>
-                </label> */}
+                                    <i className="fa fa-download fs-5 " aria-hidden="true">
+                                        اضف صورة
+                                    </i>
+                                </label> */}
 
                                 <input
-                    type="file"
-                    {...formik.getFieldProps("jobImage")}
-                    //   onChange={uploadimage}
-                    // style={{ display: "none" }}
-                    name="jobImage"
-                    defaultValue="upload"
-                    id="upload-files"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) =>
-                
-                        formik.setFieldValue('photo', e.currentTarget.files[0])
-                    //    formik.values.files.push(e.target.value)
-                    }
-                />
-                {formik.values.files.map((item)=><img src={item}/>)}
-
-                                {/* <Dropzone
-                                    style={{
-                                        width: "100%",
-                                        height: "auto",
-                                        borderWidth: 2,
-                                        borderColor: "rgb(102, 102, 102)",
-                                        borderStyle: "dashed",
-                                        borderRadius: 5
-                                    }}
+                                    type="file"
+                                    {...formik.getFieldProps("jobImage")}
+                                    //   onChange={uploadimage}
+                                    // style={{ display: "none" }}
+                                    name="jobImage"
+                                    defaultValue="upload"
+                                    id="upload-files"
                                     accept="image/*"
-                                    onDrop={(acceptedFiles) => {
-                                        console.log("dkdk")
-                                        // do nothing if no files
-                                        if (acceptedFiles.length === 0) {
-                                            return;
-                                        }
+                                    multiple
+                                    onChange={(e) =>
+
+                                        formik.setFieldValue('photo', e.currentTarget.files[0])
+                                        //    formik.values.files.push(e.target.value)
+                                    }
+                                />
 
 
-                                        // on drop we add to the existing files
-                                        formik.setFieldValue("files", formik.values.files.concat(acceptedFiles));
-                                    }}
-                                >
-                                    {({
-                                        isDragActive,
-                                        isDragReject,
-                                        acceptedFiles,
-                                        rejectedFiles
-                                    }) => {
-                                        if (isDragActive) {
-                                            return "This file is authorized";
-                                        }
-
-                                        if (isDragReject) {
-                                            return "This file is not authorized";
-                                        }
-
-                                        if (formik.values.files.length === 0) {
-                                            return <p>Try dragging a file here!</p>;
-                                        }
-
-                                        return formik.values.files.map((file, i) => (
-                                            <img src={file}
-                                                alt={file.name}
-
-                                                height={50}
-                                                width={50} />
-                                        ));
-                                    }}
-                                </Dropzone> */}
                                 <div>
 
+                                    <img  src={formik.values.photo}/>
                                 </div>
                                 {formik.touched.upload && formik.errors.upload ? (
                                     <div style={{ color: "red" }}>{formik.errors.upload}</div>

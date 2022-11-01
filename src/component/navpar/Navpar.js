@@ -6,7 +6,7 @@ import {  useEffect, useState } from 'react'
 import { Snai3ycontext } from '../ProfileSnai3y/context'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataClient } from '../../Redux/Slices/ClientReducer'
-import { getSnai3y } from '../../Redux/Slices/Snai3yReducer'
+import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
 function Navpar() {
 
     // const {data, setData} = useState(Snai3ycontext)
@@ -18,12 +18,10 @@ function Navpar() {
     let dataUser ;
 
     if( role == "sanai3y"){
-        // setDataUser(snai3yData)
         dataUser = snai3yData
         // console.log(dataUser)
     }
     else if(role == "client") {
-        // setDataUser(clientData)
         dataUser = clientData
         // console.log(dataUser)
     }
@@ -36,12 +34,10 @@ function Navpar() {
     const navigate = useNavigate() 
     const imageUser = localStorage.getItem("image");
     const userName = localStorage.getItem("Name");
-
+    let dispatch = useDispatch()
 
     function logout() {
-        // localStorage.removeItem("token");
-        // localStorage.removeItem("Name");
-        // localStorage.removeItem("snai3yRole");
+        
         localStorage.clear()
         navigate("/login");
     }
@@ -145,7 +141,7 @@ function Navpar() {
                                                     <div style={{ width: '130px', height: '130px',marginBottom:"15px"}}>
                                                         <img src={dataUser.img} style={{ width: '100%', height: '100%', borderRadius: "50%"}}/>
                                                     </div>
-                                                    <h4>{`${dataUser.firstName} ${dataUser.lastName}`}</h4>
+                                                    <h4 style={{whiteSpace:"nowrap",textOverflow:"ellipsis",overflow:"hidden",width:"13ch",direction:"ltr",textAlign:"center"}}>{`${dataUser.firstName} ${dataUser.lastName}`}</h4>
                                                 </NavLink>
                                             </div>
                                             <div>

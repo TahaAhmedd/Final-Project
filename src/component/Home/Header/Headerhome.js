@@ -1,6 +1,21 @@
+import { useEffect, useState } from "react";
 import "./headerHome.css";
 
-function HeaderHome() {
+function HeaderHome(props) {
+  // console.log(data)
+  let [val, setVal] = useState()
+  // console.log(val.val)
+
+  function inputval(e) {
+    // let lowercase = e.target.value
+    setVal(e.target.value)
+  }
+
+  useEffect(() => {
+    props.data(val)
+
+  }, [val])
+  // console.log(val)
   return (
     <div className="one mt-5">
       <div className="container">
@@ -20,9 +35,17 @@ function HeaderHome() {
                 <input
                   type="text"
                   id="#"
+                  onChange={inputval}
                   placeholder="نوع المشكلة اللتي تواجهك"
                 />
-                <button>بحث</button>
+                  <lord-icon
+                    src="https://cdn.lordicon.com/xfftupfv.json"
+                    trigger="loop"
+                    delay="2000"
+                    colors="primary:#ffb200"
+                    style={{width:"40px",height:"40px",top:"-50%", transform:"translateY(-50%)"}}>
+                  </lord-icon>
+                
               </div>
             </div>
           </div>
@@ -36,7 +59,7 @@ function HeaderHome() {
       </div>
 
 
-      
+
     </div>
   );
 }
