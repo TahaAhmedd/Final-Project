@@ -43,9 +43,9 @@ function Register() {
       console.log(data)
       axios.post("http://localhost:7000/sanai3y/signup", data).then(res => {
         console.log(res)
-        if (res.data != 200) {
+        if (res.status != 200) {
           setFlag(true)
-          window.scrollTo(0, 0)
+          window.scrollTo(0,0)
         }
         else {
           navigate("/login")

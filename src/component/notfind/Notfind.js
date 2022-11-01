@@ -3,8 +3,8 @@ import "./Notfind.css"
 function Notfind() {
   return (
     <div className='notfind'>
-        <img src={require('../../images/notfind/search.png')}/>
         <p>لا يوجد طلبات مقدمة حاليا</p>
+        <img src={require('../../images/notfind/search.jpg')}/>
     </div>
   )
 }

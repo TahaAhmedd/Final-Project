@@ -11,6 +11,9 @@ export const Snai3yReducer = createSlice({
             // console.log("jjiijjijii")
             state.data=action.payload
         },
+        logOutSnai3y:(state)=>{
+            state.data.status = "busy"
+        }
         
     }
 })
@@ -26,6 +29,6 @@ export const getSnai3y =()=> async (dispatch) =>{
 
 
 
-export const {setData,getDataSnai3y} = Snai3yReducer.actions
+export const {setData,logOutSnai3y} = Snai3yReducer.actions
 // export const showSnai3yData = (state)=> state.Snai3yData.data
 export default Snai3yReducer.reducer

@@ -6,6 +6,7 @@ import dateFormat, { masks } from "dateformat";
 import { Formik, useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
@@ -71,18 +72,21 @@ function Posts({ datas }) {
               </span>
             </div>
           )}
+            <NavLink to={`/showprofileC/${data._id}`}>
 
-          <div className="img_name">
-            <div className="images">
-              <img src={prfile} alt="" />
-            </div>
+              <div className="img_name">
+                <div className="images">
+                  <img src={prfile} alt="" />
+                </div>
 
-            <div className="name">
-              <span>{`${data.firstName} ${data.lastName}`}</span>
-              <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
-              {/* <span>{data.adressuder}</span> */}
-            </div>
-          </div>
+                <div className="name">
+                  <span>{`${data.firstName} ${data.lastName}`}</span>
+                  <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
+                  {/* <span>{data.adressuder}</span> */}
+                </div>
+              </div>
+            </NavLink>
+
 
           <div
             className="app_di_img"
@@ -91,7 +95,8 @@ function Posts({ datas }) {
           >
             <div className="row p-2 ">
               <div className="dis">
-                <p>{data.description} </p>
+                <strong>{data.title} </strong>
+                <p>{data.description}</p>
                 <p>
                   <strong>العنوان : </strong>
                   {data.city}
@@ -249,7 +254,7 @@ function Posts({ datas }) {
                         <div className="col-md-4">
                           <div className="row">
                             <div className="col-6">
-                              <img className="img-thumbnail" src={data.images[0]} alt="" />
+                              <img className="img-thumbnail" src={data.images} alt="" />
                             </div>
                             {/* <div className="col-6">
                               <img className="img-thumbnail" src={data.images} alt="" />
