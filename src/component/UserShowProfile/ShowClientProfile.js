@@ -124,11 +124,7 @@ function ShowClientProfile() {
             </div>
           </div>
         </div>
-    </div>
-
-
-
-        
+    </div>      
     </>
   )
 }
