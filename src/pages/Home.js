@@ -17,6 +17,8 @@ function Home() {
     axios.get("http://localhost:7000/jobs/all").then(
       (result) => {
         let res = result.data.data;
+        // console.log(res.data)
+        res = res.filter((item)=> item.status != "in progress")
         setTimeout(() => {
           
           setLoader(false)

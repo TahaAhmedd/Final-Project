@@ -42,7 +42,7 @@ function Posts({ datas }) {
     console.log(body)
     axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
     .then(res=>{
-      // console.log(res)
+      // console.log(res.data.Data)
       if(res.status == 200){
         window.location.reload(true)
         
@@ -60,21 +60,7 @@ function Posts({ datas }) {
             </span>
           </div>
 
-          {/* Show And Hidden With Button  */}
-          {/* {data.show && (
-            <div className="popup hidd">
-              <span>
-                <i className="fa-regular fa-floppy-disk"></i>حفظ المنشور
-              </span>
-              <span>
-                <i className="fa-regular fa-flag"></i>ابلاغ عن المنشور
-              </span>
-
-              <span onClick={() => delet(data._id)}>
-                <i className="fa-regular fa-eye"></i>اخفاء المنشور
-              </span>
-            </div>
-          )} */}
+          
             <NavLink to={`/showprofileC/${data.clientData._id}`}>
 
               <div className="img_name" style={{color:"#000"}}>

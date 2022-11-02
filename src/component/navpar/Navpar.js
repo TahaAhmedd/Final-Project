@@ -115,7 +115,18 @@ function Navpar() {
                                     الرسائل
                                 </NavLink>
                             </li>}
-                            {token && <li onClick={logout} className='icon_nav_mesage nav-item list_navpar text-white'>
+                            {token &&<li className='icon_nav_mesage nav-item '>
+                                <NavLink to={role == "sanai3y" ? "/profileS" : "/profileC"} className=''>
+                                    <div style={{ width: '30px', height: '30px',display:"flex"}} className="">
+                                        <img src={dataUser.img} style={{ width: '100%', height: '100%', borderRadius: "50%" }} />
+                                        <span style={{marginRight:"5px",color:"white"}}>
+                                        {dataUser.firstName + dataUser.lastName}
+                                        </span>
+                                    </div>
+                                    {/* <h4 style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", width: "13ch", direction: "ltr", textAlign: "center" }}>{`${dataUser.firstName} ${dataUser.lastName}`}</h4> */}
+                                </NavLink>
+                            </li>}
+                            {token && <li onClick={logout} style={{cursor:"pointer"}} className='list_navpar icon_nav_mesage nav-item list_navpar text-white'>
                                 <i className="fa-solid fa-right-from-bracket"></i>
                                 تسجيل الخروج
                             </li>}
@@ -125,7 +136,7 @@ function Navpar() {
                                     تسجيل الدخول
                                 </NavLink>
                             </li>}
-                            {!token &&<li className='icon_nav_mesage nav-item list_navpar text-white'>
+                            {!token && <li className='icon_nav_mesage nav-item list_navpar text-white'>
                                 <NavLink to='/regiser' className='d-flex align-items-baseline'>
                                     <i className="login_content icon fa-solid fa-user-plus"></i>
                                     حساب جديد
@@ -136,7 +147,7 @@ function Navpar() {
 
 
 
-                            {token && <div>
+                            {token && <div className='login_reg_nav'>
 
                                 {/* Notefications */}
                                 <lord-icon
@@ -166,7 +177,7 @@ function Navpar() {
                             </div>}
 
                             {/* image User  */}
-                            {token && <div>
+                            {token && <div className='login_reg_nav'>
                                 <div className=' position-relative toggle' data-bs-toggle="collapse" data-bs-target="#userToogel" aria-controls="userToogel" aria-expanded="false" aria-label="Toggle navigation">
                                     <img src={dataUser.img} style={{ width: '30px', height: '30px', borderRadius: "50%", cursor: "pointer" }}></img>
                                 </div>

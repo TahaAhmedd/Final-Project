@@ -130,6 +130,9 @@
 .login_reg_nav{
     display: flex;
 }
+.hoverIconNav :hover{
+    border-bottom: 1px solid var(--main-color);
+}
     /* /* media  */
 
 @media (max-width:576px) {
