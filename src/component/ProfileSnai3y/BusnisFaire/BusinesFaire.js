@@ -22,6 +22,7 @@ import { Pagination, Navigation } from "swiper";
 import Busines_Picture from '../../../images/Profile/n2ash_one.jpg'
 import { useFormik } from 'formik';
 import axios from 'axios';
+import Notfind from '../../notfind/Notfind';
 
 function BusinesFaire() {
         const [open, setOpen] = useState(false);
@@ -78,7 +79,7 @@ function BusinesFaire() {
         return (
                 <>
                         <div className="cardinfo3 col-12" id="worke">
-                                <div className="container">
+                        <div className="container">
                                         <div className="cardinfo3_edit">
                                                 <h3 className="special-header"> معرض الاعمال</h3>
                                                 <div className="edit">
@@ -164,7 +165,7 @@ function BusinesFaire() {
 
 
                                         {/* Slider From Swiper Liprary */}
-                                        <Swiper
+                                        {data.length > 0 && <Swiper
                                                 slidesPerView={3}
                                                 spaceBetween={30}
                                                 slidesPerGroup={3}
@@ -174,7 +175,7 @@ function BusinesFaire() {
                                                         clickable: true,
                                                 }}
                                                 navigation={true}
-                                                modules={[Pagination, Navigation]}
+                                                modules={[Navigation]}
                                                 className="mySwiper"
                                         >
                                                 <div className='container '>
@@ -195,10 +196,12 @@ function BusinesFaire() {
                                                         )}
                                                 </div>
 
-                                        </Swiper>
-
+                                        </Swiper>}
+                                        {data.length == 0 &&<Notfind data={"لاتوجد صور حالياً الرجاء إضافة صور"}/>}
                                 </div>
                         </div>
+
+                        
                 </>
         )
 }
@@ -206,24 +209,3 @@ function BusinesFaire() {
 export default BusinesFaire
 
 
-// import React, { useRef, useState } from "react";
-// // Import Swiper React components
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-// // Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import "swiper/css/navigation";
-
-// import "./styles.css";
-
-// // import required modules
-// import { Pagination, Navigation } from "swiper";
-
-// export default function Swiper() {
-//         return (
-//                 <>
-
-//                 </>
-//         );
-// }
