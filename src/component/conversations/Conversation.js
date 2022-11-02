@@ -18,8 +18,8 @@ export default function Conversation({ conversation, currentUser, onlineUsers })
             try {
                 const res = await axios.get("http://localhost:7000/client/users/"+recieverId);
                 // console.log(res.data.data)
-                // setReciever(res.data.data)
-                setReciever({...res.data.data, isOnline: false})
+                setReciever(res.data.data)
+                // setReciever({...res.data.data, isOnline: false})
             }catch(err) {
                 console.log(err)
             }
