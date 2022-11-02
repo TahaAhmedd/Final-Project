@@ -1,5 +1,5 @@
 /* Parent */
-.twoSlid .categories .c_one {
+.twoSlidS .categories .c_one {
     list-style: none;
     padding-bottom: 25px;
     padding-top: 10px;
@@ -8,7 +8,7 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.twoSlid .categories .c_one h4 {
+.twoSlidS .categories .c_one h4 {
     border-right: 2px solid var(--main-color);
     border-bottom: 1px solid rgb(0 0 0 / 8%);
     padding-bottom: 15px;
@@ -18,7 +18,7 @@
     font-weight: bold;
 }
 
-.twoSlid .categories .c_one li {
+.twoSlidS .categories .c_one li {
     font-size: 15px;
     padding: 10px 0;
     position: relative;
@@ -27,23 +27,23 @@
 
 }
 
-.twoSlid .categories .c_one li i {
+.twoSlidS .categories .c_one li i {
     color: #555;
     margin-left: 10px;
 }
 
-.twoSlid .categories .c_one li:hover {
+.twoSlidS .categories .c_one li:hover {
 
     padding-right: 10px;
 
 }
 
-.twoSlid .categories .c_one li:not(.c_one li:last-of-type) {
+.twoSlidS .categories .c_one li:not(.c_one li:last-of-type) {
     border-bottom: 1px solid #99999914;
     position: relative;
 }
 
-.twoSlid .categories .c_one li::after {
+.twoSlidS .categories .c_one li::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -54,11 +54,11 @@
     transition: all .5s;
 }
 
-.twoSlid .categories .c_one li:hover::after {
+.twoSlidS .categories .c_one li:hover::after {
     width: 100%;
 }
 
-.twoSlid .categories .c_one li span {
+.twoSlidS .categories .c_one li span {
     position: absolute;
     left: 0;
     padding: 1px 8px;
@@ -67,7 +67,7 @@
     font-size: 11px;
 }
 
-.twoSlid .categories .c_two {
+.twoSlidS .categories .c_two {
     list-style: none;
     padding-bottom: 25px;
     padding-top: 10px;
@@ -77,7 +77,7 @@
 
 }
 
-.twoSlid .categories .c_two h4 {
+.twoSlidS .categories .c_two h4 {
     border-right: 2px solid var(--main-color);
     padding-bottom: 15px;
     padding-top: 10px;
@@ -88,16 +88,16 @@
     font-weight: bold;
 }
 
-.twoSlid .categories .c_two li {
+.twoSlidS .categories .c_two li {
     font-size: 15px;
     padding: 5px 0;
 }
 
-.twoSlid .categories .c_two li label {
+.twoSlidS .categories .c_two li label {
     margin-right: 5px;
 }
 
-.twoSlid .categories .c_three {
+.twoSlidS .categories .c_three {
     list-style: none;
     padding-bottom: 25px;
     padding-top: 10px;
@@ -108,7 +108,7 @@
 
 }
 
-.twoSlid .categories .c_three h4 {
+.twoSlidS .categories .c_three h4 {
     border-right: 2px solid var(--main-color);
     padding-bottom: 15px;
     padding-top: 10px;
@@ -119,7 +119,7 @@
     font-weight: bold;
 }
 
-.twoSlid .categories .c_three h4 span {
+.twoSlidS .categories .c_three h4 span {
 
     position: absolute;
     left: 10px;
@@ -130,21 +130,21 @@
     line-height: 20px;
 }
 
-.twoSlid .categories .c_three li {
+.twoSlidS .categories .c_three li {
     font-size: 15px;
     padding: 5px 0;
     position: relative;
 }
 
-.twoSlid .categories .c_three li input {
+.twoSlidS .categories .c_three li input {
     cursor: pointer;
 }
 
-.twoSlid .categories .c_three li label {
+.twoSlidS .categories .c_three li label {
     margin-right: 5px;
 }
 
-.twoSlid .categories .c_three li i {
+.twoSlidS .categories .c_three li i {
     position: absolute;
     left: 0;
     top: 10px;
@@ -154,34 +154,48 @@
 
 @media (max-width:992px) {
 
-    .twoSlid .categories .c_one li span {
+    .twoSlidS .categories .c_one li span {
         font-size: 10px;
     }
-  
-    .twoSlid .categories .c_one li {
+
+    .twoSlidS .categories .c_one li {
         font-size: 14px;
     }
-    .twoSlid .categories .c_two h4 {
+
+    .twoSlidS .categories .c_two h4 {
         font-size: 13px;
     }
-    .twoSlid .categories .c_two li {
+
+    .twoSlidS .categories .c_two li {
         font-size: 13px;
     }
-    .twoSlid .categories .c_three li {
+
+    .twoSlidS .categories .c_three li {
         font-size: 13px;
     }
-    .twoSlid .categories .c_three h4 {
+
+    .twoSlidS .categories .c_three h4 {
         font-size: 13px;
     }
-    .twoSlid .categories .c_three {
+
+    .twoSlidS .categories .c_three {
         padding-right: 10px;
         padding-left: 15px;
     }
-    .twoSlid .categories .c_two {
+
+    .twoSlidS .categories .c_two {
         padding-right: 10px;
     }
-    .twoSlid .categories .c_one {
+
+    .twoSlidS .categories .c_one {
         padding-right: 15px;
         padding-left: 12px;
     }
+}
+
+@media (max-width:560px) {
+    .twoSlidS .categories .c_one li span {
+        display: none;
+    }
+
 }

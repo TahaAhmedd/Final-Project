@@ -36,7 +36,7 @@ function TwoSlider() {
                   
                 </lord-icon>
               </span>
-              <span>الطلبات</span>
+              <span>الطلبات المقبولة</span>
             </Link>
           </li>
         </ul>

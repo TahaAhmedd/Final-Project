@@ -20,3 +20,21 @@
 .icon_jops button i{
     margin-left: 8px;
 }
+
+/* Media */
+@media (max-width:780px) {
+    .icon_jops{
+        left: -120px;
+    }
+}
+
+@media (max-width:707px) {
+    .icon_jops{
+        left: -111px;
+    }
+}
+@media (max-width:560px) {
+    .icon_jops{
+        left: -95px;
+    }
+}

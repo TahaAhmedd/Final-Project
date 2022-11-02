@@ -14,184 +14,120 @@ function Sidepar(props) {
           <li onClick={()=>fliter("سباك")}>
             <i className="fa-brands fa-pied-piper"></i>
              سباكة
-            <span>10</span>
           </li>
           <li onClick={()=>fliter("نجار")}>
             <i className="fa-solid fa-rug"></i>
             نجارة
-            <span>15</span>
           </li>
           <li onClick={()=>fliter("دهانات")}>
             <i className="fa-solid fa-paint-roller"></i>
             دهانات
-            <span>8</span>
           </li>
           <li onClick={()=>fliter("كهربائي")}>
             <i className="fa-solid fa-bolt"></i>
             كهرباء
-            <span>5</span>
           </li>
           <li onClick={()=>fliter("بناء")}>
             <i className="fa-solid fa-building"></i>
             بناء
-            <span>4</span>
           </li>
           <li onClick={()=>fliter("فني ارضيات")}>
             <i className="fa-solid fa-house-flood-water"></i>
             ارضيات
-            <span>11</span>
           </li>
           <li onClick={()=>fliter("مبيض محارة")}>
             <i className="fa-solid fa-chalkboard"></i>
             مبيض محارة
-            <span>8</span>
           </li>
           <li onClick={()=>fliter("فني تكييف")}>
             <i className="fa-solid fa-fan"></i>
             تكيف
-            <span>10</span>
           </li>
           
         </ul>
 
-        
-        {/* <ul className="c_two">
-          <h4>مستوي العميل </h4>
-          <li>
-            <input
-              type="checkbox"
-              id="trusted_client"
-              name="trusted_client"
-              value="trusted_client"
-            />
-            <label htmlFor="trusted_client">عميل موثوق</label>
-            <br />
-          </li>
-          <li>
-            <input
-              type="checkbox"
-              id="active_client"
-              name="active_client"
-              value="active_client"
-            />
-            <label htmlFor="active_client">عميل نشط</label>
-            <br />
-          </li>
-          <li>
-            <input
-              type="checkbox"
-              id="new_customer"
-              name="new_customer"
-              value="new_customer"
-            />
-            <label htmlFor="new_customer">عميل جديد</label>
-            <br />
-          </li>
-        </ul>
-        <ul className="c_three">
-          <h4>حاله البائع </h4>
-          <li>
-            <input
-              type="checkbox"
-              id="online_now"
-              name="online_now"
-              value="online_now"
-            />
-            <label htmlFor="online_now">متواجد حاليآ</label>
-            <br />
-          </li>
-          <li>
-            <input
-              type="checkbox"
-              id="trusted_identity"
-              name="trusted_identity"
-              value="trusted_identity"
-            />
-            <label htmlFor="trusted_identity">هوية موثوقة</label>
-            <br />
-          </li>
-        </ul> */}
-
+      
+        {/* start Search With Location */}
         <ul className="c_three">
           <h4>تحديد مكان العمل</h4>
           <li onClick={()=>{props.press2('أسوان')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="one"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">أسوان</label>
+            <label htmlFor="one">أسوان</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('أسوان الجديدة')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="two"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">أسوان الجديدة</label>
+            <label htmlFor="two">أسوان الجديدة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('أبو سمبل')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="three"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">أبو سمبل</label>
+            <label htmlFor="three">أبو سمبل</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('دراو')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="four"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">دراو</label>
+            <label htmlFor="four">دراو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('كوم امبو')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="five"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">كوم أمبو</label>
+            <label htmlFor="five">كوم أمبو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('نصر النوبة')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="six"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">نصر النوبة</label>
+            <label htmlFor="six">نصر النوبة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('كلابشة')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="seven"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">كلابشة</label>
+            <label htmlFor="seven">كلابشة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
           <li onClick={()=>{props.press2('أدفو')}}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="eight"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">إدفو</label>
+            <label htmlFor="eight">إدفو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
         </ul>

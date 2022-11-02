@@ -1,14 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+// import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './login.css'
 import { useFormik } from 'formik';
 import { loginSchema } from './LoginSchema'
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import coverLogin from './loginCover.jpeg'
-function Login() {
+import Loader from '../../Loader/Loader'
 
+function Login() {
+    let [err , setErr] = useState(false)
+    let [ loader , setLoader] = useState(true)
     let navigate = useNavigate()
+    useEffect(() => {
+      setTimeout(() => {
+        setLoader(false)
+
+      }, 1000);
+    
+      return () => {
+        setLoader(true)
+      }
+    }, [])
+    
     const loginFormik = useFormik(
         {
             initialValues: {
@@ -20,7 +35,7 @@ function Login() {
                 axios.post("http://localhost:7000/client/signin", values).then((res) => {
                     console.log(res.data.data.rule)
                     if (res.status == 200) {
-                        console.log(res)
+                        // console.log(res)
                         localStorage.setItem("token", res.headers.authorization);
                         localStorage.setItem("snai3yRole", res.data.data.rule);
                         localStorage.setItem("id", res.data.data._id);
@@ -29,9 +44,11 @@ function Login() {
                     }
                     else {
                         console.log("eror")
+                        setErr(true)
                     }
                 }).catch((err) => {
                     console.log(err)
+                    setErr(true)
                 })
             },
 
@@ -43,7 +60,7 @@ function Login() {
     // console.log(loginFormik.values)
     return (
         <>
-            <div className='container parint_login '>
+            {!loader &&<div className='container parint_login '>
 
                 <div className='row'>
                     <div className='col-12 Title_login'>
@@ -62,7 +79,7 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-
+                        {err &&<span className='alert alert-danger p-0 d-flex justify-content-center'>البريد الألكتروني او الباسورد غير صحيح</span>}
                         <div className='row'>
                             <div className='col-12'>
 
@@ -171,8 +188,8 @@ function Login() {
                         <img src={coverLogin} alt='Cover Image' />
                     </div>
                 </div>
-            </div>
-
+            </div>}
+            {loader &&<Loader/>}
         </>
     )
 }

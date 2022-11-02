@@ -22,10 +22,12 @@ import { Pagination, Navigation } from "swiper";
 import Busines_Picture from '../../../images/Profile/n2ash_one.jpg'
 import { useFormik } from 'formik';
 import axios from 'axios';
+import Notfind from '../../notfind/Notfind';
 
 function BusinesFaire() {
         const [open, setOpen] = useState(false);
         const [flag, setFlag] = useState(false);
+        let [errflag, setErrflag] = useState(false)
         const token = localStorage.getItem("token");
         let headers = {
                 'Authorization': token
@@ -47,6 +49,10 @@ function BusinesFaire() {
                                 console.log(res)
                                 if(res.status == 200){
                                         window.location.reload(true)
+                                }
+                        }).catch((err)=>{
+                                if(err){
+                                        setErrflag(true)
                                 }
                         })
 
@@ -73,7 +79,7 @@ function BusinesFaire() {
         return (
                 <>
                         <div className="cardinfo3 col-12" id="worke">
-                                <div className="container">
+                        <div className="container">
                                         <div className="cardinfo3_edit">
                                                 <h3 className="special-header"> معرض الاعمال</h3>
                                                 <div className="edit">
@@ -124,6 +130,7 @@ function BusinesFaire() {
                                                                         <div>
 
                                                                                 <Typography id="modal-desc" textColor="text.tertiary">
+                                                                                {errflag &&<span className="my-4 p-0 d-flex justify-content-center alert alert-danger">هناك خطأ يرجي المحاولة مرة أخري</span>}
                                                                                         <form onSubmit={formik.handleSubmit} className='Add_image_snai3y' encType="multipart/form-data">
                                                                                                 <input type="file" 
                                                                                                         accept='image/*'
@@ -158,7 +165,7 @@ function BusinesFaire() {
 
 
                                         {/* Slider From Swiper Liprary */}
-                                        <Swiper
+                                        {data.length > 0 && <Swiper
                                                 slidesPerView={3}
                                                 spaceBetween={30}
                                                 slidesPerGroup={3}
@@ -168,7 +175,7 @@ function BusinesFaire() {
                                                         clickable: true,
                                                 }}
                                                 navigation={true}
-                                                modules={[Pagination, Navigation]}
+                                                modules={[Navigation]}
                                                 className="mySwiper"
                                         >
                                                 <div className='container '>
@@ -189,10 +196,12 @@ function BusinesFaire() {
                                                         )}
                                                 </div>
 
-                                        </Swiper>
-
+                                        </Swiper>}
+                                        {data.length == 0 &&<Notfind data={"لاتوجد صور حالياً الرجاء إضافة صور"}/>}
                                 </div>
                         </div>
+
+                        
                 </>
         )
 }
@@ -200,24 +209,3 @@ function BusinesFaire() {
 export default BusinesFaire
 
 
-// import React, { useRef, useState } from "react";
-// // Import Swiper React components
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-// // Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import "swiper/css/navigation";
-
-// import "./styles.css";
-
-// // import required modules
-// import { Pagination, Navigation } from "swiper";
-
-// export default function Swiper() {
-//         return (
-//                 <>
-
-//                 </>
-//         );
-// }

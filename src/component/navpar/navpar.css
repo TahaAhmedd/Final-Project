@@ -22,6 +22,7 @@
 .list_navpar a:hover{
     color: #fff;
 }
+
 .list_navpar a{
     position: relative;
     margin: 0 8px;
@@ -123,8 +124,38 @@
 .btn_user:focus{
     background-color: #555;
 }
+.icon_nav_mesage{
+    display: none;
+}
+.login_reg_nav{
+    display: flex;
+}
+.hoverIconNav :hover{
+    border-bottom: 1px solid var(--main-color);
+}
     /* /* media  */
-/*
-@media (max-width:991) {
+
+@media (max-width:576px) {
+    .chat_notif{
+        justify-content: center;
+    }
     
-} */
+}
+
+@media (max-width:991px) {
+    .icon_nav_mesage{
+        display: inline-block;
+    }
+    .icon_nav_mesage .slot{
+        margin-left: 5px;
+    }
+    .list_navpar a{
+        margin: 0;
+    }
+    .login_reg_nav{
+        display: none !important;
+    }
+    .navbar_project ul li {
+        margin-bottom: 10px;
+    }
+}

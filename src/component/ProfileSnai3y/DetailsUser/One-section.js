@@ -15,7 +15,7 @@ function OneSection() {
 
   let token = localStorage.getItem("token")
   let role = localStorage.getItem("snai3yRole")
-  let [flag, setFlag] = useState(false)
+  let [errflag, setErrflag] = useState(false)
 
   let Profile = useSelector(state => state.Snai3yReducer.data) // redux for snai3y Data
 
@@ -39,6 +39,10 @@ function OneSection() {
             // console.log(res)
             // setFlag(true)
             window.location.reload(true)
+          }
+        }).catch((err)=>{
+          if(err){
+            setErrflag(true)
           }
         })
 
@@ -107,11 +111,14 @@ function OneSection() {
                       mb={1}
                       className="titleForm_Snai3y"
                     >
-                      أضافة صور من أعمالك
+                      أضف صورتك الشخصية
                     </Typography>
                     <div>
 
                       <Typography id="modal-desc" textColor="text.tertiary">
+
+                        {errflag &&<span className="my-4 p-0 d-flex justify-content-center alert alert-danger">هناك خطأ يرجي المحاولة مرة أخري</span>}
+
                         <form onSubmit={formik.handleSubmit} className='Add_image_snai3y' encType="multipart/form-data">
                           <input type="file"
                             accept='image/*'
@@ -126,7 +133,7 @@ function OneSection() {
                           
                           <div className='w-100 mt-3 text-start'>
 
-                            <button type='submit' >إضافة</button>
+                            <button type='submit' disabled={!formik.isValid}>إضافة</button>
                           </div>
                         </form>
                       </Typography>

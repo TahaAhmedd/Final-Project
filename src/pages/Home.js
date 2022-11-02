@@ -3,62 +3,88 @@ import Posts from "../component/Home/Posts/posts";
 import HeaderHome from "../component/Home/Header/Headerhome";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import Notfind from "../component/notfind/Notfind";
+import Loader from "../component/Loader/Loader";
 function Home() {
 
   const [data, setData] = useState([]);
-  const[alldata,setAll]=useState([])
-
-  const[flag,setFlag]=useState(false);
+  const [alldata, setAll] = useState([])
+  const [loader, setLoader] = useState(true)
+  const [flag, setFlag] = useState(false);
+  console.log(alldata)
   useEffect(() => {
 
     axios.get("http://localhost:7000/jobs/all").then(
-      (result)=>{
+      (result) => {
         let res = result.data.data;
-        // console.log(res)
-        setAll([...res]);
-        setData([...res])
+        // console.log(res.data)
+        res = res.filter((item)=> item.status != "in progress")
+        setTimeout(() => {
+          
+          setLoader(false)
+          setAll([...res]);
+          setData([...res])
+          
+        }, 1000)
       }
-      )
-      // console.log(date)
-    }, []);
+    )
+    return () => {
+      // Side-effect cleanup...
 
-    function fliterCategory(type)
-    {
-    
-      var arrr=alldata.filter((item)=>item.category==type)
+      setLoader(true)
+    };
+
+  }, []);
+
+  function fliterCategory(type) {
+
+    var arrr = alldata.filter((item) => item.category == type)
+    setData([...arrr]);
+    setFlag(true);
+  }
+  function fliterAddress(add) {
+    if (flag) {
+      var arrr = data.filter((item) => item.city == add)
       setData([...arrr]);
-      setFlag(true);
     }
-    function fliterAddress(add)
-    {
-      if(flag)
-      {
-        var arrr=data.filter((item)=>item.city==add)
-        setData([...arrr]);
-      }
-      else
-      {
-        var arrr=alldata.filter((item)=>item.city==add)
-        setData([...arrr]);
-      }
+    else {
+      var arrr = alldata.filter((item) => item.city == add)
+      setData([...arrr]);
+    }
 
+  }
+
+
+  function search(type) {
+    let arr = alldata.filter((item) => {
+      return item.description.includes(type) || item.title.includes(type) || item.category.includes(type) ||
+      item.city.includes(type)
     }
+    )
+    setData([...arr])
+  }
+
+  useEffect(() => { }, [data])
 
 
   return (
     <>
-      <HeaderHome />
+      {/* {console.log(data)} */}
+      {!loader && <HeaderHome data={search} />}
 
       <div className="container">
 
         <div className="row">
           <div className="col-md-3">
-            <Sidepar  press={fliterCategory} press2={fliterAddress}/>
+            {!loader && <Sidepar press={fliterCategory} press2={fliterAddress} />}
           </div>
 
           <div className="col-md-9 twoBody">
-              <Posts  datas={data}/>
+            {!loader && data.length > 0 &&  <Posts datas={data} />}
+            {!loader && data.length == 0 && 
+            <div>
+              <Notfind data={"لايوجد طلبات مقدمة حاليا"} />
+            </div>}
           </div>
         </div>
 
@@ -70,6 +96,9 @@ function Home() {
 
 
       </div>
+
+
+      {loader && <Loader />}
     </>
   );
 }

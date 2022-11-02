@@ -1,19 +1,19 @@
 import "./posts.css";
-import img from "../../../images/home/postOne.jpg";
-import prfile from "../../../images/home/abdelhafez.jpg";
 import { useState, useEffect } from "react";
 import dateFormat, { masks } from "dateformat";
-import { Formik, useFormik } from "formik";
-import * as yup from "yup";
 import axios from "axios";
+import { NavLink, useLocation } from "react-router-dom";
+
 function Posts({ datas }) {
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
   const [data, setData] = useState(datas)
-  // console.log(data)
+  // console.log(datas)
   useEffect(() => {
     setData(datas)
   }, [datas])
+
+  
   
   // Hidden of jops
   function showAndHidden(index) {
@@ -22,7 +22,7 @@ function Posts({ datas }) {
   }
   // Function Delete Post
   function delet(id) {
-    setData((prev) => prev.filter((item) => item.id != id));
+    setData((prev) => prev.filter((item) => item._id != id));
   }
 
   const [dis , setDis] = useState("")
@@ -42,7 +42,11 @@ function Posts({ datas }) {
     console.log(body)
     axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
     .then(res=>{
-      console.log(res)
+      // console.log(res.data.Data)
+      if(res.status == 200){
+        window.location.reload(true)
+        
+      }
     })
   }
   return (
@@ -51,38 +55,27 @@ function Posts({ datas }) {
         <div className="post" key={index}>
           <div className="bolets">
             {/* Button Toggle Bettwen False And True  */}
-            <span className="one" onClick={() => showAndHidden(index)}>
-              <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
+            <span className="one" onClick={() => delet(data._id)}>
+            <i className="fa-solid fa-xmark"></i>
             </span>
           </div>
 
-          {/* Show And Hidden With Button  */}
-          {data.show && (
-            <div className="popup hidd">
-              <span>
-                <i className="fa-regular fa-floppy-disk"></i>حفظ المنشور
-              </span>
-              <span>
-                <i className="fa-regular fa-flag"></i>ابلاغ عن المنشور
-              </span>
+          
+            <NavLink to={`/showprofileC/${data.clientData._id}`}>
 
-              <span onClick={() => delet(data._id)}>
-                <i className="fa-regular fa-eye"></i>اخفاء المنشور
-              </span>
-            </div>
-          )}
+              <div className="img_name" style={{color:"#000"}}>
+                <div className="images">
+                  <img src={data.clientData.img} alt="" />
+                </div>
 
-          <div className="img_name">
-            <div className="images">
-              <img src={prfile} alt="" />
-            </div>
+                <div className="name">
+                  <span>{`${data.clientData.firstName} ${data.clientData.lastName}`}</span>
+                  <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
+                  {/* <span>{data.adressuder}</span> */}
+                </div>
+              </div>
+            </NavLink>
 
-            <div className="name">
-              <span>{`${data.firstName} ${data.lastName}`}</span>
-              <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
-              {/* <span>{data.adressuder}</span> */}
-            </div>
-          </div>
 
           <div
             className="app_di_img"
@@ -91,7 +84,8 @@ function Posts({ datas }) {
           >
             <div className="row p-2 ">
               <div className="dis">
-                <p>{data.description} </p>
+                <strong>{data.title} </strong>
+                <p>{data.description}</p>
                 <p>
                   <strong>العنوان : </strong>
                   {data.city}
@@ -218,46 +212,39 @@ function Posts({ datas }) {
                 <div className="modal-body">
                   {/* data Snai3y In Details */}
                   <div className="some_edit_about_snai3y">
-                    <div className="row">
-                      <div className="col-1">
+                    <div className="d-flex">
+
+                      <div className="ms-2">
                         <div className="edit_image_about_job">
-                          <img src={prfile} />
+                          <img src={data.clientData.img} />
                         </div>
                       </div>
 
-                      <div className="col-5 p-0">
+                      <div className="col-5">
                         <div className="edit_data_about_job">
-                          <h5>{`${data.firstName} ${data.lastName}`}</h5>
-                          <p>اسوان</p>
+                          <h5>{`${data.clientData.firstName} ${data.clientData.lastName}`}</h5>
+                          <p>{data.clientData.address}</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="row">
-                    <div className="card p-0 ">
-                      <div className=" g-0 px-3 py-2">
-                        <div className="col-md-8">
+                        <div className="col-md-6 ">
                           <div className="card-body">
-                            <h5 className="card-title">{data.title}</h5>
+                          <strong className="m-0 mt-3">عنوان الطلب : </strong>
+                            <h5 className="card-title">{`${data.title}`}</h5>
+                            <br/>
+                            <strong className="m-0 mt-5">وصف الطلب :</strong>
                             <p className="card-text">
-                              {data.description}
+                              {`${data.description}`}
                             </p>
                           </div>
                         </div>
 
-                        <div className="col-md-4">
-                          <div className="row">
-                            <div className="col-6">
-                              <img className="img-thumbnail" src={data.images[0]} alt="" />
-                            </div>
-                            {/* <div className="col-6">
-                              <img className="img-thumbnail" src={data.images} alt="" />
-                            </div> */}
-                          </div>
+                        <div className="col-md-6">
+                              <img className="img-thumbnail" src={data.image} alt="image talap" />
                         </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 

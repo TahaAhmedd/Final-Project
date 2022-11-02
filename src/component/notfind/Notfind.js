@@ -1,10 +1,11 @@
 import React from 'react'
 import "./Notfind.css"
-function Notfind() {
+function Notfind({data}) {
   return (
     <div className='notfind'>
-        <img src={require('../../images/notfind/search.png')}/>
-        <p>لا يوجد طلبات مقدمة حاليا</p>
+        {/* <p>لا يوجد طلبات مقدمة حاليا</p> */}
+        <p>{data}</p>
+        <img src={require('../../images/notfind/search.jpg')}/>
     </div>
   )
 }

@@ -1,39 +1,36 @@
 import React, { useState } from 'react'
 import './ClintCard.css'
-
+import { NavLink } from 'react-router-dom'
 import dateFormat from "dateformat";
 function ClintCard({ datas }) {
-    let [data , setData] = useState(datas)
+    let [data, setData] = useState(datas)
     return (
         <>
-            <div className='parent_card'>
+            <NavLink to={`/showprofile/${data._id}`} style={{color:"black"}}>
+            <div className='parent_card mb-4 p-3' style={{backgroundColor:"#fff"}}>
                 <div className='row'>
-                    <div className='col-lg-3 col-md-6 col-sm-12'>
-                        <img src={data.img} alt="snai3y photo" style={{ width: "100%", height: "100%" }} />
+                    <div className='col-lg-4 col-md-6 col-sm-12'>
+                        <img src={data.img} alt="snai3y photo" style={{ width: "100%"}} />
                     </div>
-                    <div className='col-lg-9 col-md-6 col-sm-12 snai3y_content'>
+                    <div className='col-lg-8 col-md-6 col-sm-12 snai3y_content'>
 
                         {/* Name  */}
-                        <h2>
-                            <i className=
-                            // Snai3y Status
-                            {`fa-solid fa-o ${data.status == "free"? "snai3y_status": "" }`} 
-                            
-                            style={{fontSize:"20px"}}></i>
+                        <h2 style={{borderRight:"2px solid #ffb200" , paddingRight:"10px"}}>
+                            {/* <i className=
+                                // Snai3y Status
+                                {`fa-solid fa-o ${data.status == "free" ? "snai3y_status" : ""}`}
+
+                                style={{ fontSize: "20px" }}></i> */}
                             {`${data.firstName} ${data.lastName}`}
                         </h2>
-
-                        <small>
-                            
-                        </small>
                         {/* Date  */}
                         <small>
-                        <i className="fa-solid fa-clock" style={{fontSize:"18px"}}></i>
-                            {dateFormat(data.joinedDate,"mmmm dS, yyyy , h:MM  TT")}
+                            <i className="fa-solid fa-clock" style={{ fontSize: "18px" }}></i>
+                            {dateFormat(data.joinedDate, "mmmm dS, yyyy , h:MM  TT")}
                         </small>
 
                         {/* address */}
-                        <p style={{marginTop:"10px"}}>
+                        <p style={{ marginTop: "10px" }}>
 
                             <lord-icon
                                 src="https://cdn.lordicon.com/zzcjjxew.json"
@@ -46,7 +43,7 @@ function ClintCard({ datas }) {
 
                         {/* gender  */}
                         <small className='snai3y_gender'>{data.gender}</small>
-                        <hr/>
+                        <hr />
                         {/* Skills */}
                         <div className='row'>
                             <div className=' col-12'>
@@ -58,6 +55,7 @@ function ClintCard({ datas }) {
                     </div>
                 </div>
             </div>
+        </NavLink>
         </>
     )
 }
