@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 /* eslint-disable no-unused-vars */
 import './App.css';
 
@@ -23,6 +24,7 @@ import ProfilesClients from './pages/ProfilesClients';
 import { getDataClient } from './Redux/Slices/ClientReducer';
 import { useDispatch } from 'react-redux';
 import { getSnai3y } from './Redux/Slices/Snai3yReducer';
+import { getUserData } from './Redux/Slices/userReducer';
 
 function App() {
   let [scroll, setScroll] = useState()
@@ -33,7 +35,8 @@ function App() {
     // Get Client By Id    
     dispatch(getDataClient())
     dispatch(getSnai3y())
-  }, []);
+    dispatch(getUserData())
+  }, [dispatch]);
 
 
   return (
@@ -55,7 +58,7 @@ function App() {
 
         <Route path='/profileC' element={<AuthGuard><ProfilesClients /></AuthGuard>}></Route>
         <Route path='/home' element={<AuthGuard><Home /></AuthGuard>} />
-        <Route path='/chat' element={<AuthGuard><Chat /></AuthGuard>} />
+        <Route path='/chat' element={<AuthGuard><Messenger /></AuthGuard>} />
         <Route path='/allsnai3y' element={<Snai3yCardPage />} />
         <Route path='/addjops' element={<Addjops />} />
         <Route path='/regiser' element={<Register />} />

@@ -1,67 +1,120 @@
-
 .chats {
     /* background-color:var(--main-color); */
     margin: 100px 0;
+    height: 65vh;
 }
-.chats .container .res-wid{
-    display: grid;
-   grid-template-columns:auto  auto;
-   
+
+.chats .container {
+    height: 65vh;
 }
-/* right-chat */
-/* .right-ch {} */
-.right-ch .back-sec1{
-    background-color: white;
+
+.res-wid {
+    height: 65vh;
+    width: 100%;
+    margin-top: 100px;
+    display: flex;
+    /* display: grid; */
+    padding: 0 50px;
+    grid-template-columns: auto auto;
 
 }
-.right-ch .back-sec1 .sec1 p{
-    font-size: 1rem;
-   margin: 15px;
+
+/* right-chat */
+/* .right-ch {} */
+.noConversation {
+    font-size: 100px;
+    text-align: left;
+    color: rgba(223, 215, 215, 0.674);
 }
-.right-ch .back-sec1 .sec1{
+
+.right-ch .left-ch {
+    height: 100%;
+}
+
+.right-ch {
+    /* width: 100%; */
+    width: 70%;
+}
+
+.left-ch {
+    /* width: 100%; */
+    width: 30%;
+}
+
+.right-ch .back-sec1 {
+    background-color: white;
+    height: 15%;
+
+
+}
+
+.right-ch .back-sec1 .sec1 p {
+    font-size: 1rem;
+    margin: 15px;
+}
+
+.right-ch .back-sec1 .sec1 {
+    height: 100%;
     display: flex;
     box-shadow: 0px 15px 10px -15px #111;
     padding: 10px 0;
-    border-bottom:1px solid #2c3e50;
+    border-bottom: 1px solid #2c3e50;
 }
-.right-ch .back-sec1 .sec1 img{
+
+.right-ch .back-sec1 .sec1 img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    
+
 }
+
 /* main chat */
-.messages ul{
+
+.messages.scrols {
+    height: 90%;
+}
+
+.messages ul {
     background-color: white;
     padding: 20px;
     margin-bottom: 0 !important;
+    height: 70%;
 }
-.messages ul .sent img,ul .replies img{
+
+.messages ul .sent img,
+ul .replies img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 
-li{
-   list-style:  none;
+li {
+    list-style: none;
 }
+
 .messages ul li {
     display: flex;
 }
-.messages ul .sent{
+
+.messages ul .sent {
+    direction: rtl;
+
+}
+.messages ul .replies {
     direction: ltr;
 
 }
-.messages ul li small{
+
+.messages ul li small {
     display: block;
     font-weight: 100;
     font-size: 13px;
     position: relative;
     bottom: -8px;
 }
-.messages ul .sent p{
-    background-color: #4338ca;
-    color: white;
+
+.messages ul .replies p {
+    background-color: #f5f5f5;
     padding: 10px;
     border-radius: 7px;
     margin-left: 7px;
@@ -71,76 +124,98 @@ li{
     line-height: 24px;
     margin-bottom: 15px;
 }
-.messages ul .replies p{
-    background-color: #f5f5f5;
-   margin-right: 7px;
-   margin-bottom: 15px;
-   font-size: .9rem;
+
+.messages ul .sent p {
+    background-color: #4338ca;
+    color: white;
+    margin-right: 7px;
+    margin-bottom: 15px;
+    font-size: .9rem;
     padding: 10px;
     border-radius: 7px;
     width: 300px;
     word-spacing: 2px;
     line-height: 24px;
-    
+
 }
-.right-ch .sec3{
+
+.messages ul .sent small {
+    direction: ltr;
+}
+
+.right-ch .sec3 {
     background-color: #f5f5f5;
     /* padding: 5px 0; */
     display: flex;
+    height: 20%;
     justify-content: space-between;
     border-top: 1px solid;
     /* padding-top: 3px; */
 }
-.right-ch .sec3 input:first-child{
+
+.right-ch .sec3 textarea {
     font-size: 1rem;
     padding: 5px;
     width: 85%;
+    /* height: 30%; */
     border-radius: 6px;
     border: none;
     margin-right: 3px;
-    
+    overflow: scroll;
+
 }
-.right-ch .sec3 input:first-child:focus{
+
+.right-ch .sec3 input:first-child:focus {
     outline-color: #4338ca;
 }
+
 .right-ch .sec3 div {
     display: flex;
 }
-.right-ch .sec3 div div input{
+
+/* .right-ch .sec3 input {
+    overflow: scroll;
+} */
+.right-ch .sec3 div div input {
     display: none;
-    
+
 }
-.right-ch .sec3 div div label i{
+
+.right-ch .sec3 div div label i {
     margin-left: 10px;
     cursor: pointer;
     font-size: 1.4rem;
     opacity: .5;
     padding-top: .5rem;
-    padding-right:10px ;
+    padding-right: 10px;
 }
-.right-ch .sec3 div div label i:hover{
+
+.right-ch .sec3 div div label i:hover {
     opacity: 1;
 }
-.right-ch .sec3 button{
+
+.right-ch .sec3 button {
     background-color: #2c3e50;
     padding: 10px 15px;
     border: none;
     cursor: pointer;
-    border-left:1px solid #000000;
-    
+    border-left: 1px solid #000000;
+
 }
-.right-ch .sec3 button i{
+
+.right-ch .sec3 button i {
     font-size: 1rem;
     color: #f5f5f5c8;
 }
-.right-ch .messages{
+
+.right-ch .messages {
     max-height: 83vh;
     overflow-y: auto;
 }
 
 /* left-chat */
 
-.left-ch{
+.left-ch {
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -148,39 +223,54 @@ li{
     color: #f5f5f5;
     /* max-height: 100vh; */
     overflow-y: auto;
+    height: 125%;
 }
-.left-ch .messages{
-    max-height: 83vh;
+
+.left-ch .messages {
+    /* max-height: 83vh; */
+    /* height: 100%; */
     overflow-y: auto;
 }
-.left-ch .search-chat{
-   padding-top: 28px;
+
+.left-ch div.messages {
+    /* max-height: 83vh; */
+    height: 100%;
+    overflow-y: auto;
 }
-.left-ch .search-chat input{
-    background:none;
+
+.left-ch .search-chat {
+    /* padding-top: 28px; */
+    height: 10%;
+}
+
+.left-ch .search-chat input {
+    background: none;
     border: none;
     font-size: 1rem;
     padding-right: 10px;
-    
+
 }
-.left-ch .search-chat input::placeholder{
+
+.left-ch .search-chat input::placeholder {
     color: #f5f5f5;
 
 }
-.left-ch div{
+
+.left-ch div {
     box-shadow: 0px 10px 13px -15px #111;
-    margin: 10px 0;
-    padding:  10px;
-    padding-bottom: 0px;
+    margin: 0px 0;
+    padding-right: 4px;
     position: relative;
-    
+
 }
-.left-ch .scrols img{
+
+.left-ch .scrols img {
     width: 60px;
     height: 60px;
     border-radius: 60px;
     cursor: pointer;
 }
+
 .chatOnline {
     background-color: green;
     height: 20px;
@@ -191,83 +281,94 @@ li{
     top: -57px;
     /* right: 0px; */
 }
-.left-ch div h3{
+
+.left-ch div h3 {
     display: inline-block;
     font-size: 1.3rem;
     cursor: pointer;
 }
-.left-ch div p{
+
+.left-ch div p {
     margin: 5px 0;
     font-size: .9rem;
 }
+
 /* scrollbar style */
 .scrols::-webkit-scrollbar {
     width: 20px;
     background-color: #f5f5f5;
-  }
+}
 
-  
+
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+    box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--main-color); 
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #30278f; 
-  }
-
-@media (min-width: 576px)
-{
-   
-
-.left-ch div img{
-    height: 30px;
-    width: 30px;
 }
 
+::-webkit-scrollbar-thumb {
+    background: var(--main-color);
+    border-radius: 10px;
 }
 
+::-webkit-scrollbar-thumb:hover {
+    background: #30278f;
+}
+
+@media (min-width: 576px) {
 
 
-@media (max-width: 768px)
-{
-        .scrols {
-            overflow:hidden;
-        }
-        .chats .container{
-            /* max-width: 90vw ; */
-          
-            /* margin-right: 0 !important; */
-        }
-        .right-ch{
-            /* width: 80vw; */
-          
-        }
-        .left-ch{
-         
-           /* height: 100%; */
-         /* overflow-y: initial; */
-         width: fit-content;
-
-        }
-        .left-ch .search-chat{
-            display: none;
-        }
-        .left-ch div p ,.left-ch div h3{
-            display: none;
-        }
-        .left-ch div img{
-            height: 50px;
-            width: 50px;
-        }
-        .messages ul .replies ,.messages ul .sent{
-            width:50vw;
-       
-        }
-       
-    
+    .left-ch div img {
+        height: 30px;
+        width: 30px;
     }
-    
+
+}
+
+
+
+@media (max-width: 768px) {
+    .scrols {
+        overflow: hidden;
+    }
+
+    .chats .container {
+        /* max-width: 90vw ; */
+
+        /* margin-right: 0 !important; */
+    }
+
+    .right-ch {
+        /* width: 80vw; */
+
+    }
+
+    .left-ch {
+
+        /* height: 100%; */
+        /* overflow-y: initial; */
+        width: fit-content;
+
+    }
+
+    .left-ch .search-chat {
+        display: none;
+    }
+
+    .left-ch div p,
+    .left-ch div h3 {
+        display: none;
+    }
+
+    .left-ch div img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .messages ul .replies,
+    .messages ul .sent {
+        width: 50vw;
+
+    }
+
+
+}
