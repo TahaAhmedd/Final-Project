@@ -4,7 +4,7 @@ import Landing from './pages/Landing';
 import Navpar from './component/navpar/Navpar';
 import Footer from './component/footer/Footer';
 import Register from './component/Account/Register/Register';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import AuthGuard from './component/Guard/AuthGuard';
 import Login from './component/Account/Login/Login';
 import Home from './pages/Home';
@@ -37,7 +37,7 @@ function App() {
     dispatch(getSnai3y())
   }, []);
 
-
+  let location = useLocation()
   return (
     <>
       <Navpar />
@@ -68,7 +68,7 @@ function App() {
         <Route path='/*' element={<Notfound />} />
       </Routes>
       {scroll > 400 && <Totop />}
-      <Footer />
+      {location.pathname != "/chat" && <Footer />}
 
       
     </>

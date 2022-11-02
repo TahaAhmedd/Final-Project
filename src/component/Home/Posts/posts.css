@@ -65,7 +65,7 @@
 }
 .post .img_name .name span:first-of-type {
     font-weight: 600;
-    font-size: 13px;
+    font-size: 15px;
     padding-bottom: 5px;
 }
 .post .img_name .name span:nth-of-type(2) {
@@ -234,8 +234,6 @@
 
 }
 
-
-
 .edit_header {
     background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF);
     color: #000;
@@ -304,7 +302,4 @@
     color: #000;
 }
 
-.edit_footer_job {
-    
-}
 

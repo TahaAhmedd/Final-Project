@@ -15,12 +15,10 @@
     
 }
 .one .tittle_page h1 {
-    color: #555;
+    color: #000;
     font-weight: bold;
 }
-.one .tittle_page h2 {
-  color:  #0000007a
-}
+
 .one .tittle_page h2::first-letter {
     color: var(--main-color);
  

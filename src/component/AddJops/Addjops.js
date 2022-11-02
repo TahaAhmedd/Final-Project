@@ -9,9 +9,6 @@ function Addjops() {
     
     let navigate = useNavigate() 
 
-    const [values, setValues] = useState({});
-    const [file, setFile] = useState([]);
-
     // token of clint
     let token = localStorage.getItem("token");
     // headers
@@ -63,26 +60,13 @@ function Addjops() {
             });
         },
     });
-    //   var imagearr = [];
-    //   const uploadimage = (e) => {
-    //     console.log("zzzzz");
-    //     if (e.target.files && e.target.files.length > 0) {
-    //       setFile(URL.createObjectURL( e.target.files[0]));
-    //       console.log(e.target.files[0].name);
-
-    //     }
-    //   };
     return (
         <>
             <main className="form_Addjops">
-                <div className="container">
+                <div className="container parent_AddJop">
                     <form method="post" onSubmit={formik.handleSubmit} encType="multipart/form-data">
                         <h2 className="Title_Addjops">أضف مشكلتك</h2>
-
-
-
-
-                        <div className="detail-addr" >
+                        <div className="detail-addr w-100" >
                             <label htmlFor="title">عنوان الوظيفة</label>
                             <input
                                 type="text"
@@ -134,38 +118,6 @@ function Addjops() {
                             ) : null}
                         </div>
 
-                        {/* 
-        <div className="price">
-            <div className="cost-day">
-                <label htmlFor="cost">السعر</label>
-                <input
-                    type="text"
-                    name="cost"
-                    id="cost"
-                    {...formik.getFieldProps('cost')}
-                    placeholder="السعر"
-                />
-                {formik.touched.cost && formik.errors.cost ? (
-                    <div style={{ color: "red" }}>{formik.errors.cost}</div>
-                ) : null}
-            </div>
-
-
-            <div className="main-cost">
-                <label htmlFor="days">مدة التسليم</label>
-                <input
-                    type="text"
-                    name="days"
-                    {...formik.getFieldProps('days')}
-                    id="days"
-                    placeholder="مدة التسليم"
-                />
-                {formik.touched.days && formik.errors.days ? (
-                    <div style={{ color: "red" }}>{formik.errors.days}</div>
-                ) : null}
-            </div>
-        </div> */}
-
                         <div className="parent-addr">
                             <div className="main-addr">
                                 <label htmlFor="city" name="اختر مدينتك">
@@ -204,18 +156,18 @@ function Addjops() {
                                 ) : null}
                             </div>
 
-                            <div className="">
-                                {/* <label htmlFor="upload-files" className="">
-                                    <i className="fa fa-download fs-5 " aria-hidden="true">
+                            <div className="d-flex">
+                                <label htmlFor="upload-files" className=" btn btn-outline-secondary ">
+                                    <i className="fa fa-download " aria-hidden="true">
                                         اضف صورة
                                     </i>
-                                </label> */}
+                                </label>
 
                                 <input
                                     type="file"
                                     {...formik.getFieldProps("jobImage")}
                                     //   onChange={uploadimage}
-                                    // style={{ display: "none" }}
+                                    style={{ display: "none" }}
                                     name="jobImage"
                                     defaultValue="upload"
                                     id="upload-files"
@@ -241,8 +193,9 @@ function Addjops() {
 
 
 
-
+                        <div className="d-flex justify-content-center">
                         <button type="submit" id="submit" >اضف حرفتك</button>
+                        </div>
                     </form>
                 </div>
             </main>
