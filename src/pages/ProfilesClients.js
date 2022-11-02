@@ -17,7 +17,7 @@ function ProfilesClients() {
   let token = localStorage.getItem("token");
 
   const Profile = useSelector((state) => state.ClientReducer.clintdata);
-  console.log(Profile)
+  // console.log(Profile)
   // Formik in use add profile pictchre
   const formik = useFormik({
     initialValues: {
@@ -197,8 +197,11 @@ function ProfilesClients() {
             </div>
           )}
         </div>
-
-        {Profile && <TalpatSending />}
+        <div style={{backgroundColor:"#eee" ,marginTop:"50px"}}>
+          
+          <TalpatSending />
+          
+        </div>
       </div>
     </>
   );

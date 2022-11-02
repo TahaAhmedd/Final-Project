@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from "swiper";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Notfind from '../notfind/Notfind';
 
 function Showprofile(props) {
 
@@ -80,13 +81,13 @@ function Showprofile(props) {
       <div className='container'>
         <div className="cardinfo3 col-12" id="worke">
           <div className="container">
-            <div className="cardinfo3_edit">
+            <div className="cardinfo3_edit justify-content-center">
               <h3 className="special-header text-center"> معرض الاعمال</h3>
             </div>
 
 
             {/* Slider From Swiper Liprary */}
-            <Swiper
+           {photo.length > 0 && <Swiper
               slidesPerView={3}
               spaceBetween={30}
               slidesPerGroup={3}
@@ -120,8 +121,8 @@ function Showprofile(props) {
               )}
 
 
-            </Swiper>
-
+            </Swiper>}
+              { photo.length == 0 &&<Notfind data={"لايوجد صور حاليا"}/>}
           </div>
         </div>
       </div>

@@ -1,13 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './login.css'
 import { useFormik } from 'formik';
 import { loginSchema } from './LoginSchema'
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import coverLogin from './loginCover.jpeg'
+import Loader from '../../Loader/Loader'
+
 function Login() {
     let [err , setErr] = useState(false)
+    let [ loader , setLoader] = useState(true)
     let navigate = useNavigate()
+    useEffect(() => {
+      setTimeout(() => {
+        setLoader(false)
+
+      }, 1000);
+    
+      return () => {
+        setLoader(true)
+      }
+    }, [])
+    
     const loginFormik = useFormik(
         {
             initialValues: {
@@ -44,7 +58,7 @@ function Login() {
     // console.log(loginFormik.values)
     return (
         <>
-            <div className='container parint_login '>
+            {!loader &&<div className='container parint_login '>
 
                 <div className='row'>
                     <div className='col-12 Title_login'>
@@ -172,8 +186,8 @@ function Login() {
                         <img src={coverLogin} alt='Cover Image' />
                     </div>
                 </div>
-            </div>
-
+            </div>}
+            {loader &&<Loader/>}
         </>
     )
 }

@@ -101,7 +101,7 @@ function TalpatSending() {
       });
   }, []);
 
-  console.log(Job);
+  // console.log(Job);
 
   // Show And Hidden Box Option Up And Remove In DataBase
   function compareId(i) {

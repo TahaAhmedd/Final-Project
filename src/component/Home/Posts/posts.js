@@ -226,14 +226,14 @@ function Posts({ datas }) {
                     <div className="row">
                       <div className="col-1">
                         <div className="edit_image_about_job">
-                          <img src={prfile} />
+                          <img src={data.clientData.img} />
                         </div>
                       </div>
 
                       <div className="col-5 p-0">
                         <div className="edit_data_about_job">
-                          <h5>{`${data.firstName} ${data.lastName}`}</h5>
-                          <p>اسوان</p>
+                          <h5>{`${data.clientData.firstName} ${data.clientData.lastName}`}</h5>
+                          <p>{data.clientData.address}</p>
                         </div>
                       </div>
                     </div>
@@ -242,7 +242,7 @@ function Posts({ datas }) {
                   <div className="row">
                     <div className="card p-0 ">
                       <div className=" g-0 px-3 py-2">
-                        <div className="col-md-8">
+                        <div className="col-md-8 col-8">
                           <div className="card-body">
                             <h5 className="card-title">{data.title}</h5>
                             <p className="card-text">
@@ -251,10 +251,10 @@ function Posts({ datas }) {
                           </div>
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-md-4 col-4">
                           <div className="row">
                             <div className="col-6">
-                              <img className="img-thumbnail" src={data.images} alt="" />
+                              <img className="img-thumbnail" src={data.image} alt="" />
                             </div>
                             {/* <div className="col-6">
                               <img className="img-thumbnail" src={data.images} alt="" />
