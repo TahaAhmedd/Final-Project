@@ -2,7 +2,7 @@ import "./Snai3ySidepar.css";
 
 function Snai3ySidepar(props) {
   return (
-    <div className="twoSlid">
+    <div className="twoSlidS">
       <div className="categories">
         <ul className="c_one">
           <h4>الاقسام</h4>

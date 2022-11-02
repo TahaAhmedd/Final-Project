@@ -36,7 +36,7 @@ function HeaderHome(props) {
                   type="text"
                   id="#"
                   onChange={inputval}
-                  placeholder="نوع المشكلة اللتي تواجهك"
+                  placeholder="البحث بعنوان المشكلة"
                 />
                   <lord-icon
                     src="https://cdn.lordicon.com/xfftupfv.json"
