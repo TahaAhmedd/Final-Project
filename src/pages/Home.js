@@ -11,28 +11,27 @@ function Home() {
   const [alldata, setAll] = useState([])
   const [loader, setLoader] = useState(true)
   const [flag, setFlag] = useState(false);
+
   useEffect(() => {
 
     axios.get("http://localhost:7000/jobs/all").then(
       (result) => {
         let res = result.data.data;
-        console.log(res)
-        // if(result.status == 200){
-          setTimeout(()=>{
-            
-            setLoader(false)
-            setAll([...res]);
-            setData([...res])
-            // console.log("sadshdih")
-          },1000)
-        }
-        )
-        return ()=> {
-          // Side-effect cleanup...
-          // console.log("mount Home")
-          setLoader(true)
-        };
-    // console.log(date)
+        setTimeout(() => {
+          
+          setLoader(false)
+          setAll([...res]);
+          setData([...res])
+          
+        }, 1000)
+      }
+    )
+    return () => {
+      // Side-effect cleanup...
+
+      setLoader(true)
+    };
+
   }, []);
 
   function fliterCategory(type) {
@@ -78,8 +77,11 @@ function Home() {
           </div>
 
           <div className="col-md-9 twoBody">
-            {!loader && <Posts datas={data} />}
-            {!loader && data.length == 0 && <Notfind />}
+            {!loader && data.length > 0 &&  <Posts datas={data} />}
+            {!loader && data.length == 0 && 
+            <div>
+              <Notfind data={"لايوجد طلبات مقدمة حاليا"} />
+            </div>}
           </div>
         </div>
 
@@ -92,8 +94,8 @@ function Home() {
 
       </div>
 
-        
-        {loader && <Loader />}
+
+      {loader && <Loader />}
     </>
   );
 }

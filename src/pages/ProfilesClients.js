@@ -197,8 +197,11 @@ function ProfilesClients() {
             </div>
           )}
         </div>
-
-        {Profile && <TalpatSending />}
+        <div style={{backgroundColor:"#eee" ,marginTop:"50px"}}>
+          
+          <TalpatSending />
+          
+        </div>
       </div>
     </>
   );

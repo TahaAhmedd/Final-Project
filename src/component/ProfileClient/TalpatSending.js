@@ -75,7 +75,6 @@ function huntJob(i) {
   }, []);
 
 
-
   // Show And Hidden Box Option Up And Remove In DataBase
   function compareId(i) {
     Job[i].show = !Job[i].show;
