@@ -7,7 +7,7 @@
    direction: rtl;
    margin: 5vh auto;
    box-sizing: border-box;
-   /* background: #EEE; */
+   background: #FFF;
    
 }
 .containerr .box{
@@ -73,8 +73,7 @@
 .containerr .box h1{
     font-size: 22px;
     margin: 5px 0;
-    color: #28bcff; 
-    border-right: 2px solid #ffb2003b;
+    border-right: 2px solid #ffb20073;
     padding-right: 10px;
 }
 

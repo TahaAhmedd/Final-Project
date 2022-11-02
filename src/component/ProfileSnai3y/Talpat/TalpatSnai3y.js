@@ -32,57 +32,54 @@ function TalpatSnai3y() {
   }
 
   useEffect(()=>{
-    axios.get("http://localhost:7000/sanai3y/proposals",{headers:headers}).then(
+    axios.get("http://localhost:7000/sanai3y/jobs",{headers:headers}).then(
       (res)=>{
-        console.log(res)
+        // console.log(res)
         setData(res.data.Data)
       }
     )
-  },[])
 
+  },[])
+  
+  console.log(data)
   return (
     <>
       <div className="parint_snai3y_talpat">
         <div className="containerr">
           {data.map((item, index) => (
             <div className="box" key={index}>
-              <span className="badge badge-danger status">pending</span>
-              <h1>{`${d.firstName} ${d.lastName}`}</h1>
-              <span className="city">{d.skills}</span>
-              <p>{item.sanai3yProposal}</p>
-              <span className="category">{d.category}</span>
-              <span className="ellipsis" onClick={() => compareId(index)}>
-                <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
-              </span>
-              <h1>{d.show}</h1>
-              {/* Start ellipsis Option  */}
-              {!item._id && (
-                <div className="popup hidd">
-                  <span  data-toggle="modal" data-target="#exampleModal">
-                    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-                    <lord-icon
-                      src="https://cdn.lordicon.com/wloilxuq.json"
-                      trigger="loop"
-                      delay="500"
-                      colors="primary:#121331,secondary:#ffb200"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-                    تعديل
-                  </span>
-                  <span>
-                    <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-                    <lord-icon
-                      src="https://cdn.lordicon.com/gsqxdxog.json"
-                      trigger="loop"
-                      delay="500"
-                      colors="primary:#121331,secondary:#ffb200"
-                      style={{ width: "30px", height: "30px" }}
-                    ></lord-icon>
-                    حزف المنشور
+              <div className="container_image_and_name_client">
+                <div className="images_client">
+                  <img src={item.clientData.img} alt="" />
+                </div>
+                <div className="data_client">
+                  <h1>{`${item.clientData.firstName} ${item.clientData.lastName}`}</h1>
+                  <span className="city" style={{ paddingRight: "10px" }}>
+                    {item.city}
                   </span>
                 </div>
-              )}
-              {/* End ellipsis Option  */}
+              </div>
+
+              <div className="conatiner-body_post_client">
+                <p>{item.description}</p>
+                
+                <div className="proposels_sanai3y">
+                <p>طلبك المقدم</p>
+                  {item.proposals.map((one) => (
+
+                   
+
+                    <span>
+                      {one.sanai3yProposal}
+                    </span>
+
+                  
+                  ))}
+
+                </div>
+
+              </div>
+
             </div>
           ))}
         </div>

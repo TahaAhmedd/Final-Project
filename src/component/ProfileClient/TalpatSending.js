@@ -12,7 +12,7 @@ function TalpatSending() {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
-
+  const [flagNoMore, setFlagNoMore] = useState(false)
 
 function huntJob(i) {
 
@@ -20,6 +20,10 @@ function huntJob(i) {
   axios.put(`http://localhost:7000/sanai3y/huntjob/${i}`).then((res) => {
 
       console.log(res)
+
+      if(res.status == 200) {
+        setFlagNoMore(true)
+      }
 
   })
 }
@@ -181,13 +185,13 @@ function huntJob(i) {
                                   </p>
                                   <span className="parent_two_button">
                                     <span>{one.sanai3yId.skills}</span>
-                                    <a
-                                      href="#"
+                                    <button
+                                      disabled={flagNoMore}
                                       class="btn btn-primary edit_button_ac"
                                       onClick={()=> huntJob(one._id)}
                                     >
                                       تاكيد
-                                    </a>
+                                    </button>
                                   </span>
                                 </div>
                               </div>
@@ -202,7 +206,6 @@ function huntJob(i) {
                 {/* End Model */}
 
                 <span className="category">{d.category}</span>
-                <span className="badge badge-danger status">pending</span>
 
                 <span className="ellipsis" onClick={() => compareId(index)}>
                   <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
