@@ -15,10 +15,15 @@ import { getDataClient } from "../Redux/Slices/ClientReducer";
 function ProfilesClients() {
   const [open, setOpen] = useState(false);
   let token = localStorage.getItem("token");
-
+  
   const Profile = useSelector((state) => state.ClientReducer.clintdata);
   // console.log(Profile.jobs)
   // Formik in use add profile pictchre
+  useEffect(() => {
+    window.scrollTo(0,0)
+  
+  }, [])
+  
   const formik = useFormik({
     initialValues: {
       clientImage: "",

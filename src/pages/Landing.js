@@ -10,7 +10,7 @@ import Loader from '../component/Loader/Loader'
 function Landing(){
     let [loader , setLoader] = useState(true)
     useEffect(() => {
-      
+        window.scrollTo(0,0)
         setTimeout(() => {
             setLoader(false)
         }, 1000);

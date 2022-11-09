@@ -10,6 +10,7 @@ function Snai3yCardPage() {
   const [flagfilter, setFlagfilter] = useState(false)
   const [loader , setLoader] = useState(true)
   useEffect(() => {
+    window.scrollTo(0,0)
     axios.get("http://localhost:7000/sanai3y/all").then(
       (res) => {
         // console.log(res)

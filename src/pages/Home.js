@@ -13,7 +13,7 @@ function Home() {
   const [flag, setFlag] = useState(false);
   console.log(alldata)
   useEffect(() => {
-
+    window.scrollTo(0,0)
     axios.get("http://localhost:7000/jobs/all").then(
       (result) => {
         let res = result.data.data;

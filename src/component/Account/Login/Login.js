@@ -16,7 +16,7 @@ function Login() {
         setLoader(false)
 
       }, 1000);
-    
+      window.scrollTo(0,0)
       return () => {
         setLoader(true)
       }

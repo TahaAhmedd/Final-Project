@@ -31,8 +31,8 @@ function About() {
                     <div className='row p-0 parent_aboutUs'>
 
                             {crafts.map((item, index) =>
-                        <NavLink to={token?`/showprofile/${item._id}`:"/login"}>
-                                <div className='card_About col-lg-4 col-md-12' key={index}>
+                        <NavLink className='card_About col-3 col-lg-4 col-md-12' to={token?`/showprofile/${item._id}`:"/login"}>
+                                <div className='' key={index}>
                                     <div className='img_About'>
                                         <img src={item.img}></img>
                                     </div>

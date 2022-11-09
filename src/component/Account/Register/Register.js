@@ -12,7 +12,9 @@ function Register() {
 
   let [flag, setFlag] = useState(false);
 
-
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   // crafts formik Data
   const craftsFormik = useFormik({
     initialValues: {

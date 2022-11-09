@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom';
 // Checkout.js
 import PaypalCheckoutButton from "../Payment/PaypalCheckoutButton";
 import './Payment.css'
@@ -11,6 +12,7 @@ function Payment() {
     
   };
 
+  const token = localStorage.getItem("token")
 
     return (
         <>
@@ -38,8 +40,10 @@ function Payment() {
                                         <p>أقتراح ملفك الشخصي لكثير من العملاء في الموقع</p>
                                     </div>
                                     <div className=' w-100 p-3  d-flex justify-content-center'>
-                                        {/* <button className='showmore py-1'>أشترك الان</button> */}
-                                        <PaypalCheckoutButton product={product} />
+                                        {!token&&<NavLink to="/login">
+                                            <button className='showmore py-1'>أشترك الان</button>
+                                        </NavLink>}
+                                        {token && <PaypalCheckoutButton product={product} />}
                                     </div>
                                 </div>
                             </div>
