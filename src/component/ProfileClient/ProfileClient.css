@@ -2,7 +2,8 @@
 .app_profil_client {
     margin-top: 100px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 20px;
+    padding: 20px;  
+    font-size: 15px;
 }
 .ed_fonts {
     font-size: 20px;
@@ -16,11 +17,11 @@
     padding-right: 5px;
 }
 .data_profile_client ul {
-    margin-top: 40px;
+    margin-top: 25px;
     padding: 0;
 }
 .data_profile_client ul li {
-    width: 390px;
+    /* width: 390px; */
     cursor: pointer;
     margin: 10px 0;
     
@@ -35,6 +36,14 @@
 .ed_image_client {
     background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF);
 
+}
+.data_profile_client ul {
+    list-style: none;
+    padding:10px 5px;
+    border-bottom:1px solid #99999947;
+}
+.bordr_box_data {
+    border-left: 1px solid #EEE;
 }
 
 /* Start Media Q */

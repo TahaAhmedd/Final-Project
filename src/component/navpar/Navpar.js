@@ -118,9 +118,9 @@ function Navpar() {
                             {token &&<li className='icon_nav_mesage nav-item '>
                                 <NavLink to={role == "sanai3y" ? "/profileS" : "/profileC"} className=''>
                                     <div style={{ width: '30px', height: '30px',display:"flex"}} className="">
-                                        <img src={dataUser.img} style={{ width: '100%', height: '100%', borderRadius: "50%" }} />
+                                        <img src={dataUser?.img} style={{ width: '100%', height: '100%', borderRadius: "50%" }} />
                                         <span style={{marginRight:"5px",color:"white"}}>
-                                        {dataUser.firstName + dataUser.lastName}
+                                        {dataUser?.firstName + dataUser?.lastName}
                                         </span>
                                     </div>
                                     {/* <h4 style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", width: "13ch", direction: "ltr", textAlign: "center" }}>{`${dataUser.firstName} ${dataUser.lastName}`}</h4> */}
@@ -179,7 +179,7 @@ function Navpar() {
                             {/* image User  */}
                             {token && <div className='login_reg_nav'>
                                 <div className=' position-relative toggle' data-bs-toggle="collapse" data-bs-target="#userToogel" aria-controls="userToogel" aria-expanded="false" aria-label="Toggle navigation">
-                                    <img src={dataUser.img} style={{ width: '30px', height: '30px', borderRadius: "50%", cursor: "pointer" }}></img>
+                                    <img src={dataUser?.img} style={{ width: '30px', height: '30px', borderRadius: "50%", cursor: "pointer" }}></img>
                                 </div>
                                 <div id='userToogel' className='collapse  user_toogel'>
                                     <div>
@@ -188,9 +188,9 @@ function Navpar() {
                                             <div className='user_img_name'>
                                                 <NavLink to={role == "sanai3y" ? "/profileS" : "/profileC"} className='user_img_name'>
                                                     <div style={{ width: '130px', height: '130px', marginBottom: "15px" }}>
-                                                        <img src={dataUser.img} style={{ width: '100%', height: '100%', borderRadius: "50%" }} />
+                                                        <img src={dataUser?.img} style={{ width: '100%', height: '100%', borderRadius: "50%" }} />
                                                     </div>
-                                                    <h4 style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", width: "13ch", direction: "ltr", textAlign: "center" }}>{`${dataUser.firstName} ${dataUser.lastName}`}</h4>
+                                                    <h4 style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", width: "13ch", direction: "ltr", textAlign: "center" }}>{`${dataUser?.firstName} ${dataUser?.lastName}`}</h4>
                                                 </NavLink>
                                             </div>
                                             <div>

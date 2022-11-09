@@ -13,10 +13,12 @@ function ProfileSnai3y() {
         setTimeout(() => {
             setLoader(false)
         }, 1000);
-
+        window.scrollTo(0,0)
+        
         return () =>{
             setLoader(true)
         }
+
 
     },[])
 
@@ -39,11 +41,11 @@ function ProfileSnai3y() {
                             <OneSection/>
 
                             <div className='row'>
-                                <div className='col-3'>
+                                <div className='col-sm-12 col-lg-3'>
                                     <TwoSlider />
 
                                 </div>
-                                <div className='col-9'>
+                                <div className='col-sm-12 col-lg-9'>
 
                                     <Outlet />
                                 </div>

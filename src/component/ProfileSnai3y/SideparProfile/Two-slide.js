@@ -1,5 +1,5 @@
 import "./Two-slide.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 function TwoSlider() {
   return (
     <>
@@ -8,7 +8,7 @@ function TwoSlider() {
         <ul className="navpar_tow">
           <li>
 
-            <Link to="one">
+            <NavLink to="one">
               <span>
                 <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
                 <lord-icon
@@ -18,13 +18,13 @@ function TwoSlider() {
                   style={{ width: "30px", height: "30px" }}
                 ></lord-icon>
               </span>
-              <span>معرض الاعمال</span>
-            </Link>
+              <span className="nav_title_flex">معرض الاعمال</span>
+            </NavLink>
           </li>
 
           <li>
 
-            <Link to="two">
+            <NavLink to="two">
               <span>
                 <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
                 <lord-icon
@@ -36,8 +36,8 @@ function TwoSlider() {
                   
                 </lord-icon>
               </span>
-              <span>الطلبات المقبولة</span>
-            </Link>
+              <span className="nav_title_flex">الطلبات المقبولة</span>
+            </NavLink>
           </li>
         </ul>
       </div>

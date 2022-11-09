@@ -1,6 +1,17 @@
+import { useEffect, useState } from 'react'
+// Checkout.js
+import PaypalCheckoutButton from "../Payment/PaypalCheckoutButton";
 import './Payment.css'
 
 function Payment() {
+
+  const product = {
+    description: "Design+Code React Hooks Course",
+    price: 150,
+    
+  };
+
+
     return (
         <>
             <section className='Payment_secthion'>
@@ -27,7 +38,8 @@ function Payment() {
                                         <p>أقتراح ملفك الشخصي لكثير من العملاء في الموقع</p>
                                     </div>
                                     <div className=' w-100 p-3  d-flex justify-content-center'>
-                                        <button className='showmore py-1'>أشترك الان</button>
+                                        {/* <button className='showmore py-1'>أشترك الان</button> */}
+                                        <PaypalCheckoutButton product={product} />
                                     </div>
                                 </div>
                             </div>

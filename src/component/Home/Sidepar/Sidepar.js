@@ -43,6 +43,10 @@ function Sidepar(props) {
             <i className="fa-solid fa-fan"></i>
             تكيف
           </li>
+          <li onClick={()=>fliter("الوميتال")}>
+            <i className="fa-solid fa-home"></i>
+           الوميتال
+          </li>   
           
         </ul>
 

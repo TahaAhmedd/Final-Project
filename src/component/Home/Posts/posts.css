@@ -93,6 +93,18 @@
         color: #444;
 }
 
+.post .dis .len {
+    /* background-color:#999;
+    width: 35px;
+    height: 35px;
+    color:#FFF;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    line-height: 35px; */
+    font-size: 15px;
+}
+
 .buttons {
     text-align: left;
     overflow: hidden;
@@ -301,5 +313,83 @@
     border-radius: 15px;
     color: #000;
 }
+
+.box_paypal .modal-headerr {
+    padding-top: 10px;
+    padding-bottom: 5px !important;
+    text-align: center !important;
+    /* border-bottom: 1px solid #EEE; */
+    border-radius: 10px;
+    background-image: linear-gradient(to bottom, var(--main-color),#FFF,#FFF);
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.box_paypal .modal-headerr h1 {
+    font-size:15px !important;
+    font-weight: bold;
+    color: #555;
+
+}
+
+
+.box_paypal .modal-body strong  {
+
+    /* padding-bottom: 10px; */
+    display: block;
+    margin-bottom: 5px;
+    border-right: 2px solid #ffb200;
+    padding-right: 8px;
+
+}
+
+.box_paypal .modal-body p {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+.box_paypal .modal-footer {
+
+    padding: 10px;
+
+}
+
+.box_paypal .modal-footer button {
+    padding: 4px 20px;
+}
+.box_paypal .modal-footer .acc_to {
+ 
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid var(--main-color);
+    transition: all .5s;
+    color: var(--main-color);
+    border-radius: 4px;
+    font-size: 15px;
+}
+.box_paypal .modal-footer .acc_to:hover {
+
+    background-color: var(--main-color);
+    color: #fff;
+    border: 2px solid var(--main-color);
+}
+
+.box_paypal .modal-footer .close_paypal {
+ 
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid #dc3545;
+    transition: all .5s;
+    color: #dc3545;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.box_paypal .modal-footer .close_paypal:hover {
+    background-color: #dc3545;
+    color: #fff;
+    border: 2px solid #dc3545;
+}
+
 
 

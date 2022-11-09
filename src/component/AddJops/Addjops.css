@@ -114,7 +114,9 @@ main .container form .detail-addr {
 }
 
 main .container form .detail-addr input {
-    padding: 12px 2px;
+    padding: 12px 0px;
+    padding-right: 10px;
+
 
 }
 

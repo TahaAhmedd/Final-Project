@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import dateFormat from "dateformat";
 import "./TalpatSending.css";
 
-
 import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 
 import Notfind from "../notfind/Notfind";
@@ -12,24 +11,18 @@ function TalpatSending() {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
-  const [flagNoMore, setFlagNoMore] = useState(false)
+  const [flagNoMore, setFlagNoMore] = useState(false);
 
-function huntJob(i) {
+  function huntJob(i) {
+    console.log(i);
+    axios.put(`http://localhost:7000/sanai3y/huntjob/${i}`).then((res) => {
+      console.log(res);
 
-  console.log(i)
-  axios.put(`http://localhost:7000/sanai3y/huntjob/${i}`).then((res) => {
-
-      console.log(res)
-
-      if(res.status == 200) {
-        setFlagNoMore(true)
+      if (res.status == 200) {
+        setFlagNoMore(true);
       }
-
-  })
-}
-
-
-
+    });
+  }
 
   // Get Token From Storage And Create Object Containe Title And Description
   const token = localStorage.getItem("token");
@@ -78,6 +71,7 @@ function huntJob(i) {
       });
   }, []);
 
+  console.log(Job);
 
   // Show And Hidden Box Option Up And Remove In DataBase
   function compareId(i) {
@@ -108,7 +102,7 @@ function huntJob(i) {
         <div>
           <div className="containerr">
             {Job.map((d, index) => (
-              <div className="box" key={d._id}>
+              <div className="box" key={index}>
                 <h1>{d.title}</h1>
                 <span className="city">{d.city}</span>
                 <span className="formatDate">
@@ -138,7 +132,7 @@ function huntJob(i) {
                 </button>
 
                 <div
-                  class="modal fade"
+                  className="modal fade"
                   id={`id${d._id}`}
                   tabindex="-1"
                   aria-labelledby="exampleModalLabel"
@@ -159,21 +153,21 @@ function huntJob(i) {
                       </div>
 
                       <div className="modal-body">
-                        <div class="row">
-                          {d.proposals.map((one) => (
-                            <div class="col-12">
+                        <div className="row">
+                          {d.proposals.map((one, index) => (
+                            <div className="col-12" key={index}>
                               <div
-                                class="card"
+                                className="card"
                                 style={{ marginBottom: "10px" }}
                               >
-                                <div class="card-body edit_body_jobs_client">
-                                  <h5 class="card-title"> 
+                                <div className="card-body edit_body_jobs_client">
+                                  <h5 className="card-title">
                                     {one.sanai3yId.firstName +
                                       " " +
                                       one.sanai3yId.lastName}
                                   </h5>
                                   <p
-                                    class="card-text"
+                                    className="card-text"
                                     style={{
                                       color: "#555",
                                       padding: "5px",
@@ -185,13 +179,22 @@ function huntJob(i) {
                                   </p>
                                   <span className="parent_two_button">
                                     <span>{one.sanai3yId.skills}</span>
-                                    <button
-                                      disabled={flagNoMore}
-                                      class="btn btn-primary edit_button_ac"
-                                      onClick={()=> huntJob(one._id)}
-                                    >
-                                      تاكيد
-                                    </button>
+
+                                    {d.status == "in progress" ? (
+                                      <button
+                                        
+                                        className="btn btn-info edit_button_no"
+                                      >
+                                        تم التاكيد
+                                      </button>
+                                    ) : (
+                                      <button
+                                        className="btn btn-primary edit_button_ac"
+                                        onClick={() => huntJob(one._id)}
+                                      >
+                                        تاكيد
+                                      </button>
+                                    )}
                                   </span>
                                 </div>
                               </div>

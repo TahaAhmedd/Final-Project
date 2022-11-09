@@ -17,7 +17,7 @@ function ProfilesClients() {
   let token = localStorage.getItem("token");
 
   const Profile = useSelector((state) => state.ClientReducer.clintdata);
-  // console.log(Profile)
+  // console.log(Profile.jobs)
   // Formik in use add profile pictchre
   const formik = useFormik({
     initialValues: {
@@ -51,7 +51,7 @@ function ProfilesClients() {
         <div className="app_profil_client">
           {Profile && (
             <div className="row">
-              <div className="col-lg-4 col-sm-4">
+              <div className="col-lg-4 col-sm-12">
                 <div className="image_profile">
                   <img src={Profile.img} />
                   <span className="text-center">
@@ -149,58 +149,80 @@ function ProfilesClients() {
                 </div>
               </div>
 
-              <div className="col-lg-8  col-sm-8">
-                <div className="data_profile_client">
+              <div className="col-lg-8  col-sm-12">
+                <div className="data_profile_client test">
                   <h4>{Profile.firstName + " " + Profile.lastName}</h4>
                   <ul>
+                    <div className="row">
+                    <div className="col-md-8 col-xl-6 bordr_box_data">
                     <li>
                       <i className="fa-solid fa-at ed_fonts"></i>
-                      <span className="ed_text_c"> البريد الالكتروني :</span>
+                      <strong className="ed_text_c"> البريد الالكتروني :</strong>
                       <span className="data_client">
-                        <strong> {Profile.email}</strong>
+                        <span> {Profile?.email}</span>
                       </span>
                     </li>
                     <li>
-                      <i className="fa-solid fa-location-dot ed_fonts"></i>
-                      <span className="ed_text_c"> العنوان :</span>
+                      <i className="fa-solid fa-circle-info ed_fonts"></i>
+                      <strong className="ed_text_c"> تاريخ التسجيل :</strong>
                       <span className="data_client">
-                        <strong> {Profile.address}</strong>
+                        <span>
+                          {" "}
+                          {dateFormat(Profile?.joinedDate, "fullDate")}
+                        </span>
+                      </span>
+                    </li>
+                    <li>
+                    <i className="fa-solid fa-circle-info ed_fonts"></i>
+                      <strong className="ed_text_c">الرقم القومي :</strong>
+                      <span className="data_client">
+                        <span> {Profile?.nationalId}</span>
                       </span>
                     </li>
                     <li>
                       <i className="fa-solid fa-mobile-screen-button ed_fonts"></i>
-                      <span className="ed_text_c"> رقم الهاتف :</span>
+                      <strong className="ed_text_c"> رقم الهاتف :</strong>
                       <span className="data_client">
-                        <strong> {Profile.phoneNumber}</strong>
+                        <span> {Profile?.phoneNumber}</span>
+                      </span>
+                    </li>
+                    </div>
+
+                    <div className="col-md-4 col-xl-6">
+
+                    <li>
+                      <i className="fa-solid fa-location-dot ed_fonts"></i>
+                      <strong className="ed_text_c"> العنوان :</strong>
+                      <span className="data_client">
+                        <span> {Profile?.address}</span>
                       </span>
                     </li>
                     <li>
                       <i className="fa-solid fa-circle-info ed_fonts"></i>
-                      <span className="ed_text_c"> العمر :</span>
+                      <strong className="ed_text_c"> العمر :</strong>
                       <span className="data_client">
-                        <strong> {Profile.age} </strong>
+                        <span> {Profile?.age} </span>
                       </span>
                     </li>
-                    <li>
-                      <i className="fa-solid fa-circle-info ed_fonts"></i>
-                      <span className="ed_text_c"> تاريخ التسجيل :</span>
-                      <span className="data_client">
-                        <strong>
-                          {" "}
-                          {dateFormat(Profile.joinedDate, "fullDate")}
-                        </strong>
-                      </span>
-                    </li>
+                    </div>
+                    </div>
                   </ul>
+
+                {/* Edite Data In Profile  */}
+                <div className="child_edite_in_profile">
+                  <i class="fa-solid fa-gear"></i>
+                </div>
+                <div>
+                  عدد المنشورات 
+                (   {Profile?.jobs?.length})
+                   </div>
                 </div>
               </div>
             </div>
           )}
         </div>
-        <div style={{backgroundColor:"#eee" ,marginTop:"50px"}}>
-          
+        <div style={{ backgroundColor: "#eee", marginTop: "50px" }}>
           <TalpatSending />
-          
         </div>
       </div>
     </>

@@ -93,7 +93,7 @@ function Addjops() {
                                 <option value="مبيض محارة">مبيض محارة</option>
                                 <option value="كهربائي">كهربائي</option>
                                 <option value="فني تكييف">فني تكييف</option>
-                                <option value="دهانات">نقاش</option>
+                                <option value="دهانات">دهانات</option>
                                 <option value="بناء">بناء</option>
                                 <option value="الوميتال">الوميتال</option>
                                 <option value="فني ارضيات">فني أرضيات</option>
@@ -194,7 +194,7 @@ function Addjops() {
 
 
                         <div className="d-flex justify-content-center">
-                        <button type="submit" id="submit" >اضف حرفتك</button>
+                        <button type="submit" id="submit" >اضف مشكلتك</button>
                         </div>
                     </form>
                 </div>

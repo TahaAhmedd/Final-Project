@@ -20,6 +20,8 @@ function Showprofile(props) {
         setPhoto(res.data.Data.workStore)
         setProfile(res.data.Data)
       })
+
+      window.scrollY=0;
   }, [])
 
 
@@ -50,9 +52,9 @@ function Showprofile(props) {
 
                 </li>
                 <li>
-                  <i className="fa-solid fa-mobile-screen-button ed_fonts"></i>
-                  <span className='ed_text_c'> رقم الهاتف :</span>
-                  <span className="data_client"><strong> {Profile.phoneNumber}</strong></span>
+                <i class="fa-solid fa-screwdriver-wrench ed_fonts"></i>
+                  <span className='ed_text_c'>الحرفة :</span>
+                  <span className="data_client"><strong> {Profile.skills}</strong></span>
 
                 </li>
                 <li>

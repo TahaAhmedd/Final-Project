@@ -16,12 +16,17 @@ function ShowClientProfile() {
 
   
   useEffect(() => {
+
+    
+    window.scrollTo(0,0);
     async function getData(){
 
       const getAllData = await axios.get(`http://localhost:7000/client/clients/${params}`)
       setProfile(getAllData.data.Data)
       setJobs(getAllData.data.Data.jobs)
     }
+
+    console.log(jobs)
 
     getData()
       
@@ -92,12 +97,6 @@ function ShowClientProfile() {
 
                 </li>
                 <li>
-                  <i className="fa-solid fa-mobile-screen-button ed_fonts"></i>
-                  <span className='ed_text_c'> رقم الهاتف :</span>
-                  <span className="data_client"><strong> {Profile.phoneNumber}</strong></span>
-
-                </li>
-                <li>
                   <i className="fa-solid fa-circle-info ed_fonts"></i>
                   <span className='ed_text_c'> العمر :</span>
                   <span className="data_client"><strong> {Profile.age} </strong></span>
@@ -110,6 +109,11 @@ function ShowClientProfile() {
 
                 </li>
               </ul>
+              <div>
+                عدد المنشورات : 
+                ({jobs.length})
+
+              </div>
             </div>
           </div>
         </div>
@@ -131,11 +135,15 @@ function ShowClientProfile() {
 
 
                 <span className="category">{d.category}</span>
-                <span className="badge badge-danger status">pending</span>
+                <span
+                 className="badge badge-danger status"
+                 style={{fontSize:'15px'}}
+                 >
+                  عدد المتقدمين للعمل  
+               (   {d.proposals.length} )  
+                  </span>
 
-                <span className="ellipsis">
-                  <i className="fa fa-ellipsis-h" aria-hidden="true"></i>
-                </span>
+
                 <h1>{d.show}</h1>
               </div>
             ))}

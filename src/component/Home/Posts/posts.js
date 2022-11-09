@@ -3,18 +3,19 @@ import { useState, useEffect } from "react";
 import dateFormat, { masks } from "dateformat";
 import axios from "axios";
 import { NavLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Posts({ datas }) {
+  const sanai3y = useSelector((state) => state.Snai3yReducer.data);
+  console.log(sanai3y);
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
-  const [data, setData] = useState(datas)
+  const [data, setData] = useState(datas);
   // console.log(datas)
   useEffect(() => {
-    setData(datas)
-  }, [datas])
+    setData(datas);
+  }, [datas]);
 
-  
-  
   // Hidden of jops
   function showAndHidden(index) {
     data[index].show = !data[index].show;
@@ -25,29 +26,31 @@ function Posts({ datas }) {
     setData((prev) => prev.filter((item) => item._id != id));
   }
 
-  const [dis , setDis] = useState("")
+  const [dis, setDis] = useState("");
 
-  function disChange(event){
-    setDis(event.target.value)
+  function disChange(event) {
+    setDis(event.target.value);
     // console.log(dis)
   }
 
-  let headers={
-      'Authorization': token
-  }
-  function sendid (id){
-    let body ={
-      sanai3yProposal: dis
-    }
-    console.log(body)
-    axios.put(`http://localhost:7000/jobs/addproposal/${id}`,body,{headers:headers})
-    .then(res=>{
-      // console.log(res.data.Data)
-      if(res.status == 200){
-        window.location.reload(true)
-        
-      }
-    })
+  let headers = {
+    Authorization: token,
+  };
+  function sendid(id) {
+    let body = {
+      sanai3yProposal: dis,
+    };
+    console.log(body);
+    axios
+      .put(`http://localhost:7000/jobs/addproposal/${id}`, body, {
+        headers: headers,
+      })
+      .then((res) => {
+        // console.log(res.data.Data)
+        if (res.status == 200) {
+          window.location.reload(true);
+        }
+      });
   }
   return (
     <>
@@ -55,46 +58,41 @@ function Posts({ datas }) {
         <div className="post" key={index}>
           <div className="bolets">
             {/* Button Toggle Bettwen False And True  */}
-            <span className="one" onClick={() => delet(data._id)}>
-            <i className="fa-solid fa-xmark"></i>
+            <span className="one" onClick={() => delet(data?._id)}>
+              <i className="fa-solid fa-xmark"></i>
             </span>
           </div>
 
-          
-            <NavLink to={`/showprofileC/${data.clientData._id}`}>
-
-              <div className="img_name" style={{color:"#000"}}>
-                <div className="images">
-                  <img src={data.clientData.img} alt="" />
-                </div>
-
-                <div className="name">
-                  <span>{`${data.clientData.firstName} ${data.clientData.lastName}`}</span>
-                  <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
-                  {/* <span>{data.adressuder}</span> */}
-                </div>
+          <NavLink to={`/showprofileC/${data.clientData?._id}`}>
+            <div className="img_name" style={{ color: "#000" }}>
+              <div className="images">
+                <img src={data.clientData?.img} alt="" />
               </div>
-            </NavLink>
 
+              <div className="name">
+                <span>{`${data.clientData?.firstName} ${data.clientData?.lastName}`}</span>
+                <span>{dateFormat(data?.hiredDate, " h:MM  TT")}</span>
+                {/* <span>{data.adressuder}</span> */}
+              </div>
+            </div>
+          </NavLink>
 
           <div
             className="app_di_img"
             data-bs-toggle="modal"
-            data-bs-target={`#Taha${data._id}`}
+            data-bs-target={`#Taha${data?._id}`}
           >
             <div className="row p-2 ">
               <div className="dis">
-                <strong>{data.title} </strong>
-                <p>{data.description}</p>
+                <strong>{data?.title} </strong>
+                <p>{data?.description}</p>
                 <p>
                   <strong>العنوان : </strong>
-                  {data.city}
+                  {data?.city}
                 </p>
-                <p>
+                <p className="len">
                   عدد الطلبات المقدمه:
-                  <strong> 
-                    {data.proposals.length}
-                  </strong>
+                  <strong>{data?.proposals.length}</strong>
                 </p>
               </div>
 
@@ -105,27 +103,109 @@ function Posts({ datas }) {
           <div className="row">
             <div className="col-6">
               <div className="suggestion_me">
-                <span>{data.category}</span>
+                <span>{data?.category}</span>
                 {/* <span>{data.optiontwo}</span> */}
               </div>
             </div>
 
-            <div className="buttons col-6">
+            {/* Chuck About Sanai3y  */}
+            {role == "sanai3y" && (
+              <div className="buttons col-6">
+                {sanai3y.jobcount ? (
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target={`#abdo${data?._id}`}
+                    data-bs-whatever="@getbootstrap"
+                  >
+                    طلب
+                  </button>
+                ) : (
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                  >
+                    اشتراك
+                  </button>
+                )}
+              </div>
+            )}
 
-              {role == "sanai3y" && <button
-                data-bs-toggle="modal"
-                data-bs-target={`#abdo${data._id}`}
-                data-bs-whatever="@getbootstrap"
-              >
-                طلب
-              </button>}
+            {/* {sanai3y.jobcount ? (
+              <div className="buttons col-6">
+                {role == "sanai3y" && (
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target={`#abdo${data?._id}`}
+                    data-bs-whatever="@getbootstrap"
+                  >
+                    طلب
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="buttons col-6">
+                {role == "sanai3y" && (
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target={`#abdo${data?._id}`}
+                    data-bs-whatever="@getbootstrap"
+                  >
+                    اشتراك
+                  </button>
+                )}
+              </div>
+            )} */}
 
+            {/* Modal Show When Sanai3y Click Pay With Paypal */}
+            <div
+              class="modal fade box_paypal"
+              id="staticBackdrop"
+              data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-labelledby="staticBackdropLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-headerr">
+                    <h1 class="modal-title" id="staticBackdropLabel">
+                      نحن نمنحك فرصة للاستمتاع بالخدمات التي نقدمها لك كحرفي
+                    </h1>
+                    {/* <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                  </div>
+                  <div class="modal-body">
+                    <strong> بطاقة الدفع 150EGB/شهرياً </strong>
+                    <p> صلاحية التقديم علي الكثير من الأعمال </p>
+                    <p> أقتراح ملفك الشخصي لكثير من العملاء في الموقع </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary close_paypal"
+                      data-bs-dismiss="modal"
+                    >
+                      اغلاق
+                    </button>
+
+                    <NavLink to={"/profileS"}>
+                      <button
+                        type="button"
+                        class="btn btn-primary acc_to"
+                        data-bs-dismiss="modal"
+                      >
+                        التسجيل
+                      </button>
+                    </NavLink>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <div
             className="modal fade"
-            id={`abdo${data._id}`}
+            id={`abdo${data?._id}`}
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
@@ -138,9 +218,8 @@ function Posts({ datas }) {
                   </h5>
                 </div>
                 <div className="modal-body">
-
                   {/* Add probosal Form */}
-                  <form >
+                  <form>
                     <div className="mb-3">
                       <label
                         htmlFor="message-text"
@@ -156,29 +235,24 @@ function Posts({ datas }) {
                         value={dis}
                       ></textarea>
                     </div>
-                  
 
-
-
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary close_me"
-                    data-bs-dismiss="modal"
-                  >
-                    اغلاق
-                  </button>
-                  <button
-                    onClick={()=> sendid(data._id) }
-                    type="button"
-                    className="btn btn-primary button_me test"
-                  >
-                    ارسال الطلب
-                  </button>
-
-
-                </div>
-                </form>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-secondary close_me"
+                        data-bs-dismiss="modal"
+                      >
+                        اغلاق
+                      </button>
+                      <button
+                        onClick={() => sendid(data._id)}
+                        type="button"
+                        className="btn btn-primary button_me test"
+                      >
+                        ارسال الطلب
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -213,38 +287,39 @@ function Posts({ datas }) {
                   {/* data Snai3y In Details */}
                   <div className="some_edit_about_snai3y">
                     <div className="d-flex">
-
                       <div className="ms-2">
                         <div className="edit_image_about_job">
-                          <img src={data.clientData.img} />
+                          <img src={data.clientData?.img} />
                         </div>
                       </div>
 
                       <div className="col-5">
                         <div className="edit_data_about_job">
-                          <h5>{`${data.clientData.firstName} ${data.clientData.lastName}`}</h5>
-                          <p>{data.clientData.address}</p>
+                          <h5>{`${data.clientData?.firstName} ${data.clientData?.lastName}`}</h5>
+                          <p>{data.clientData?.address}</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="row">
-                        <div className="col-md-6 ">
-                          <div className="card-body">
-                          <strong className="m-0 mt-3">عنوان الطلب : </strong>
-                            <h5 className="card-title">{`${data.title}`}</h5>
-                            <br/>
-                            <strong className="m-0 mt-5">وصف الطلب :</strong>
-                            <p className="card-text">
-                              {`${data.description}`}
-                            </p>
-                          </div>
-                        </div>
+                    <div className="col-md-6 ">
+                      <div className="card-body">
+                        <strong className="m-0 mt-3">عنوان الطلب : </strong>
+                        <h5 className="card-title">{`${data.title}`}</h5>
+                        <br />
+                        <strong className="m-0 mt-5">وصف الطلب :</strong>
+                        <p className="card-text">{`${data.description}`}</p>
+                      </div>
+                    </div>
 
-                        <div className="col-md-6">
-                              <img className="img-thumbnail" src={data.image} alt="image talap" />
-                        </div>
+                    <div className="col-md-6">
+                      <img
+                        className="img-thumbnail"
+                        src={data.image}
+                        alt="image talap"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -257,15 +332,17 @@ function Posts({ datas }) {
                     اغلاق
                   </button>
 
-                  {role == "snai3y" && <button
-                    type="button"
-                    className="btn btn-primary edit_button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    data-bs-whatever="@getbootstrap"
-                  >
-                    طلب
-                  </button>}
+                  {role == "snai3y" && (
+                    <button
+                      type="button"
+                      className="btn btn-primary edit_button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      data-bs-whatever="@getbootstrap"
+                    >
+                      طلب
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

@@ -44,3 +44,10 @@ code {
   --button-color: #ffb200;
   --hover-color: #fff;
 }
+
+active {
+
+  color: 'red';
+  background-color:'blue';
+
+}

@@ -37,12 +37,18 @@
 .image_profile:hover span {
     bottom: 0;
 }
+.data_profile_client  .data_client span {
+    font-size: 15px ;
+}
 .data_profile h4 {
     border-right: 2px solid #999;
     padding-right: 5px;
     font-size: 20px;
 }
 
+.bordr_box_data {
+    border-left: 1px solid #EEE;
+}
 .data_profile ul {
     list-style: none;
     padding:10px 5px;
@@ -71,4 +77,36 @@
 }
 .change_ h1 {
     font-size: 20px !important;
+}
+
+.test {
+    position: relative;
+}
+
+ .child_edite_in_profile {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.child_edite_in_profile i {
+    font-size: 25px;
+    color: #666;
+    cursor: pointer;
+    transition: all 1s;
+}
+.child_edite_in_profile i:hover {
+    transform: rotate(360deg);
+    color: #ffb200;
+
+}
+
+
+@media (max-width:992px) {
+    .test {
+        padding-top: 21px;
+    }
+    .child_edite_in_profile {
+        top:30px
+    }
+
 }
