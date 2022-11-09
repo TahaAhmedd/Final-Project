@@ -43,9 +43,9 @@ export default function Conversation({ conversation, currentUser, onlineUsers })
         <>
             <div>
                 <img src={reciever?.img} alt="reciever_photo" />
-                <h3>{reciever?.firstName}</h3>
+                <h3>{`${reciever?.firstName} ${reciever?.lastName}`}</h3>
                 {/* <p>السلام عليكم.....</p> */}
-                <span className="chatOnline"></span>
+                {/* <span className="chatOnline"></span> */}
             </div>
             {/* <div className=" left-ch">
                 <div className="search-chat">

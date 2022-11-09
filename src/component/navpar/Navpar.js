@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './navpar.css'
 import logo from '../../images/landing/logo.png'
 import user from '../../images/landing/user.png'
@@ -7,8 +8,25 @@ import { Snai3ycontext } from '../ProfileSnai3y/context'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataClient } from '../../Redux/Slices/ClientReducer'
 import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
-function Navpar() {
+function Navpar({socket}) {
 
+    // The current User
+    const currentUser = useSelector((state) => state.userReducer.userData);
+    console.log(currentUser._id, currentUser.rule)
+
+
+    // The socket events
+    useEffect(() => {
+        socket.emit("groupUserRule", {currentUserId: currentUser?._id, currentUserRule: currentUser?.rule})
+        socket.on("getRule", ((msg) => {
+            console.log(msg)
+        }))
+
+    }, [currentUser])
+
+
+    // console.log(socket)
+ /////////////////////////////////////////////////////
     // const {data, setData} = useState(Snai3ycontext)
     const role = localStorage.getItem("snai3yRole");
     // let [dataUser,setDataUser] = useState() ;//Snai3y Data
@@ -48,7 +66,7 @@ function Navpar() {
 
                     <NavLink to='/' className="navbar-brand" style={{ width: "80px" }}>
 
-                        <img src={logo} className="brand" style={{ width: "100%" }}></img>
+                        <img src={logo} className="brand" style={{ width: "100%" }} alt= "imag"/>
                     </NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

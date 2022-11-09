@@ -11,7 +11,7 @@ function Home() {
   const [alldata, setAll] = useState([])
   const [loader, setLoader] = useState(true)
   const [flag, setFlag] = useState(false);
-  console.log(alldata)
+  // console.log(alldata)
   useEffect(() => {
 
     axios.get("http://localhost:7000/jobs/all").then(
@@ -56,8 +56,9 @@ function Home() {
 
 
   function search(type) {
-    let arr = alldata.filter((item) => {
-      return item.description.includes(type) || item.title.includes(type) || item.category.includes(type) ||
+    let arr = alldata?.filter((item) => {
+      // console.log(item)
+      return item.description?.includes(type) || item?.title.includes(type) || item?.category.includes(type) ||
       item.city.includes(type)
     }
     )

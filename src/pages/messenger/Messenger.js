@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import "./messenger.css";
+import hi from "../../images/Chat/hi-robot.gif"
 // import logo from '../../images/Chat/helmet.png'
 // import Navpar from "../../component/navpar/Navpar";
 import Conversation from "../../component/conversations/Conversation";
+import { useParams, useLocation } from 'react-router-dom';
 import Message from "../../component/message/Message";
 // import ChatOnline from "../../component/chatOnline/ChatOnline.jsx";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -10,9 +12,12 @@ import { useSelector, useDispatch } from "react-redux";
 // import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { getUserData } from "../../Redux/Slices/userReducer";
+import { setRecieverId } from "../../Redux/Slices/userReducer";
 import { io } from "socket.io-client";
 
 export default function Messenger() {
+    const usedispatch = useDispatch();
+    // console.log(location);
 
     // Conversations
     const [conversations, setConversations] = useState([]);
@@ -24,6 +29,8 @@ export default function Messenger() {
     const [messages, setMessages] = useState([]);
     // New Message (sent Message)
     const [newMessage, setNewMessage] = useState("");
+    // The message image
+    const [messageImage, setMessageImage] = useState(null)
     // The recieved Message
     const [recievedMessage, setRecievedMessage] = useState(null);
     // The socket
@@ -35,6 +42,10 @@ export default function Messenger() {
     // The current User
     const user = useSelector((state) => state.userReducer.userData);
     // console.log(user);
+
+    // The params
+    const recieverId = useParams().recieverId;
+    // console.log(recieverId);
 
     // Setting socket current
     useEffect(() => {
@@ -48,12 +59,12 @@ export default function Messenger() {
         socket.current.on("getUsers", (users) => {
             setOnlineUsers([...users])
             // console.log(users)
-            
+
 
         })
 
         // Recieving the message
-        socket.current.on("recieveMessage", ({senderId, text}) => {
+        socket.current.on("recieveMessage", ({ senderId, text }) => {
             // console.log("uuuuuuuuuuu")
             setRecievedMessage({
                 conversationId: currentChat?._id,
@@ -62,12 +73,12 @@ export default function Messenger() {
                 createdAt: Date.now()
             });
         })
-    
+
     }, [currentChat, recievedMessage, user])
-    console.log(onlineUsers)
+    // console.log(onlineUsers)
     useEffect(() => {
-        if(recievedMessage && currentChat?.members.includes(recievedMessage.sender)) {
-            
+        if (recievedMessage && currentChat?.members.includes(recievedMessage.sender)) {
+
             setMessages((prev) => [...prev, recievedMessage]);
         }
         // recievedMessage &&
@@ -76,7 +87,21 @@ export default function Messenger() {
 
         // console.log("hgtfc")
     }, [currentChat, recievedMessage])
-    
+
+    // Getting the conversation of params if it is found
+    useEffect(() => {
+        if (recieverId) {
+            usedispatch(setRecieverId(recieverId))
+            console.log("oooooooo")
+            console.log(conversations)
+
+            const paramConversation = conversations?.find((conversation) => conversation.members.includes(recieverId));
+            setCurrentChat(paramConversation);
+            console.log(currentChat)
+            console.log(paramConversation)
+        }
+    }, [conversations, currentChat, recieverId, usedispatch])
+
 
     // Fething current reciever
     useEffect(() => {
@@ -141,6 +166,14 @@ export default function Messenger() {
                 text: newMessage
             };
 
+            // Emitting event using socket
+            socket.current.emit("sendMessage", {
+                senderId: user?._id,
+                recieverId: currentChat?.members.find((id) => id !== user?._id),
+                // recieverId: currentReciever?._id,
+                text: newMessage
+            })
+
             // sending the request
             try {
                 const res = await axios.post("http://localhost:7000/messages", message);
@@ -197,24 +230,24 @@ export default function Messenger() {
                                 <section className="sec1">
                                     <img src={currentReciever?.img} alt="currentReciever_Image" />
 
-                                    <p>{currentReciever?.firstName}</p>
+                                    <p>{`${currentReciever?.firstName} ${currentReciever?.lastName}`}</p>
                                 </section>
                             </div>
                             {/* main left chat  */}
                             <section className="scrols messages">
                                 <ul>
                                     {messages.map((message, index) => (
-                                        <div ref={scrollRef}>
-                                            <Message own={message.sender === user?._id} key={index} message={message} />
+                                        <div ref={scrollRef} className="col-lg-12 col-md-12 col-sm-12">
+                                            <Message own={message.sender === user?._id} key={index} message={message} sender={user} reciever={currentReciever} />
                                         </div>
                                     ))}
-
                                 </ul>
                             </section>
+                            {/* <form  className="sec3" action="http://localhost:7000/messages"  enctype="multipart/form-data" method="post"> */}
                             <section className="sec3">
-                                <textarea onKeyPress={enterKey} value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="اكتب رسالتك هنا....." ></textarea>
-                                <div>
-                                    <div>
+                                <textarea className="col-lg-11 col-md-11 col-sm-11" onKeyPress={enterKey} value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder="اكتب رسالتك هنا....." ></textarea>
+                                <div className="col-lg-1 col-md-1 col-sm-1">
+                                    {/* <div>
                                         <label htmlFor="upload-files">
                                             <i
                                                 className="fa fa-paperclip attachment"
@@ -222,31 +255,33 @@ export default function Messenger() {
                                             ></i>
                                         </label>
                                         <input
-                                            type="file"
-                                            name="upload"
-                                            placeholder="uplaod"
-                                            id="upload-files"
-                                        />
-                                    </div>
-
+                                                type="file"
+                                                name="upload"
+                                                placeholder="uplaod"
+                                                id="upload-files"
+                                                onChange={(event) => {
+                                                    console.log(event.target.files);
+                                                    setMessageImage(event.target.files[0]);
+                                                }}
+                                            />
+                                    </div> */}
                                     <button type="submit" onClick={handleSubmit}>
                                         <i className="fa-solid fa-paper-plane"></i>
                                     </button>
                                 </div>
                             </section>
-                        </>) : (<span className="noConversation">ابدأ محادثة جديدة</span>)
+                            {/* </form> */}
+                        {/* </>) : (<span className="noConversation">ابدأ محادثة جديدة</span>) */}
+                        </>) : (<img src={hi} alt="hello" className="noConversation"/>)
                     }
-
-
                 </div>
                 {/* End the Messages */}
-
                 {/* Start Conversations */}
                 <div className=" left-ch">
-                    <div className="search-chat">
-                        <i className="fa-solid fa-search"></i>
-                        <input type="search" placeholder="ابحث هنا" />
-                    </div>
+                    {/* <div className="search-chat"> */}
+                        {/* <i className="fa-solid fa-search"></i> */}
+                        {/* <input type="search" placeholder="ابحث هنا" /> */}
+                    {/* </div> */}
                     <div className="scrols messages">
                         {conversations.map((conversation, index) => (
                             <div key={index} onClick={() => { setCurrentChat(conversation) }}>

@@ -5,7 +5,9 @@ import * as yup from "yup";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
-function Addjops() {
+function Addjops({socket}) {
+
+    console.log(socket);
     
     let navigate = useNavigate() 
 
@@ -51,7 +53,9 @@ function Addjops() {
 
             axios.post("http://localhost:7000/jobs/postjob", formData, { headers: headers }).then(
                 (result) => {
-                    if(result.status == 200){
+                    if(result.status === 200){
+                        // console.log(result.data.data._id)
+                        socket.emit("addJob", result.data.data._id);
                         navigate("/home")
                     }
                 }

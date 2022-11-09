@@ -61,15 +61,15 @@ function Posts({ datas }) {
           </div>
 
           
-            <NavLink to={`/showprofileC/${data.clientData._id}`}>
+            <NavLink to={`/showprofileC/${data.clientData?._id}`}>
 
               <div className="img_name" style={{color:"#000"}}>
                 <div className="images">
-                  <img src={data.clientData.img} alt="" />
+                  <img src={data.clientData?.img} alt="" />
                 </div>
 
                 <div className="name">
-                  <span>{`${data.clientData.firstName} ${data.clientData.lastName}`}</span>
+                  <span>{`${data.clientData?.firstName} ${data.clientData?.lastName}`}</span>
                   <span>{dateFormat(data.hiredDate, " h:MM  TT")}</span>
                   {/* <span>{data.adressuder}</span> */}
                 </div>
@@ -216,14 +216,14 @@ function Posts({ datas }) {
 
                       <div className="ms-2">
                         <div className="edit_image_about_job">
-                          <img src={data.clientData.img} />
+                          <img src={data.clientData?.img}  alt="dfe"/>
                         </div>
                       </div>
 
                       <div className="col-5">
                         <div className="edit_data_about_job">
-                          <h5>{`${data.clientData.firstName} ${data.clientData.lastName}`}</h5>
-                          <p>{data.clientData.address}</p>
+                          <h5>{`${data.clientData?.firstName} ${data.clientData?.lastName}`}</h5>
+                          <p>{data.clientData?.address}</p>
                         </div>
                       </div>
                     </div>
