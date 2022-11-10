@@ -8,6 +8,16 @@ import { Navigate, useNavigate } from "react-router-dom";
 function Addjops({socket}) {
 
     console.log(socket);
+
+    const emitSocket = () => {
+        // The socket events
+        socket.emit("addJob", "result.data.data._id");
+}
+
+
+
+
+    //////////////////////////////////////////
     
     let navigate = useNavigate() 
 
@@ -54,6 +64,8 @@ function Addjops({socket}) {
             axios.post("http://localhost:7000/jobs/postjob", formData, { headers: headers }).then(
                 (result) => {
                     if(result.status === 200){
+
+                    // The socket events
                         // console.log(result.data.data._id)
                         socket.emit("addJob", result.data.data._id);
                         navigate("/home")
@@ -202,6 +214,7 @@ function Addjops({socket}) {
                         </div>
                     </form>
                 </div>
+                <button onClick={emitSocket}>socketTest</button>
             </main>
 
         </>

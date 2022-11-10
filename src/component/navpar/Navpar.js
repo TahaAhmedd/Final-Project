@@ -10,6 +10,9 @@ import { getDataClient } from '../../Redux/Slices/ClientReducer'
 import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
 function Navpar({socket}) {
 
+    // The badge
+    const [badge, setBadge] = useState(false)
+
     // The current User
     const currentUser = useSelector((state) => state.userReducer.userData);
     console.log(currentUser._id, currentUser.rule)
@@ -17,12 +20,16 @@ function Navpar({socket}) {
 
     // The socket events
     useEffect(() => {
-        socket.emit("groupUserRule", {currentUserId: currentUser?._id, currentUserRule: currentUser?.rule})
-        socket.on("getRule", ((msg) => {
+        socket?.emit("groupUserRule", {currentUserId: currentUser?._id, currentUserRule: currentUser?.rule})
+        socket?.on("getRule", ((msg) => {
             console.log(msg)
         }))
 
-    }, [currentUser])
+        socket?.on("getJob", (jobId) => {
+            console.log(jobId)
+        })
+
+    }, [currentUser, socket])
 
 
     // console.log(socket)
@@ -76,12 +83,12 @@ function Navpar({socket}) {
                         <ul className="navbar-nav mr-auto ">
                             <li className="nav-item active list_navpar">
                                 <NavLink to="/home">
-                                    {/* <lord-icon
+                                    <lord-icon
                                     src="https://cdn.lordicon.com/dxjqoygy.json"
                                     trigger="hover"
                                     colors="primary:#000000,secondary:#ffb200"
                                     style={{ width: '30px', height: '30px' }}>
-                                </lord-icon> */}
+                                </lord-icon>
 
                                     <i className="fa-solid fa-house-user"></i>
                                     الصفحة الرئيسيه
@@ -116,7 +123,7 @@ function Navpar({socket}) {
                                         style={{ width: '30px', height: '30px' }}
                                     >
 
-                                        <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>
+                                        {badge && (<span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>)}
                                     </lord-icon>
                                     الاشعارات
                                 </NavLink>

@@ -33,21 +33,31 @@ import ShowClientProfile from './component/UserShowProfile/ShowClientProfile';
 import Notfound from './component/notfound/Notfound';
 import Loader from './component/Loader/Loader';
 import Terms from './component/Terms/Terms';
-import { io } from "socket.io-client";
+import  {io}  from "socket.io-client";
 
 
 
 
 function App() {
 
-    // The socket
-    const socket = io("http://localhost:7000")
+// The socket
+const [socket, setSocket] = useState(null)
 
     // // Setting socket current
     // useEffect(() => {
     //     socket.current = (io("http://localhost:7000"));
     // }, [socket])
 
+    useEffect(() => {
+        setSocket(io("http://localhost:7000", { 
+            transport: ['websocket', 'polling', 'flashsocket'],
+            // withCredentials: true 
+        }))
+    }, [])
+
+
+
+    /////////////////////////////////////////////////
     let [scroll, setScroll] = useState()
     useEffect(() => { window.addEventListener("scroll", () => { setScroll(window.scrollY) }) }, [])
 
