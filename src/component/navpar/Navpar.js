@@ -7,7 +7,36 @@ import { Snai3ycontext } from '../ProfileSnai3y/context'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataClient } from '../../Redux/Slices/ClientReducer'
 import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
-function Navpar() {
+
+
+
+
+function Navpar({socket}) {
+
+    // The badge
+    const [badge, setBadge] = useState(false)
+
+    // The current User
+    const currentUser = useSelector((state) => state.userReducer.userData);
+    console.log(currentUser._id, currentUser.rule)
+
+
+    // The socket events
+    useEffect(() => {
+        socket?.emit("groupUserRule", {currentUserId: currentUser?._id, currentUserRule: currentUser?.rule})
+        socket?.on("getRule", ((msg) => {
+            console.log(msg)
+        }))
+
+        socket?.on("getJob", (jobId) => {
+            console.log(jobId)
+        })
+
+    }, [currentUser, socket])
+
+
+    // console.log(socket)
+/////////////////////////////////////////////////////////////////////
 
     // const {data, setData} = useState(Snai3ycontext)
     const role = localStorage.getItem("snai3yRole");
