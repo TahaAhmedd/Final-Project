@@ -5,7 +5,18 @@ import * as yup from "yup";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
-function Addjops() {
+function Addjops({socket}) {
+
+
+    console.log(socket);
+
+    const emitSocket = () => {
+        // The socket events
+        socket.emit("addJob", "result.data.data._id");
+}
+
+
+    //////////////////////////////////////////
     
     let navigate = useNavigate() 
 

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import dateFormat from 'dateformat'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 import { Box } from "@mui/system";
 import Button from "@mui/joy/Button";
 import Notfind from '../notfind/Notfind';
+
+
+
+
+
 function ShowClientProfile() {
+  const navigate = useNavigate();
   let [Profile, setProfile] = useState({})
   let [jobs, setJobs] = useState([])
   const [oopeen, setOpenUp] = useState(false)
@@ -14,12 +20,27 @@ function ShowClientProfile() {
   let params = useParams().data
   // console.log(params)
 
-  
+  const [conversations, setConversations] = useState([]);
+  let sanai3yId = localStorage.getItem("id");
+  // console.log(sanai3yId);
+  // console.log(Profile._id);
+
+  // Getting all conversations of the current sanai3y
+  useEffect(() => {
+    axios.get("http://localhost:7000/conversations/" + sanai3yId).then((res) => {
+      // console.log(res.data.data)
+      setConversations([...res.data.data]);
+    }).catch((err) => {
+      console.log(err)
+    })
+  }, [])
+
+  // Getting the data of client (reciever)  and routing to the chat page
   useEffect(() => {
 
-    
-    window.scrollTo(0,0);
-    async function getData(){
+
+    window.scrollTo(0, 0);
+    async function getData() {
 
       const getAllData = await axios.get(`http://localhost:7000/client/clients/${params}`)
       setProfile(getAllData.data.Data)
@@ -29,11 +50,29 @@ function ShowClientProfile() {
     console.log(jobs)
 
     getData()
-      
-    }, [])
-    
 
-    console.log(jobs)
+  }, [])
+
+
+  // Making new conversation and routing to the chat page
+  const setNewConversation = async () => {
+
+    const isFriend = conversations.some((conversation) => conversation.members.includes(Profile._id))
+    console.log(isFriend);
+    if (isFriend) {
+      navigate(`/chat/${Profile._id}`);
+    }
+    else {
+      const res = await axios.post("http://localhost:7000/conversations", { senderId: sanai3yId, recieverId: Profile._id });
+      console.log(res);
+      navigate(`/chat/${Profile._id}`)
+
+    }
+    // const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id})
+  }
+
+
+  console.log(jobs)
   // Style material-ui
   const style = {
     position: "absolute",
@@ -102,15 +141,21 @@ function ShowClientProfile() {
                   <span className="data_client"><strong> {Profile.age} </strong></span>
 
                 </li>
-                <li>
-                  <i className="fa-solid fa-circle-info ed_fonts"></i>
-                  <span className='ed_text_c'> تاريخ التسجيل :</span>
-                  <span className="data_client"><strong> {dateFormat(Profile.joinedDate, "fullDate")}</strong></span>
+                <li className='d-flex flex-row justify-content-between w-100'>
+                  <div className='col-lg-8 col-sm-8'>
+                    <i className="fa-solid fa-circle-info ed_fonts"></i>
+                    <span className='ed_text_c'> تاريخ التسجيل :</span>
+                    <span className="data_client"><strong> {dateFormat(Profile.joinedDate, "fullDate")}</strong></span>
+                  </div>
+                  <div className='col-lg-4 col-sm-4 text-center'>
+                    <button type="button" className="btn btn-primary" onClick={setNewConversation}>Button</button>
+                  </div>
+
 
                 </li>
               </ul>
               <div>
-                عدد المنشورات : 
+                عدد المنشورات :
                 ({jobs.length})
 
               </div>
@@ -120,37 +165,37 @@ function ShowClientProfile() {
       </div>
 
       {/* Client jops */}
-      <div className='container' style={{backgroundColor:"#eee" ,padding:"10px" ,marginTop:"50px"}}>
+      <div className='container' style={{ backgroundColor: "#eee", padding: "10px", marginTop: "50px" }}>
 
-      <div className='containerr' >
+        <div className='containerr' >
 
-        {jobs.map((d, index) => (
-              <div className="box" key={index}>
-                <h1>{d.title}</h1>
-                <span className="city">{d.city}</span>
-                <span className="formatDate">
-                  {dateFormat(d.hiredDate, "UTC:h:MM:ss TT ")}
-                </span>
-                <p className="diss">{d.description}</p>
-
-
-                <span className="category">{d.category}</span>
-                <span
-                 className="badge badge-danger status"
-                 style={{fontSize:'15px'}}
-                 >
-                  عدد المتقدمين للعمل  
-               (   {d.proposals.length} )  
-                  </span>
+          {jobs.map((d, index) => (
+            <div className="box" key={index}>
+              <h1>{d.title}</h1>
+              <span className="city">{d.city}</span>
+              <span className="formatDate">
+                {dateFormat(d.hiredDate, "UTC:h:MM:ss TT ")}
+              </span>
+              <p className="diss">{d.description}</p>
 
 
-                <h1>{d.show}</h1>
-              </div>
-            ))}
+              <span className="category">{d.category}</span>
+              <span
+                className="badge badge-danger status"
+                style={{ fontSize: '15px' }}
+              >
+                عدد المتقدمين للعمل
+                (   {d.proposals.length} )
+              </span>
+
+
+              <h1>{d.show}</h1>
+            </div>
+          ))}
+        </div>
       </div>
-      </div>
 
-      {jobs.length == 0 &&<Notfind/>}
+      {jobs.length == 0 && <Notfind />}
     </>
   )
 }

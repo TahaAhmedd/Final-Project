@@ -3,16 +3,37 @@ import { useSelector } from 'react-redux'
 import dateFormat from "dateformat";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from "swiper";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Notfind from '../notfind/Notfind';
+
+
 
 function Showprofile(props) {
 
   // let Profile = useSelector((state) => state.Snai3yReducer.data)
+  const navigate = useNavigate();
   let params = useParams().data
   let [Profile, setProfile] = useState({})
   let [photo, setPhoto] = useState([])
+  const [conversations, setConversations] = useState([]);
+  let clientId = localStorage.getItem("id");
+  // console.log(clientId);
+  // console.log(Profile._id);
+
+
+    // Getting all conversations of the current client
+    useEffect(() => {
+      axios.get("http://localhost:7000/conversations/"+clientId).then((res) => {
+          // console.log(res.data.data)
+          setConversations([...res.data.data]);
+      }).catch((err) => {
+          console.log(err)
+      })
+  }, [])
+
+
+  // Getting the data of sanai3y (reciever)  and routing to the chat page
   useEffect(() => {
     axios.get(`http://localhost:7000/sanai3y/sanai3ies/${params}`)
       .then((res) => {
@@ -23,6 +44,24 @@ function Showprofile(props) {
 
       window.scrollY=0;
   }, [])
+
+
+    // Making new conversation and routing to the chat page
+    const setNewConversation = async () => {
+
+      const isFriend = conversations.some((conversation) => conversation.members.includes(Profile._id))
+      console.log(isFriend);
+      if(isFriend) {
+          navigate(`/chat/${Profile._id}`);
+      }
+      else {
+          const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id});
+          console.log(res);
+          navigate(`/chat/${Profile._id}`)
+
+      }
+      // const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id})
+  }
 
 
   return (
