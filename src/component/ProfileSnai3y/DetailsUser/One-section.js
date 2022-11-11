@@ -10,19 +10,31 @@ import ModalClose from "@mui/joy/ModalClose";
 import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import "./One-section.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { color } from "@mui/system";
 
-
-
-// function Pay With Paypal 
+// function Pay With Paypal
 function OneSection() {
   const product = {
     description: "Design+Code React Hooks Course",
     price: 150,
   };
 
-  const [open, setOpen] = useState(false); // state with modal
+  // Toastify When Edite Profile With User 
+  const notify = () => toast("جاري التعديل علي البيانات الانتظار", {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
 
+  const [open, setOpen] = useState(false); // state with modal
+  const [oopeen, setOpenUp] = useState(false);
   let token = localStorage.getItem("token");
   let role = localStorage.getItem("snai3yRole");
   let [errflag, setErrflag] = useState(false);
@@ -41,16 +53,18 @@ function OneSection() {
       let header = {
         Authorization: token,
       };
-      console.log(values);
+      // console.log(values);
       axios
         .post("http://localhost:7000/sanai3y/addimage", formData, {
           headers: header,
         })
         .then((res) => {
+          notify()
           if (res.status == 200) {
-            // console.log(res)
-            // setFlag(true)
-            window.location.reload(true);
+            setTimeout(() => {
+              
+              window.location.reload(true);
+            }, 500);
           }
         })
         .catch((err) => {
@@ -61,6 +75,54 @@ function OneSection() {
     },
   });
 
+
+
+  // Start Formik Used Edite Profile
+  const formikEdite = useFormik({
+
+    // step one  
+    initialValues: {
+      firstName: Profile.firstName,
+      lastName:Profile.lastName,
+      email:Profile.email,
+      phoneNumber:Profile.phoneNumber,
+      address:Profile.address
+    },
+    // step two
+    onSubmit: (values) => {
+
+      // console.log(values)
+
+      let header = {
+        Authorization: token,
+      };
+      // console.log(values);
+      axios
+        .put("http://localhost:7000/sanai3y/updateprofile", values, {
+          headers: header,
+        })
+        .then((res) => {
+          notify()
+          if (res.status == 200) {
+            // console.log(res)
+            // showToasts()
+            setTimeout(() => {
+              window.scrollTo(0,0)        
+              window.location.reload(true);
+            }, 500);
+          }
+        })
+        .catch((err) => {
+          if (err) {
+          console.log(err)
+          }
+        });
+      
+
+
+
+    }
+  });
   return (
     <>
       <div className="container">
@@ -171,6 +233,7 @@ function OneSection() {
                             </div>
                           </form>
                         </Typography>
+                        <ToastContainer />
                       </div>
                     </Sheet>
                   </Modal>
@@ -215,7 +278,7 @@ function OneSection() {
 
                     <div className="col-md-4 col-xl-6">
                       <li>
-                      <i class="fa-solid fa-screwdriver-wrench ed_fonts"></i>
+                        <i class="fa-solid fa-screwdriver-wrench ed_fonts"></i>
                         <strong className="ed_text_c">الحرفة : </strong>
                         <span className="data_client">
                           <span> {Profile.skills}</span>
@@ -238,48 +301,199 @@ function OneSection() {
                       </li>
                     </div>
                   </div>
-                  <div style={{display:'flex', justifyContent:'space-between'}}>
-                  <li style={{borderTop:'2px solid #EEE', paddingTop:'5px'}}>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <li
+                      style={{ borderTop: "2px solid #EEE", paddingTop: "5px" }}
+                    >
+                      <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+                      <lord-icon
+                        src="https://cdn.lordicon.com/uqpazftn.json"
+                        trigger="loop"
+                        delay="500"
+                        colors="primary:#121331,secondary:#ffb200"
+                        style={{ width: "50px", height: "50px" }}
+                      ></lord-icon>
 
-                <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
-                <lord-icon
-                src="https://cdn.lordicon.com/uqpazftn.json"
-                trigger="loop"
-                delay="500"
-                colors="primary:#121331,secondary:#ffb200"
-                style={{width:'50px',height:'50px'}}>
-                </lord-icon>
-
-
-
-                    <strong className="ed_text_c">
-                      {" "}
-                      المتبقي من فرص العمل :
-                    </strong>
-                    <span className="data_client">
-                      <strong>
+                      <strong className="ed_text_c">
                         {" "}
-                     (   {Profile?.jobcount && Profile.jobcount > 5
-                          ? "unlimted"
-                          : Profile.jobcount} )
+                        المتبقي من فرص العمل :
                       </strong>
-                    </span>
-                  </li>
-                  <li>
-                  <i class="fa-solid fa-award" style={{paddingTop:10, color:Profile.jobs.length > 3 ? "#ffb200": '#999'}}></i>
-                  </li>
+                      <span className="data_client">
+                        <strong>
+                          {" "}
+                          ({" "}
+                          {Profile?.jobcount && Profile.jobcount > 5
+                            ? "unlimted"
+                            : Profile.jobcount}{" "}
+                          )
+                        </strong>
+                      </span>
+                    </li>
+                    <li>
+                      <i
+                        class="fa-solid fa-award"
+                        style={{
+                          paddingTop: 10,
+                          color: Profile.jobs.length > 3 ? "#ffb200" : "#999",
+                        }}
+                      ></i>
+                    </li>
                   </div>
                 </ul>
 
                 {/* Edite Data In Profile  */}
-                <div className="child_edite_in_profile">
+                <div
+                  className="child_edite_in_profile"
+                  onClick={() => setOpenUp(true)}
+                >
                   <i class="fa-solid fa-gear"></i>
                 </div>
 
-             
-                <PaypalCheckoutButton  product={product} />
-               
+                <PaypalCheckoutButton product={product} />
 
+
+
+                {/* Start Edite Profile */}
+                <Modal
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-desc"
+                  open={oopeen}
+                  onClose={() => setOpenUp(false)}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#ffffff1a",
+                    backdropFilter: "blur(2px) ",
+                  }}
+                >
+                  <Sheet
+                    variant="outlined"
+                    sx={{
+                      maxWidth: 500,
+                      borderRadius: "md",
+                      p: 3,
+                      boxShadow: "lg",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <ModalClose
+                      variant="outlined"
+                      sx={{
+                        top: "calc(-0.1/4 * var(--IconButton-size))",
+                        right: "calc(-1/15 * var(--IconButton-size))",
+                        boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
+                        borderRadius: "50%",
+                        bgcolor: "background.body",
+                      }}
+                    />
+                    <Typography
+                      component="h2"
+                      id="modal-title"
+                      level="h4"
+                      textColor="inherit"
+                      fontWeight="lg"
+                      mb={1}
+                      className="titleForm_Snai3y"
+                    >
+                      تعديل البيانات الشخصية
+                    </Typography>
+                    <div>
+                      <Typography id="modal-desc" textColor="text.tertiary">
+                        <form
+                          onSubmit={formikEdite.handleSubmit}
+                          className="Add_image_snai3yy"
+                          encType="multipart/form-data"
+                        >
+                          <div className="row">
+                            <input
+                              className="col-5"
+                              type="text"
+                              placeholder="اسمك الاول"
+                              name="firstName"
+                              required
+                              value={formikEdite.values.firstName}
+                              onChange={formikEdite.handleChange}
+                              onBlur={formikEdite.handleBlur}
+                            ></input>
+                            <input
+                              className="col-5"
+                              type="text"
+                              placeholder="اسمك الاخير"
+                              name="lastName"
+                              required
+                              value={formikEdite.values.lastName}
+                              onChange={formikEdite.handleChange}
+                              onBlur={formikEdite.handleBlur}
+                            ></input>
+                          </div>
+                          <input
+                            className="fullfill"
+                            type="email"
+                            placeholder="البريد الالكتروني"
+                            name="email"
+                            required
+                            value={formikEdite.values.email}
+                            onChange={formikEdite.handleChange}
+                            onBlur={formikEdite.handleBlur}
+                          ></input>
+                          
+                          <input
+                          className="fullfill"
+                            type="text"
+                            placeholder="رقم الهاتف"
+                            name="phoneNumber"
+                            required
+                            value={formikEdite.values.phoneNumber}
+                            onChange={formikEdite.handleChange}
+                            onBlur={formikEdite.handleBlur}
+                          ></input>
+                          <select
+                            value={formikEdite.values.address}
+                            onChange={formikEdite.handleChange}
+                            onBlur={formikEdite.handleBlur}
+                            // defaultValue={
+                            //   formikEdite.values.address == 0
+                            //     ? (formikEdite.values.address = "")
+                            //     : formikEdite.values.address
+                            // }
+                            name="address"
+                            id="country"
+                            className="optionCity"
+                          >
+                            <optgroup label="مدينة أسوان">
+                              <option value="0" selected>
+                                أختر المركز
+                              </option>
+                              <option value="أسوان">أسوان</option>
+                              <option value="أسوان الجديدة">
+                                أسوان الجديدة
+                              </option>
+                              <option value="أبو سمبل">أبو سمبل</option>
+                              <option value="دراو">دراو</option>
+                              <option value="كوم امبو">كوم امبو</option>
+                              <option value="نصر النوبة">نصر النوبة</option>
+                              <option value="كلابشة">كلابشة</option>
+                              <option value="أدفو">أدفو</option>
+                            </optgroup>
+                          </select>
+        
+
+                          <div className="w-100 mt-3 text-start">
+                            <button
+                            // onClick={() => {updateJobWithClient(d._id)}}
+                            >
+                              تعديل
+                            </button>
+                          </div>
+                        </form>
+                      </Typography>
+                    </div>
+                <ToastContainer />
+                  </Sheet>
+                </Modal>
               </div>
             </div>
           </div>

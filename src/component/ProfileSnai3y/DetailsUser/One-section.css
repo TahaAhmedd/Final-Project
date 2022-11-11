@@ -101,6 +101,63 @@
 }
 
 
+
+/* edite Profile  */
+.Add_image_snai3yy {
+    width: 90%;
+    margin: auto;
+}
+
+.Add_image_snai3yy input {
+        outline: none;
+        margin: 11px auto;
+        /* width: 100%; */
+        border: 2px solid #eee;
+        padding: 7px 15px;
+        border-radius: 5px;
+        font-size: 15px;
+}
+.Add_image_snai3yy .fullfill {
+    width: 100%;
+}
+
+.Add_image_snai3yy .optionCity {
+    outline: none;
+    border: 2px solid #EEE;
+    width: 100%;
+    cursor: pointer;
+}
+
+.Add_image_snai3yy .optionCity:focus {
+    border: 2px solid #ffb200;
+}
+
+.Add_image_snai3yy input:focus {
+        border: 2px solid var(--main-color);
+}
+
+.Add_image_snai3yy button{
+        padding: 5px 20px;
+        outline: none;
+        border:2px solid var(--main-color) !important;
+        color:#000;
+        background-color: transparent !important;
+        border-radius: 5px;
+        transition: background-color 0.3s ,color 0.3s;
+}
+
+.Add_image_snai3yy button:hover{
+        background-color: var(--main-color) !important;
+        color: #fff;
+}
+
+
+
+
+
+
+
+
 @media (max-width:992px) {
     .test {
         padding-top: 21px;
