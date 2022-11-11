@@ -102,10 +102,16 @@ function Showprofile(props) {
                   <span className="data_client"><strong> {Profile.age} </strong></span>
 
                 </li>
-                <li>
-                  <i className="fa-solid fa-circle-info ed_fonts"></i>
-                  <span className='ed_text_c'> تاريخ التسجيل :</span>
-                  <span className="data_client"><strong> {dateFormat(Profile.joinedDate, "fullDate")}</strong></span>
+                <li className='d-flex flex-row justify-content-between w-100'>
+                  <div className='col-lg-8 col-sm-8'>
+                    <i className="fa-solid fa-circle-info ed_fonts"></i>
+                    <span className='ed_text_c'> تاريخ التسجيل :</span>
+                    <span className="data_client"><strong> {dateFormat(Profile.joinedDate, "fullDate")}</strong></span>
+                  </div>
+                  <div className='col-lg-4 col-sm-4 text-center'>
+                    <button type="button" className="btn btn-primary" onClick={setNewConversation}>Button</button>
+                  </div>
+
 
                 </li>
               </ul>
