@@ -4,7 +4,7 @@ import hi from "../../images/Chat/hi-robot.gif"
 // import logo from '../../images/Chat/helmet.png'
 // import Navpar from "../../component/navpar/Navpar";
 import Conversation from "../../component/conversations/Conversation";
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import Message from "../../component/message/Message";
 // import ChatOnline from "../../component/chatOnline/ChatOnline.jsx";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -16,6 +16,10 @@ import { setRecieverId } from "../../Redux/Slices/userReducer";
 import { io } from "socket.io-client";
 
 export default function Messenger() {
+
+
+    // useNavigate & useDispatch
+    const navigate = useNavigate();
     const usedispatch = useDispatch();
     // console.log(location);
 
@@ -215,7 +219,7 @@ export default function Messenger() {
         }
     }
 
-    // console.log(newMessage);
+    console.log(user);
     return (
         <>
             {/* <Navpar /> */}
@@ -224,7 +228,7 @@ export default function Messenger() {
             <div className="res-wid">
                 {/* Start the Messages */}
                 <div className="right-ch">
-                    {currentChat ?
+                    {currentChat && recieverId?
                         (<>
                             <div className="back-sec1">
                                 <section className="sec1">
@@ -284,7 +288,7 @@ export default function Messenger() {
                     {/* </div> */}
                     <div className="scrols messages">
                         {conversations.map((conversation, index) => (
-                            <div key={index} onClick={() => { setCurrentChat(conversation) }}>
+                            <div key={index} onClick={() => { navigate(`/chat/${conversation?.members.find((id) => id !== user?._id)}`) ;setCurrentChat(conversation) }}>
                                 <Conversation conversation={conversation} currentUser={user} onlineUsers={onlineUsers} />
                             </div>
                         ))}

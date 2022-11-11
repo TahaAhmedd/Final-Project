@@ -7,6 +7,7 @@ import { Snai3ycontext } from '../ProfileSnai3y/context'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataClient } from '../../Redux/Slices/ClientReducer'
 import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
+import axios from 'axios'
 
 
 
@@ -14,11 +15,22 @@ import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
 function Navpar({socket}) {
 
     // The badge
-    const [badge, setBadge] = useState(false)
+    const [badge, setBadge] = useState(false);
+    // when click
+    const [click, setClick] = useState(false)
+    // The jobId
+    const [jobId, setJobId] = useState("");
+    // The clientName
+    const [clientName, setClientName] = useState("");
+    // Add job notifications array
+    const [addJobNotifications, setAddJobNotifications] = useState([]);
 
     // The current User
     const currentUser = useSelector((state) => state.userReducer.userData);
     console.log(currentUser._id, currentUser.rule)
+    // The current role
+    const currentRole = currentUser.rule;
+
 
 
     // The socket events
@@ -28,11 +40,32 @@ function Navpar({socket}) {
             console.log(msg)
         }))
 
-        socket?.on("getJob", (jobId) => {
+        socket?.on("getJob", ({jobId, clientName}) => {
             console.log(jobId)
+            setJobId(jobId);
+            setClientName(clientName);
+            setAddJobNotifications([...addJobNotifications, {jobId, clientName}]);
+            setBadge(true);
+
         })
 
     }, [currentUser, socket])
+
+
+    // Fetching the the notificated job
+    useEffect(() => {
+        const getNotifiedJob = async () => {
+            const res = await axios.get(`http://localhost:7000/jobs/job/${jobId}`);
+            console.log(res.data.data)
+        }
+        getNotifiedJob();
+    }, [jobId])
+
+    // Onclicking on notifications
+    const showNotifications = () => {
+        setClick(!click);
+        setBadge(false);
+    }
 
 
     // console.log(socket)
@@ -118,7 +151,7 @@ function Navpar({socket}) {
                                 </NavLink>
                             </li>
                             {token && <li className="icon_nav_mesage nav-item list_navpar text-white">
-                                <NavLink to="">
+                                <button className='notificbtn' onClick={showNotifications}>
 
                                     <lord-icon
                                         src="https://cdn.lordicon.com/psnhyobz.json"
@@ -127,10 +160,13 @@ function Navpar({socket}) {
                                         style={{ width: '30px', height: '30px' }}
                                     >
 
-                                        <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>
+                                        {badge && <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>}
                                     </lord-icon>
-                                    الاشعارات
-                                </NavLink>
+                                    {/* الاشعارات */}
+                                </button>
+                                {click && <div className='notificList'>
+                                    hfhhhhhhh
+                                </div>}
                             </li>}
                             {token && <li className="icon_nav_mesage nav-item list_navpar text-white">
                                 <NavLink to='/chat'>
