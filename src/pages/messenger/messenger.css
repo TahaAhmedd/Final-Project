@@ -273,6 +273,14 @@ li {
     margin-top: 10px;
 }
 
+.left-ch .hover:hover {
+    background-color: var(--main-color);
+}
+
+.left-ch .hover {
+    transition: all .5s;
+}
+
 left-ch div:hover {
     background-color: #3507eb;
 }
