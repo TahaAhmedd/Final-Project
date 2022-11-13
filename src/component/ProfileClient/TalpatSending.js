@@ -86,7 +86,7 @@ function TalpatSending() {
       });
   }, []);
 
-  console.log(Job);
+  // console.log(Job);
 
   // Show And Hidden Box Option Up And Remove In DataBase
   function compareId(i) {
@@ -99,7 +99,7 @@ function TalpatSending() {
   };
   function sendIdJob(id) {
     axios
-      .put(`http://localhost:7000/jobs/delete/${id}`, {}, { headers: header })
+      .delete(`http://localhost:7000/jobs/delete/${id}`,{ headers: header })
       .then((res) => {
         // console.log(res);
         if (res.status == 200) {
@@ -349,7 +349,7 @@ function TalpatSending() {
         </div>
       )}
 
-      {Job.length == 0 && <Notfind data={"لايوجد طلبات مقدمة"} />}
+      {Job.length == 0 && <Notfind data={"لايوجد منشورات"} />}
     </>
   );
 }
