@@ -107,14 +107,11 @@ useEffect(() => {
               </AuthGuard>
             }
           ></Route>
-          <Route
-            path="/home"
-            element={
-              <AuthGuard>
-                <Home />
-              </AuthGuard>
-            }
-          />
+          <Route path='/home/' element={<AuthGuard><Home /></AuthGuard>}>
+
+            <Route path=':jobId' element={<AuthGuard><Home /></AuthGuard>} />
+          </Route>
+
           <Route path='/chat/' element={<AuthGuard><Messenger /></AuthGuard>}>
 
             <Route path=':recieverId' element={<AuthGuard><Messenger /></AuthGuard>} />

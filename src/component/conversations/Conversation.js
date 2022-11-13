@@ -41,7 +41,7 @@ export default function Conversation({ conversation, currentUser, onlineUsers })
 
     return (
         <>
-            <div>
+            <div className="hover">
                 <img src={reciever?.img} alt="reciever_photo" />
                 <h3>{`${reciever?.firstName} ${reciever?.lastName}`}</h3>
                 {/* <p>السلام عليكم.....</p> */}

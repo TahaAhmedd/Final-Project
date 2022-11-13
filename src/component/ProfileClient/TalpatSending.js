@@ -6,19 +6,34 @@ import "./TalpatSending.css";
 import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 
 import Notfind from "../notfind/Notfind";
+import { useSelector } from "react-redux";
 
 function TalpatSending() {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
   const [flagNoMore, setFlagNoMore] = useState(false);
+  // The current user
+  const currentUser = useSelector ((state) => state.userReducer.userData);
 
   function huntJob(i) {
     console.log(i);
-    axios.put(`http://localhost:7000/sanai3y/huntjob/${i}`).then((res) => {
-      console.log(res);
+    axios.put(`http://localhost:7000/sanai3y/huntjob/${i}`).then((result) => {
+      // console.log(result.data.data._id);
+      let clientName = `${currentUser?.firstName} ${currentUser?.lastName}`;
+      let body = {sanai3yId: result.data.data.sanai3yId, proposalId: i, jobId: result.data.data.jobId, notification: ` قام ${clientName} بقبول طلبك المقدم على وظيفته  ` }
+      // console.log(body);
 
-      if (res.status == 200) {
+      if (result.status === 200) {
+        axios.put("http://localhost:7000/sanai3y/acceptjobnotification", body).then((res) => {
+          console.log(res.data.data)
+
+
+        }).catch((err) => {
+          console.log(err)
+        })
+
+
         setFlagNoMore(true);
       }
     });

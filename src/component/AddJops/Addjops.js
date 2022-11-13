@@ -10,10 +10,12 @@ function Addjops({ socket }) {
 
     console.log(socket);
 
-    const emitSocket = () => {
-        // The socket events
-        socket.emit("addJob", { jobId: "636e2edcc06f241625f4a243", clientName: "Mohamed Ragab" });
-    }
+
+    // Used for test only
+    // const emitSocket = () => {
+    //     // The socket events
+    //     socket.emit("addJob", { jobId: "636e2edcc06f241625f4a243", clientName: "Mohamed Ragab" });
+    // }
 
 
     //////////////////////////////////////////
@@ -66,9 +68,15 @@ function Addjops({ socket }) {
                         // The socket events
                         let clientName = `${result.data.data.clientData.firstName} ${result.data.data.clientData.lastName}`
                         // console.log(result.data.data)
-                        console.log(clientName)
+                        // console.log(clientName)
+                        let body  = { skills: result.data.data.category, jobId: result.data.data._id, notification: ` قام ${clientName} باضافة وظيفة جديدة تتناسب مع مهاراتك  ` }
                         // socket.emit("addJob", {jobId: result.data.data._id, clientName});
-
+                        axios.put("http://localhost:7000/sanai3y/addjobnotification", body).then((res) => {
+                            // console.log(res.data.data)
+                            socket.emit("addJob", res.data.data);
+                        }).catch ((err) => {
+                            console.log(err)
+                        })
 
 
                         navigate("/home")
@@ -217,7 +225,7 @@ function Addjops({ socket }) {
                         </div>
                     </form>
                 </div>
-                <button onClick={emitSocket}>socketTest</button>
+                {/* <button onClick={emitSocket}>socketTest</button> */}
             </main>
 
         </>
