@@ -18,9 +18,8 @@ function Home() {
       (result) => {
         let res = result.data.data;
         // console.log(res.data)
-        res = res.filter((item)=> item.status != "in progress")
+        res = res.filter((item)=> item.status != "in progress" && item.status != "compelete")
         setTimeout(() => {
-          
           setLoader(false)
           setAll([...res]);
           setData([...res])

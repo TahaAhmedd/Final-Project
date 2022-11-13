@@ -111,7 +111,7 @@ function Posts({ datas }) {
             {/* Chuck About Sanai3y  */}
             {role == "sanai3y" && (
               <div className="buttons col-6">
-                {sanai3y.jobcount ? (
+                {sanai3y.jobcount > 0 ? 
                   <button
                     data-bs-toggle="modal"
                     data-bs-target={`#abdo${data?._id}`}
@@ -119,14 +119,14 @@ function Posts({ datas }) {
                   >
                     طلب
                   </button>
-                ) : (
+                 : 
                   <button
                     data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop"
                   >
                     اشتراك
                   </button>
-                )}
+                }
               </div>
             )}
 
@@ -167,7 +167,7 @@ function Posts({ datas }) {
               aria-hidden="true"
             >
               <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-2 pb-0">
                   <div class="modal-headerr">
                     <h1 class="modal-title" id="staticBackdropLabel">
                       نحن نمنحك فرصة للاستمتاع بالخدمات التي نقدمها لك كحرفي
@@ -182,8 +182,9 @@ function Posts({ datas }) {
                   <div class="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary close_paypal"
+                      class="btn  btn-secondary edit_close_button "
                       data-bs-dismiss="modal"
+                      style={{fontSize:"18px"}}
                     >
                       اغلاق
                     </button>
@@ -191,7 +192,7 @@ function Posts({ datas }) {
                     <NavLink to={"/profileS"}>
                       <button
                         type="button"
-                        class="btn btn-primary acc_to"
+                        class="btn btn-outline-success "
                         data-bs-dismiss="modal"
                       >
                         التسجيل
@@ -212,15 +213,15 @@ function Posts({ datas }) {
           >
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header mode_me">
+                <div className="modal-header justify-content-center border-bottom-0 mode_me">
                   <h5 className="modal-title" id="exampleModalLabel">
                     تفاصيل الطلب{" "}
                   </h5>
                 </div>
-                <div className="modal-body">
+                <div className="modal-body pb-0">
                   {/* Add probosal Form */}
                   <form>
-                    <div className="mb-3">
+                    <div className="mb-2">
                       <label
                         htmlFor="message-text"
                         className="col-form-label label_me"
@@ -233,10 +234,11 @@ function Posts({ datas }) {
                         name="description"
                         onChange={disChange}
                         value={dis}
+                        style={{maxHeight:"200px"}}
                       ></textarea>
                     </div>
 
-                    <div className="modal-footer">
+                    <div className="modal-footer p-0">
                       <button
                         type="button"
                         className="btn btn-secondary close_me"
@@ -268,19 +270,24 @@ function Posts({ datas }) {
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
           >
-            <div className="modal-dialog">
+            <div className="modal-dialog  modal-lg">
               <div className="modal-content">
-                <div className="modal-header edit_header">
-                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                    التفاصيل حول العمل
-                  </h1>
+                <div className="modal-header align-items-start p-3 border-bottom-0 ">
+                  <div className=" text-center edit_header">
+                    <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                      التفاصيل حول العمل
+                    </h1>
 
-                  <button
-                    type="button"
-                    className="btn-close edit_close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+                  </div>
+                  <div className="edit_close">
+                    <button
+                      type="button"
+                      className="btn-close "
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+
                 </div>
 
                 <div className="modal-body">
@@ -327,6 +334,7 @@ function Posts({ datas }) {
                   <button
                     type="button"
                     className="btn btn-secondary edit_close_button"
+                    style={{fontSize:"1rem !important" }}
                     data-bs-dismiss="modal"
                   >
                     اغلاق

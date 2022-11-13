@@ -6,6 +6,7 @@ import dateFormat from "dateformat";
 import axios from "axios";
 import { Snai3ycontext } from "../context";
 import { useSelector } from "react-redux";
+import Notfind from "../../notfind/Notfind";
 
 
 function TalpatSnai3y() {
@@ -17,36 +18,34 @@ function TalpatSnai3y() {
   let headers = {
     'Authorization': token
 }
-  // console.log(data)
-  // Function Delete Post
-  
-  function showAndHidden(index) {
-    data[index].show = !data[index].show;
-    setData([...data]);
-  }
-
-  function compareId(i) {
-    data[i]._id = !data[i]._id;  
-    setData([...data])
-   
-  }
 
   useEffect(()=>{
     axios.get("http://localhost:7000/sanai3y/jobs",{headers:headers}).then(
       (res)=>{
-        // console.log(res)
+        console.log(res.data.Data)
         setData(res.data.Data)
+
       }
     )
 
   },[])
-  
-  console.log(data)
+
+  function compeleteJob(){
+    axios.put("http://localhost:7000/sanai3y/jobcompelete",{},{headers:headers}).then(
+      (res)=>{
+        console.log(res)
+        if(res.status == 200){
+          console.log("succes")
+        }
+      }
+    ).catch((err)=> console.log(err))
+  }
+  // console.log(data)
   return (
     <>
       <div className="parint_snai3y_talpat">
         <div className="containerr">
-          {data.map((item, index) => (
+          {data.length > 0 && data.map((item, index) => (
             <div className="box" key={index}>
               <div className="container_image_and_name_client">
                 <div className="images_client">
@@ -66,23 +65,23 @@ function TalpatSnai3y() {
                 <div className="proposels_sanai3y">
                 <p>طلبك المقدم</p>
                   {item.proposals.map((one) => (
-
-                   
-
                     <span>
                       {one.sanai3yProposal}
-                    </span>
-
-                  
+                    </span>                
                   ))}
-
                 </div>
 
               </div>
-
+              <div className="d-flex justify-content-end">
+                <button onClick={compeleteJob} className={item.status == "compelete"?"btn btn-secondary": "finish_btn"}>
+                  تم الانتهاء
+                  {item.status == "compelete" &&<i class="fa-solid fa-lock me-1" style={{color:"#000"}}></i>}
+                </button>
+              </div>
             </div>
           ))}
         </div>
+        {data.length == 0 && <Notfind data={"لاتوجد طلبات مقدمة"}/>}
       </div>
     </>
   );

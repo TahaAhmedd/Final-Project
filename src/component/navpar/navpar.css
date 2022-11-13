@@ -2,6 +2,26 @@
     text-decoration: none !important;
 
 }
+
+.notificbtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+}
+
+.notificList {
+    /* width: 30vw; */
+    /* max-width: 10vw; */
+    /* overflow-y: auto; */
+    max-height: 70vh;
+    /* overflow-x: hidden; */
+}
+
+.icon_nav_mesage{
+    display: none;
+}
+
+/* ////////////////////// */
 .navbar_project{
     /* border-bottom: 1px solid #444; */
     position: fixed !important;
@@ -124,9 +144,7 @@
 .btn_user:focus{
     background-color: #555;
 }
-.icon_nav_mesage{
-    display: none;
-}
+
 .login_reg_nav{
     display: flex;
 }

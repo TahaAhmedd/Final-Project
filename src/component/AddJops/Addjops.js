@@ -5,20 +5,20 @@ import * as yup from "yup";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
-function Addjops({socket}) {
+function Addjops({ socket }) {
 
 
     console.log(socket);
 
     const emitSocket = () => {
         // The socket events
-        socket.emit("addJob", "result.data.data._id");
-}
+        socket.emit("addJob", { jobId: "636e2edcc06f241625f4a243", clientName: "Mohamed Ragab" });
+    }
 
 
     //////////////////////////////////////////
-    
-    let navigate = useNavigate() 
+
+    let navigate = useNavigate()
 
     // token of clint
     let token = localStorage.getItem("token");
@@ -62,7 +62,15 @@ function Addjops({socket}) {
 
             axios.post("http://localhost:7000/jobs/postjob", formData, { headers: headers }).then(
                 (result) => {
-                    if(result.status == 200){
+                    if (result.status == 200) {
+                        // The socket events
+                        let clientName = `${result.data.data.clientData.firstName} ${result.data.data.clientData.lastName}`
+                        // console.log(result.data.data)
+                        console.log(clientName)
+                        // socket.emit("addJob", {jobId: result.data.data._id, clientName});
+
+
+
                         navigate("/home")
                     }
                 }
@@ -194,7 +202,7 @@ function Addjops({socket}) {
 
                                 <div>
 
-                                    <img  src={formik.values.photo}/>
+                                    <img src={formik.values.photo} />
                                 </div>
                                 {formik.touched.upload && formik.errors.upload ? (
                                     <div style={{ color: "red" }}>{formik.errors.upload}</div>
@@ -205,10 +213,11 @@ function Addjops({socket}) {
 
 
                         <div className="d-flex justify-content-center">
-                        <button type="submit" id="submit" >اضف مشكلتك</button>
+                            <button type="submit" id="submit" >اضف مشكلتك</button>
                         </div>
                     </form>
                 </div>
+                <button onClick={emitSocket}>socketTest</button>
             </main>
 
         </>
