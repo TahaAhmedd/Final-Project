@@ -99,8 +99,20 @@
     color: #ffb200;
 
 }
-
-
+.child_pass_in_profile{
+    position: absolute;
+    top: 0;
+    left: 50px;
+}
+.child_pass_in_profile i{
+    font-size: 25px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.child_pass_in_profile i:hover{
+    color: var(--main-color);
+}
 
 /* edite Profile  */
 .Add_image_snai3yy {
