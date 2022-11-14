@@ -92,7 +92,7 @@ function Posts({ datas }) {
                 </p>
                 <p className="len">
                   عدد الطلبات المقدمه:
-                  <strong>{data?.proposals.length}</strong>
+                  <strong>({data?.proposals.length})</strong>
                 </p>
               </div>
 
