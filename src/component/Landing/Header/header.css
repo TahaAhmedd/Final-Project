@@ -29,7 +29,6 @@
     letter-spacing: -1px;
     color: var(--main-color);
     line-height: 55px;
-    margin-right:2rem;
     z-index: 20;
     width: 50%;
 }
