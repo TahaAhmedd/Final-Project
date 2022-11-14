@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import showApp from '../../../images/landing/showApp.png'
 import './header.css'
 function Header() {
     let token = localStorage.getItem("token")
@@ -7,6 +8,14 @@ function Header() {
             <div className="cover position-relative d-flex justify-content-center align-items-center">
                 <div className="overlay_header"></div>
                 <div className="container d-flex justify-content-lg-start justify-content-md-center align-items-center my-auto">
+
+                    <div className='row' style={{zIndex:50, marginTop:'100px'}}>
+
+                    <div className='col-lg-9 col-md-8 col-sm-12'>
+
+                    
+                    
+
                     <div className="text-cover h-75">
                         <h1>أطلب<span className="otlop"> صنايعي</span> </h1>
                         <p>لو عندك مشكلة في البيت تتطلب حرفي معين احنا عندنا الحل اعرض مشكلتك وفي خلال اقل من 24 ساعة
@@ -19,6 +28,17 @@ function Header() {
                             </NavLink>
                         </div>}
                     </div>
+                    </div>
+
+                    <div className='col-lg-3 col-md-4 d-lg-flex d-md-flex d-sm-none' style={{display:'none'}}>
+                        <div style={{width:'200px'}}>
+
+                             <img src={showApp} className="w-100" />
+                        </div>
+                    </div>
+
+                    </div> 
+
 
                 </div>
                 <div className="custom-shape-divider-bottom-1664047801">

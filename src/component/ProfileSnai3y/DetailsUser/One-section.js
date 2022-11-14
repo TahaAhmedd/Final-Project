@@ -51,7 +51,7 @@ function OneSection() {
   let [errflag, setErrflag] = useState(false);
 
   let Profile = useSelector((state) => state.Snai3yReducer.data); // redux for snai3y Data
-  // console.log(Profile.jobs.length)
+  // console.log(Profile.jobs)
   // Formik in use add profile pictchre
   const formik = useFormik({
     initialValues: {
@@ -325,7 +325,7 @@ function OneSection() {
                       </li>
                     </div>
 
-                    <div className="col-md-4 col-xl-6">
+                    <div className="col-md-4 col-xl-6" style={{borderTop:'1px solid #EEE', borderRight:'1px solid #EEE'}}>
                       <li>
                         <i class="fa-solid fa-screwdriver-wrench ed_fonts"></i>
                         <strong className="ed_text_c">الحرفة : </strong>
@@ -351,8 +351,10 @@ function OneSection() {
                     </div>
                   </div>
                   <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
+                    className="row"
                   >
+                    {/* Start Icon And Text About PayPal */}
+                    <div className="col-10">
                     <li
                       style={{ borderTop: "2px solid #EEE", paddingTop: "5px" }}
                     >
@@ -380,15 +382,34 @@ function OneSection() {
                         </strong>
                       </span>
                     </li>
-                    <li>
+                    </div>
+                    {/* Start Icon Top Rate */}
+                    <div className="col-2">
+                    <li style={{textAlign:'left'}}>
                       <i
                         class="fa-solid fa-award"
                         style={{
                           paddingTop: 10,
-                          color: Profile.jobs.length > 3 ? "#ffb200" : "#999",
+                          color: Profile.jobs.length >= 3 ? "#ffb200" : "#999",
                         }}
                       ></i>
                     </li>
+                    </div>
+                  </div>
+                        {/* Number Talapat  */}
+                  <div style={{paddingRight:'5px', fontWeight:'bold'}}>
+                    <span style={{padding:'5px', paddingRight:'5px'}}>
+                    <lord-icon
+                  src="https://cdn.lordicon.com/zpxybbhl.json"
+                  trigger="hover"
+                  colors="primary:#121331,secondary:#ffb200"
+                  style={{ width: "30px", height: "30px" }}
+                >
+                  
+                </lord-icon>
+                    </span>
+                    <span style={{paddingRight:'10px', fontSize:'15px'}}>عدد الطلبات المقبولة : </span>
+                    <span>( {Profile.jobs.length} )</span>
                   </div>
                 </ul>
 
