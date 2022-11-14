@@ -32,7 +32,9 @@ function Posts({ datas }) {
     setDis(event.target.value);
     // console.log(dis)
   }
-
+///////////////////////////////////////////////
+  // The current User
+  const currentUser = useSelector((state) => state.userReducer.userData);
   let headers = {
     Authorization: token,
   };
@@ -40,18 +42,27 @@ function Posts({ datas }) {
     let body = {
       sanai3yProposal: dis,
     };
-    console.log(body);
+    // console.log(body);
     axios
       .put(`http://localhost:7000/jobs/addproposal/${id}`, body, {
         headers: headers,
       })
-      .then((res) => {
-        // console.log(res.data.Data)
-        if (res.status == 200) {
-          window.location.reload(true);
+      .then((result) => {
+        console.log(result.data.data.clientId)
+        let sanai3yName = `${currentUser.firstName} ${currentUser.lastName}`;
+        let body = {clientId: result.data.data.clientId, }
+
+        if (result.status == 200) {
+
+
+
+
+          // window.location.reload(true);
         }
       });
   }
+
+  /////////////////////////////////////////
   return (
     <>
       {data.map((data, index) => (
