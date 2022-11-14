@@ -8,7 +8,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 function Addjops({ socket }) {
 
 
-    console.log(socket);
+    // console.log(socket);
 
 
     // Used for test only
@@ -69,7 +69,7 @@ function Addjops({ socket }) {
                         let clientName = `${result.data.data.clientData.firstName} ${result.data.data.clientData.lastName}`
                         // console.log(result.data.data)
                         // console.log(clientName)
-                        let body  = { skills: result.data.data.category, jobId: result.data.data._id, notification: ` قام ${clientName} باضافة وظيفة جديدة تتناسب مع مهاراتك  ` }
+                        let body  = { type: "addjob", skills: result.data.data.category, jobId: result.data.data._id, notification: ` قام ${clientName} باضافة وظيفة جديدة تتناسب مع مهاراتك  ` }
                         // socket.emit("addJob", {jobId: result.data.data._id, clientName});
                         axios.put("http://localhost:7000/sanai3y/addjobnotification", body).then((res) => {
                             // console.log(res.data.data)

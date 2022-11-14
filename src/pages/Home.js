@@ -25,7 +25,7 @@ useEffect(() => {
 
 
 // console.log(paramId)
-// console.log(navigatedJob)
+console.log(navigatedJob)
   /////////////////////////////////////
 
   const [data, setData] = useState([]);
