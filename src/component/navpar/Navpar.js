@@ -7,69 +7,105 @@ import { Snai3ycontext } from '../ProfileSnai3y/context'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDataClient } from '../../Redux/Slices/ClientReducer'
 import { getSnai3y, logOutSnai3y } from '../../Redux/Slices/Snai3yReducer'
+import Notifications from '../notifications/Notifications'
 import axios from 'axios'
 
 
 
 
-function Navpar({socket}) {
+function Navpar({ socket }) {
 
     // The badge
     const [badge, setBadge] = useState(false);
-    // when click
+    // when click (responsive)
     const [click, setClick] = useState(false)
-    // The jobId
+    // sanai3y notifications
+    const [sanai3yNotifications, setSanai3yNotifications] = useState([]);
+    // New notifications
+    // const [newNotifications, setNewNotifications] = useState(null)
+    // The job id
     const [jobId, setJobId] = useState("");
-    // The clientName
-    const [clientName, setClientName] = useState("");
-    // Add job notifications array
-    const [addJobNotifications, setAddJobNotifications] = useState([]);
 
     // The current User
     const currentUser = useSelector((state) => state.userReducer.userData);
     console.log(currentUser._id, currentUser.rule)
-    // The current role
-    const currentRole = currentUser.rule;
+
+    // // The current role
+    // const currentRole = currentUser.rule;
 
 
 
     // The socket events
     useEffect(() => {
-        socket?.emit("groupUserRule", {currentUserId: currentUser?._id, currentUserRule: currentUser?.rule})
+        socket?.emit("groupUserRule", { currentUserId: currentUser?._id, currentUserRule: currentUser?.rule })
         socket?.on("getRule", ((msg) => {
             console.log(msg)
         }))
 
-        socket?.on("getJob", ({jobId, clientName}) => {
-            console.log(jobId)
-            setJobId(jobId);
-            setClientName(clientName);
-            setAddJobNotifications([...addJobNotifications, {jobId, clientName}]);
-            setBadge(true);
+        socket?.on("getJob", ({ skills, jobId, notification }) => {
+            if (currentUser?.skills === skills) {
+                setJobId(jobId);
+                setBadge(true);
+                setSanai3yNotifications((prev) => [...prev, notification])
+            }
+            // console.log(jobId)
+            
+            // setClientName(clientName);
+            // setAddJobNotifications([...addJobNotifications, {jobId, clientName}]);
+            
 
         })
 
     }, [currentUser, socket])
 
 
-    // Fetching the the notificated job
+    // Fetching the notifications of the currentUser
     useEffect(() => {
-        const getNotifiedJob = async () => {
-            const res = await axios.get(`http://localhost:7000/jobs/job/${jobId}`);
-            console.log(res.data.data)
+        const headers = { authorization: currentUser?.token }
+        if (currentUser.rule === "sanai3y") {
+            const getNotifications = async () => {
+                const res = await axios.get(`http://localhost:7000/sanai3y/notifications`, { headers: headers });
+                console.log(res.data.data.newNotifications)
+                console.log(res.data.data.oldNotifications)
+                if (res.data.data.newNotifications.length !== 0) {
+                    setBadge(true);
+                }
+                let notifications = res.data.data.newNotifications.concat(res.data.data.oldNotifications);
+                setSanai3yNotifications(notifications)
+            }
+            getNotifications();
+        } else if (currentUser.rule === "client") {
+
         }
-        getNotifiedJob();
-    }, [jobId])
+
+    }, [currentUser])
+
 
     // Onclicking on notifications
+    const readNotifications = async () => {
+        let token = localStorage.getItem("token")
+        const headers = { authorization:token }
+        if (currentUser.rule === "sanai3y") {
+            const res = await axios.put(`http://localhost:7000/sanai3y/readnotification`,{} ,{ headers: headers });
+            setBadge(false);
+        }
+        else if (currentUser.rule === "client") {
+
+        }
+        
+    }
+
+
+
+    // Onclicking on notifications (responsive)
     const showNotifications = () => {
         setClick(!click);
         setBadge(false);
     }
 
 
-    // console.log(socket)
-/////////////////////////////////////////////////////////////////////
+    console.log(sanai3yNotifications)
+    /////////////////////////////////////////////////////////////////////
 
     // const {data, setData} = useState(Snai3ycontext)
     const role = localStorage.getItem("snai3yRole");
@@ -180,18 +216,18 @@ function Navpar({socket}) {
                                     الرسائل
                                 </NavLink>
                             </li>}
-                            {token &&<li className='icon_nav_mesage nav-item '>
+                            {token && <li className='icon_nav_mesage nav-item '>
                                 <NavLink to={role == "sanai3y" ? "/profileS" : "/profileC"} className=''>
-                                    <div style={{ width: '30px', height: '30px',display:"flex"}} className="">
+                                    <div style={{ width: '30px', height: '30px', display: "flex" }} className="">
                                         <img src={dataUser?.img} style={{ width: '100%', height: '100%', borderRadius: "50%" }} />
-                                        <span style={{marginRight:"5px",color:"white"}}>
-                                        {dataUser?.firstName + dataUser?.lastName}
+                                        <span style={{ marginRight: "5px", color: "white" }}>
+                                            {dataUser?.firstName + dataUser?.lastName}
                                         </span>
                                     </div>
                                     {/* <h4 style={{ whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", width: "13ch", direction: "ltr", textAlign: "center" }}>{`${dataUser.firstName} ${dataUser.lastName}`}</h4> */}
                                 </NavLink>
                             </li>}
-                            {token && <li onClick={logout} style={{cursor:"pointer"}} className='list_navpar icon_nav_mesage nav-item list_navpar text-white'>
+                            {token && <li onClick={logout} style={{ cursor: "pointer" }} className='list_navpar icon_nav_mesage nav-item list_navpar text-white'>
                                 <i className="fa-solid fa-right-from-bracket"></i>
                                 تسجيل الخروج
                             </li>}
@@ -215,17 +251,33 @@ function Navpar({socket}) {
                             {token && <div className='login_reg_nav'>
 
                                 {/* Notefications */}
-                                <lord-icon
-                                    src="https://cdn.lordicon.com/psnhyobz.json"
-                                    trigger="click"
-                                    colors="primary:#ffb200"
-                                    style={{ width: '40px', height: '35px', marginLeft: '20px' }}
-                                >
+                                <div className=' position-relative toggle notification_icon' data-bs-toggle="collapse" data-bs-target="#notification" aria-controls="userToogel" aria-expanded="false" aria-label="Toggle navigation">
+                                    <lord-icon
+                                        src="https://cdn.lordicon.com/psnhyobz.json"
+                                        trigger="click"
+                                        colors="primary:#ffb200"
+                                        style={{ width: '40px', height: '35px', marginLeft: '20px' }}
+                                        onClick={readNotifications}
+                                    >
 
-                                    <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>
+                                        {badge && <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>}
 
-                                </lord-icon>
+                                    </lord-icon>
+                                </div>
+                                {/* if the current user is sanai3y */}
+                                {currentUser.rule === "sanai3y" && <div id='notification' className='collapse  notification_toggle'>
+                                    {sanai3yNotifications?.map((notificationObj) => <div onClick={() => {console.log("p]]]]]]]]") ;navigate(`/home/${notificationObj.jobId}`)}} className='one_notification'>
+                                        {notificationObj.notification}
+                                    </div>)}
+                                    
+                                </div>}
+                                {/* if the current user is client */}
+                                {currentUser.rule === "client" && <div id='notification' className='collapse  notification_toggle'>
 
+                                    <div className='one_notification' >
+                                        I am a clinet
+                                    </div>
+                                </div>}
 
                                 {/* Chat  */}
 

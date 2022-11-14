@@ -13,7 +13,7 @@ import "./One-section.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { color } from "@mui/system";
-
+import * as yup from 'yup'
 // function Pay With Paypal
 function OneSection() {
   const product = {
@@ -22,7 +22,17 @@ function OneSection() {
   };
 
   // Toastify When Edite Profile With User 
-  const notify = () => toast("جاري التعديل علي البيانات الانتظار", {
+  const notify = () => toast.success("جاري التعديل علي البيانات ...", {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+  const notifyErr = () => toast.error("من فضلك تاكد من كلمة السر الحالية", {
     position: "top-center",
     autoClose: 1000,
     hideProgressBar: false,
@@ -35,6 +45,7 @@ function OneSection() {
 
   const [open, setOpen] = useState(false); // state with modal
   const [oopeen, setOpenUp] = useState(false);
+  const [opeenPass, setOpenPass] = useState(false);
   let token = localStorage.getItem("token");
   let role = localStorage.getItem("snai3yRole");
   let [errflag, setErrflag] = useState(false);
@@ -123,6 +134,43 @@ function OneSection() {
 
     }
   });
+  
+  // Formik Change Password
+  const formikPass = useFormik({
+    initialValues:{
+      currentPassword:"",
+      newPassword:"",
+      confirmPass:""
+    },
+    validationSchema: yup.object().shape({
+      currentPassword: yup.string().required("هذا الحقل مطلوب"),
+      newPassword: yup.string().matches(/^(?=.*[0-9])(?=.*[a-z]).{8,32}$/,"يجب ان تحتوي كلمة المرور عل حرف صغير وحرف كبير وان لاتقل عن 8 أحرف").required("هذا الحقل مطلوب"),
+      confirmPass: yup.string().oneOf([yup.ref('newPassword'),null],"كلمة السر غير متطابقة").required("هذا الحقل مطلوب"),
+    }),
+    onSubmit:(values)=>{
+      console.log(values)
+      let data ={
+        currentPassword: values.currentPassword,
+        newPassword: values.newPassword,
+      }
+      let header = {
+        Authorization: token,
+      };
+      axios.put("http://localhost:7000/sanai3y/changepassword",data,{headers:header})
+      .then((res)=>{
+        if(res.status == 200){
+          notify()
+          setTimeout(() => {
+            setOpenPass(false)
+            
+          }, 1800);
+          console.log(res)
+        }
+      }).catch((err)=> {
+        notifyErr()
+        console.log(err)})
+    }
+  })
   return (
     <>
       <div className="container">
@@ -138,6 +186,7 @@ function OneSection() {
               <div className="image_profile">
                 <img src={Profile.img} />
                 <span className="text-center">
+                  {/* start Modal Change Photo */}
                   <Button
                     variant=""
                     color="neutral"
@@ -201,11 +250,11 @@ function OneSection() {
                       </Typography>
                       <div>
                         <Typography id="modal-desc" textColor="text.tertiary">
-                          {errflag && (
+                          {errflag && 
                             <span className="my-4 p-0 d-flex justify-content-center alert alert-danger">
                               هناك خطأ يرجي المحاولة مرة أخري
                             </span>
-                          )}
+                          }
 
                           <form
                             onSubmit={formik.handleSubmit}
@@ -310,7 +359,7 @@ function OneSection() {
                       <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
                       <lord-icon
                         src="https://cdn.lordicon.com/uqpazftn.json"
-                        trigger="loop"
+                        trigger={Profile.jobcount > 0 ? "loop":""}
                         delay="500"
                         colors="primary:#121331,secondary:#ffb200"
                         style={{ width: "50px", height: "50px" }}
@@ -344,13 +393,19 @@ function OneSection() {
                 </ul>
 
                 {/* Edite Data In Profile  */}
-                <div
-                  className="child_edite_in_profile"
-                  onClick={() => setOpenUp(true)}
-                >
-                  <i class="fa-solid fa-gear"></i>
+                <div className=" d-flex flex-row justify-content-between align-items-baseline">
+                  <div
+                    className="child_edite_in_profile"
+                    onClick={() => setOpenUp(true)}
+                  >
+                    <i class="fa-solid fa-gear"></i>
+                  </div>
+                  <div className="child_pass_in_profile"
+                    onClick={()=> setOpenPass(true)}
+                  >
+                    <i class="fa-solid fa-key"></i>
+                  </div>
                 </div>
-
                 <PaypalCheckoutButton product={product} />
 
 
@@ -484,6 +539,105 @@ function OneSection() {
                           <div className="w-100 mt-3 text-start">
                             <button
                             // onClick={() => {updateJobWithClient(d._id)}}
+                            >
+                              تعديل
+                            </button>
+                          </div>
+                        </form>
+                      </Typography>
+                    </div>
+                <ToastContainer />
+                  </Sheet>
+                </Modal>
+
+                {/* Start Modal Change PAss */}
+                <Modal
+                  aria-labelledby="modal-title"
+                  aria-describedby="modal-desc"
+                  open={opeenPass}
+                  onClose={() => setOpenPass(false)}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#ffffff1a",
+                    backdropFilter: "blur(2px) ",
+                  }}
+                >
+                  <Sheet
+                    variant="outlined"
+                    sx={{
+                      maxWidth: 500,
+                      borderRadius: "md",
+                      p: 3,
+                      boxShadow: "lg",
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <ModalClose
+                      variant="outlined"
+                      sx={{
+                        top: "calc(-0.1/4 * var(--IconButton-size))",
+                        right: "calc(-1/15 * var(--IconButton-size))",
+                        boxShadow: "0 2px 12px 0 rgba(0 0 0 / 0.2)",
+                        borderRadius: "50%",
+                        bgcolor: "background.body",
+                      }}
+                    />
+                    <Typography
+                      component="h2"
+                      id="modal-title"
+                      level="h4"
+                      textColor="inherit"
+                      fontWeight="lg"
+                      mb={1}
+                      className="titleForm_Snai3y"
+                    >
+                      تعديل كلمة السر
+                    </Typography>
+                    <div>
+                      <Typography id="modal-desc" textColor="text.tertiary">
+                        <form
+                          onSubmit={formikPass.handleSubmit}
+                          className="Add_image_snai3yy"
+                          encType="multipart/form-data"
+                        >
+                            <input
+                              className="col-12"
+                              type="password"
+                              placeholder="كلمة السر الحالية"
+                              name="currentPassword"
+                              required
+                              value={formikPass.values.currentPassword}
+                              onChange={formikPass.handleChange}
+                              onBlur={formikPass.handleBlur}
+                            ></input>
+                            <small style={{color:"red",fontSize:"15px", padding:0 , margin:0 , marginRight:"10px"}}>{formikPass.touched.currentPassword && formikPass.errors.currentPassword}</small>
+                          <input
+                            className="fullfill"
+                            type="password"
+                            placeholder="كلمة السر الجديدة"
+                            name="newPassword"
+                            required
+                            value={formikPass.values.newPassword}
+                            onChange={formikPass.handleChange}
+                            onBlur={formikPass.handleBlur}
+                          ></input>
+                          <small style={{color:"red",fontSize:"15px", padding:0 , margin:0 , marginRight:"10px"}}>{formikPass.touched.newPassword && formikPass.errors.newPassword}</small>
+                          <input
+                            className="fullfill"
+                            type="password"
+                            placeholder="أعد كتابة كلمة السر"
+                            name="confirmPass"
+                            required
+                            value={formikPass.values.confirmPass}
+                            onChange={formikPass.handleChange}
+                            onBlur={formikPass.handleBlur}
+                          ></input>
+                          <small style={{color:"red",fontSize:"15px", padding:0 , margin:0 , marginRight:"10px"}}>{formikPass.touched.confirmPass && formikPass.errors.confirmPass}</small>
+                          <div className="w-100 mt-3 text-start">
+                            <button
+                              type="submit"
                             >
                               تعديل
                             </button>

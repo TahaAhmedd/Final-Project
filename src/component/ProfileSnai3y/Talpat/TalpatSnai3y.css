@@ -1,9 +1,7 @@
 .parint_snai3y_talpat{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-top: 50px;
 }
-
-
-
 
 .container_image_and_name_client {
     display: flex;
@@ -62,4 +60,19 @@
 
 .conatiner-body_post_client .proposels_sanai3y span {
     padding: 10px 1px 10px 10px;
+}
+.finish_btn{
+    outline: none;
+    background-color: var(--main-color);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    border: 2px solid var(--main-color);
+    transition: all 0.3s;
+}
+.finish_btn:hover{
+    border: 2px solid var(--main-color);
+    background-color: #fff;
+    color: #000;
 }

@@ -125,7 +125,9 @@
     border: 2px solid var(--main-color);
 }
 /* */
-
+.modal{
+    background-color: #ffffff96;
+}
 .popup {
     position: absolute;
     z-index: 2;
@@ -201,9 +203,11 @@
 }
 
 
-.mode_me {
-    background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF);
+.mode_me h5{
+    /* background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF); */
     color: #000;
+    position: relative;
+    padding-bottom: 10px ;
 }
 
 .button_me {
@@ -237,26 +241,52 @@
 
 /* Ditails Posts 
 */
-.edit_close {
-
+.edit_close button {
     margin:0  !important;
     font-size: 12px;
     transition: all .5s;
-   
 
+}
+.edit_close{
+    display: flex;
+    justify-content: end !important;
 }
 
 .edit_header {
-    background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF);
+    /* background-image: linear-gradient(to left, var(--main-color),#FFF,#FFF); */
     color: #000;
-    height: 38px;
-    padding: 0;
-   
-
+    justify-content: center !important;
+    width: 100%;
+    border-bottom: 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+.edit_header::after{
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--font-color);
+    margin-top: -5px;
+}
+.edit_header::before{
+    content: "";
+    position: absolute;
+    top: 81%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: var(--main-color);
+    z-index: 1;
 }
 .edit_header h1 {
-    font-size: 16px !important;
+    font-size: 20px !important;
     padding-right: 10px;
+    font-weight: 600;
 }
 .edit_button {
     background-color: #FFF!important;
@@ -283,11 +313,19 @@
     color: #FFF!important;
     border: 1px solid #dc3545!important;
 }
-
+.some_edit_about_snai3y{
+    background-color: #eeeeee9e;
+    margin-bottom: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 7px 10px;
+}
 .edit_image_about_job {
     width: 60px;
     height: 60px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 .edit_image_about_job img {
     width: 100%;
@@ -315,22 +353,41 @@
 }
 
 .box_paypal .modal-headerr {
-    padding-top: 10px;
-    padding-bottom: 5px !important;
+    padding: 10px 0;
     text-align: center !important;
-    /* border-bottom: 1px solid #EEE; */
     border-radius: 10px;
-    background-image: linear-gradient(to bottom, var(--main-color),#FFF,#FFF);
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    margin-bottom: 10px;
 }
 
 .box_paypal .modal-headerr h1 {
-    font-size:15px !important;
+    font-size:18px !important;
     font-weight: bold;
     color: #555;
-
+    position: relative;
+    padding-bottom: 12px;
 }
-
+.box_paypal .modal-headerr h1::after , .mode_me h5::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: var(--font-color);
+    margin-top: -5px;
+}
+.box_paypal .modal-headerr h1::before , .mode_me h5::before{
+    content: "";
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: var(--main-color);
+    z-index: 1;
+}
 
 .box_paypal .modal-body strong  {
 
@@ -365,7 +422,7 @@
     transition: all .5s;
     color: var(--main-color);
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 16px;
 }
 .box_paypal .modal-footer .acc_to:hover {
 
@@ -382,7 +439,7 @@
     transition: all .5s;
     color: #dc3545;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .box_paypal .modal-footer .close_paypal:hover {
