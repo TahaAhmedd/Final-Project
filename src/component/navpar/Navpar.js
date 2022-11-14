@@ -17,12 +17,12 @@ function Navpar({ socket }) {
 
     // The badge
     const [badge, setBadge] = useState(false);
-    // when click (responsive)
-    const [click, setClick] = useState(false)
+    // // when click (responsive)
+    // const [click, setClick] = useState(false)
     // sanai3y notifications
     const [sanai3yNotifications, setSanai3yNotifications] = useState([]);
     // New notifications
-    // const [newNotifications, setNewNotifications] = useState(null)
+    const [newNotifications, setNewNotifications] = useState([])
     // The job id
     const [jobId, setJobId] = useState("");
 
@@ -42,22 +42,35 @@ function Navpar({ socket }) {
             console.log(msg)
         }))
 
-        socket?.on("getJob", ({ skills, jobId, notification }) => {
-            if (currentUser?.skills === skills) {
-                setJobId(jobId);
+        // Getting add job notification
+        socket?.on("getJob", (data) => {
+            if (currentUser?.skills === data.skills) {
+                setJobId(data.jobId);
                 setBadge(true);
-                setSanai3yNotifications((prev) => [...prev, notification])
-            }
-            // console.log(jobId)
-            
-            // setClientName(clientName);
-            // setAddJobNotifications([...addJobNotifications, {jobId, clientName}]);
-            
+                setNewNotifications(data);
 
+            }
         })
+
+        // Getting accept job notification
+        socket?.on("getAcceptedJob", (data) => {
+            setJobId(data.jobId);
+            setBadge(true);
+            setNewNotifications(data);
+            console.log(data);
+        })
+
+
 
     }, [currentUser, socket])
 
+
+    // Adding the new notification by socket io
+    useEffect(() => {
+        // let finalNotifications = newNotifications?.concat(sanai3yNotifications)
+        // setSanai3yNotifications((prev) => newNotifications?.concat(prev))
+        setSanai3yNotifications((prev) => [newNotifications, ...prev])
+    }, [newNotifications])
 
     // Fetching the notifications of the currentUser
     useEffect(() => {
@@ -84,24 +97,33 @@ function Navpar({ socket }) {
     // Onclicking on notifications
     const readNotifications = async () => {
         let token = localStorage.getItem("token")
-        const headers = { authorization:token }
+        const headers = { authorization: token }
         if (currentUser.rule === "sanai3y") {
-            const res = await axios.put(`http://localhost:7000/sanai3y/readnotification`,{} ,{ headers: headers });
+            const res = await axios.put(`http://localhost:7000/sanai3y/readnotification`, {}, { headers: headers });
             setBadge(false);
         }
         else if (currentUser.rule === "client") {
 
         }
-        
+
     }
 
+    const onNavigating = (notificationObj) => {
+        if(notificationObj.type === "addjob") {
+            navigate(`/home/${notificationObj.jobId}`)
+            window.location.reload(true)
+        }
+        else if (notificationObj.type === "acceptjob") {
+            navigate("/profileS/two");
 
-
-    // Onclicking on notifications (responsive)
-    const showNotifications = () => {
-        setClick(!click);
-        setBadge(false);
+        }
     }
+
+    // // Onclicking on notifications (responsive)
+    // const showNotifications = () => {
+    //     setClick(!click);
+    //     setBadge(false);
+    // }
 
 
     console.log(sanai3yNotifications)
@@ -187,22 +209,22 @@ function Navpar({ socket }) {
                                 </NavLink>
                             </li>
                             {token && <li className="icon_nav_mesage nav-item list_navpar text-white">
-                                <button className='notificbtn' onClick={showNotifications}>
+                                {/* <button className='notificbtn' onClick={showNotifications}> */}
 
-                                    <lord-icon
-                                        src="https://cdn.lordicon.com/psnhyobz.json"
-                                        trigger="click"
-                                        colors="primary:#ffb200"
-                                        style={{ width: '30px', height: '30px' }}
-                                    >
+                                <lord-icon
+                                    src="https://cdn.lordicon.com/psnhyobz.json"
+                                    trigger="click"
+                                    colors="primary:#ffb200"
+                                    style={{ width: '30px', height: '30px' }}
+                                >
 
-                                        {badge && <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>}
-                                    </lord-icon>
-                                    {/* الاشعارات */}
-                                </button>
-                                {click && <div className='notificList'>
-                                    hfhhhhhhh
-                                </div>}
+                                    {badge && <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span>}
+                                </lord-icon>
+                                {/* الاشعارات */}
+                                {/* </button> */}
+                                {/* {click && <div className='notificList'> */}
+                                {/* hfhhhhhhh */}
+                                {/* </div>} */}
                             </li>}
                             {token && <li className="icon_nav_mesage nav-item list_navpar text-white">
                                 <NavLink to='/chat'>
@@ -266,10 +288,10 @@ function Navpar({ socket }) {
                                 </div>
                                 {/* if the current user is sanai3y */}
                                 {currentUser.rule === "sanai3y" && <div id='notification' className='collapse  notification_toggle'>
-                                    {sanai3yNotifications?.map((notificationObj) => <div onClick={() => {console.log("p]]]]]]]]") ;navigate(`/home/${notificationObj.jobId}`)}} className='one_notification'>
-                                        {notificationObj.notification}
+                                    {sanai3yNotifications?.map((notificationObj) => <div onClick={ () => {onNavigating(notificationObj)} } className='one_notification'>
+                                        {notificationObj?.notification}
                                     </div>)}
-                                    
+
                                 </div>}
                                 {/* if the current user is client */}
                                 {currentUser.rule === "client" && <div id='notification' className='collapse  notification_toggle'>

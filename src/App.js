@@ -25,7 +25,7 @@ import Notfound from "./component/notfound/Notfound";
 import Loader from "./component/Loader/Loader";
 import Terms from "./component/Terms/Terms";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import  {io}  from "socket.io-client";
+import { io } from "socket.io-client";
 import { getUserData } from './Redux/Slices/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import Messenger from './pages/messenger/Messenger';
@@ -34,25 +34,37 @@ import Messenger from './pages/messenger/Messenger';
 
 function App() {
 
-  
+
   // The socket
-const [socket, setSocket] = useState(null)
+  const [socket, setSocket] = useState(null)
 
-// // Setting socket current
-// useEffect(() => {
-//     socket.current = (io("http://localhost:7000"));
-// }, [socket])
+  // The current User
+  const currentUser = useSelector((state) => state.userReducer.userData);
 
-useEffect(() => {
-    setSocket(io("http://localhost:7000", { 
-        transport: ['websocket', 'polling', 'flashsocket'],
-        // withCredentials: true 
+  // // Setting socket current
+  // useEffect(() => {
+  //     socket.current = (io("http://localhost:7000"));
+  // }, [socket])
+
+  useEffect(() => {
+    setSocket(io("http://localhost:7000", {
+      transport: ['websocket', 'polling', 'flashsocket'],
+      // withCredentials: true 
     }))
-}, [])
+  }, [])
+
+  useEffect(() => {
+    socket?.emit("addUser", currentUser?._id);
+    socket?.on("getUsers", (users) => {
+      // setOnlineUsers([...users])
+      // console.log(users)
+
+    })
+  }, [currentUser, socket])
 
 
 
-/////////////////////////////////////////////////
+  /////////////////////////////////////////////////
   let [scroll, setScroll] = useState();
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -70,17 +82,17 @@ useEffect(() => {
 
   let location = useLocation();
   const recieverId = useSelector((state) => state.userReducer.recieverId)
-    // console.log(recieverId)
-    // console.log(location)
+  // console.log(recieverId)
+  // console.log(location)
 
 
 
   return (
     <>
       <PayPalScriptProvider
-        options={{ "client-id":process.env.REACT_APP_PAYPAL_CLIENT_ID }}
+        options={{ "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID }}
       >
-        <Navpar socket={socket}/>
+        <Navpar socket={socket} />
         <AddjopsIcon_fixed />
         <Routes>
           <Route index element={<Landing />} />
@@ -133,7 +145,7 @@ useEffect(() => {
             }
           />
           <Route path="/allsnai3y" element={<Snai3yCardPage />} />
-          <Route path="/addjops" element={<Addjops socket={socket}/>} />
+          <Route path="/addjops" element={<Addjops socket={socket} />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/regiser" element={<Register />} />
           <Route path="/login" element={<Login />} />

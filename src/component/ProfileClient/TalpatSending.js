@@ -7,26 +7,40 @@ import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 
 import Notfind from "../notfind/Notfind";
 import { useSelector } from "react-redux";
+import  {io}  from "socket.io-client";
 
 function TalpatSending() {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
   const [flagNoMore, setFlagNoMore] = useState(false);
+  ////////////////////////////////////////////
   // The current user
   const currentUser = useSelector ((state) => state.userReducer.userData);
+    // The socket
+const [socket, setSocket] = useState(null)
+
+useEffect(() => {
+  setSocket(io("http://localhost:7000", { 
+      transport: ['websocket', 'polling', 'flashsocket'],
+      // withCredentials: true 
+  }))
+}, [])
+
 
   function huntJob(i) {
     console.log(i);
     axios.put(`http://localhost:7000/sanai3y/huntjob/${i}`).then((result) => {
       // console.log(result.data.data._id);
       let clientName = `${currentUser?.firstName} ${currentUser?.lastName}`;
-      let body = {sanai3yId: result.data.data.sanai3yId, proposalId: i, jobId: result.data.data.jobId, notification: ` قام ${clientName} بقبول طلبك المقدم على وظيفته  ` }
+      let body = {type: "acceptjob", sanai3yId: result.data.data.sanai3yId, proposalId: i, jobId: result.data.data._id, notification: ` قام ${clientName} بقبول طلبك المقدم على وظيفته  ` }
       // console.log(body);
 
       if (result.status === 200) {
         axios.put("http://localhost:7000/sanai3y/acceptjobnotification", body).then((res) => {
-          console.log(res.data.data)
+          // console.log(res.data.data)
+          socket.emit("acceptJob", res.data.data);
+
 
 
         }).catch((err) => {
@@ -38,7 +52,7 @@ function TalpatSending() {
       }
     });
   }
-
+/////////////////////////////////////////////////////////////////
   // Get Token From Storage And Create Object Containe Title And Description
   const token = localStorage.getItem("token");
   const [state, setState] = React.useState({
