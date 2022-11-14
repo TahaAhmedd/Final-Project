@@ -9,55 +9,46 @@ function Snai3ySidepar(props) {
           <li onClick={()=>props.filter1("سباك")}>
             <i className="fa-brands fa-pied-piper"></i>
             سباكة
-            <span>10</span>
           </li>
 
           <li onClick={()=>props.filter1("نجار")}>
             <i className="fa-solid fa-rug"></i>
             نجارة
-            <span>15</span>
           </li>
 
           <li onClick={()=>props.filter1("دهانات")}>
             <i className="fa-solid fa-paint-roller"></i>
             دهانات
-            <span>8</span>
           </li>
 
           <li onClick={()=>props.filter1("كهربائي")}>
             <i className="fa-solid fa-bolt"></i>
             كهرباء
-            <span>5</span>
           </li>
 
           <li onClick={()=>props.filter1("بناء")}>
             <i className="fa-solid fa-building"></i>
             بناء
-            <span>4</span>
           </li>
 
           <li onClick={()=>props.filter1("فني ارضيات")}>
             <i className="fa-solid fa-house-flood-water"></i>
             ارضيات
-            <span>11</span>
           </li>
 
           <li onClick={()=>props.filter1("مبيض محارة")}>
             <i className="fa-solid fa-chalkboard"></i>
             تبيض
-            <span>8</span>
           </li>
 
           <li onClick={()=>props.filter1("فني تكييف")}>
             <i className="fa-solid fa-fan"></i>
             تكيف
-            <span>10</span>
           </li>
 
           <li onClick={()=>props.filter1("الوميتال")}>
             <i className="fa-solid fa-fan"></i>
             الوميتال
-            <span>10</span>
           </li>
          
         </ul>
@@ -133,88 +124,88 @@ function Snai3ySidepar(props) {
           <li onClick={()=> props.filter2("أسوان")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="one"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">أسوان</label>
+            <label htmlFor="one">أسوان</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("أسوان الجديدة")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="two"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">أسوان الجديدة</label>
+            <label htmlFor="two">أسوان الجديدة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("أبو سمبل")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="three"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">أبو سمبل</label>
+            <label htmlFor="three">أبو سمبل</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("دراو")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="four"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">دراو</label>
+            <label htmlFor="four">دراو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("كوم امبو")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="five"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">كوم أمبو</label>
+            <label htmlFor="five">كوم أمبو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("نصر النوبة")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="six"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">نصر النوبة</label>
+            <label htmlFor="six">نصر النوبة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("كلابشة")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="seven"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">كلابشة</label>
+            <label htmlFor="seven">كلابشة</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
 
           <li onClick={()=> props.filter2("أدفو")}>
             <input
               type="radio"
-              id="trusted_identity"
+              id="eight"
               name="trusted_identity"
               value="trusted_identity"
             />
-            <label htmlFor="trusted_identity">إدفو</label>
+            <label htmlFor="eight">إدفو</label>
             <i className="fa-solid fa-location-dot"></i>
           </li>
         </ul>
