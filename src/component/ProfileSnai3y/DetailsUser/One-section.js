@@ -2,7 +2,7 @@ import axios from "axios";
 import PaypalCheckoutButton from "../../Landing/Payment/PaypalCheckoutButton";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dateFormat from "dateformat";
 import Button from "@mui/joy/Button";
 import Modal from "@mui/joy/Modal";
@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { color } from "@mui/system";
 import * as yup from 'yup'
+import { getSnai3y } from "../../../Redux/Slices/Snai3yReducer";
 // function Pay With Paypal
 function OneSection() {
   const product = {
@@ -49,7 +50,7 @@ function OneSection() {
   let token = localStorage.getItem("token");
   let role = localStorage.getItem("snai3yRole");
   let [errflag, setErrflag] = useState(false);
-
+  const dispatch = useDispatch()
   let Profile = useSelector((state) => state.Snai3yReducer.data); // redux for snai3y Data
   // console.log(Profile.jobs)
   // Formik in use add profile pictchre
@@ -73,9 +74,10 @@ function OneSection() {
           notify()
           if (res.status == 200) {
             setTimeout(() => {
-              
-              window.location.reload(true);
-            }, 500);
+              setOpen(false)
+              dispatch(getSnai3y())
+              // window.location.reload(true);
+            }, 3000);
           }
         })
         .catch((err) => {
@@ -118,9 +120,11 @@ function OneSection() {
             // console.log(res)
             // showToasts()
             setTimeout(() => {
-              window.scrollTo(0,0)        
-              window.location.reload(true);
-            }, 500);
+              window.scrollTo(0,0) 
+              setOpenUp(false)     
+              dispatch(getSnai3y())  
+              // window.location.reload(true);
+            }, 3000);
           }
         })
         .catch((err) => {

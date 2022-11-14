@@ -102,8 +102,8 @@ function Posts({ datas }) {
                   {data?.city}
                 </p>
                 <p className="len">
-                  عدد الطلبات المقدمه:
-                  <strong>({data?.proposals.length})</strong>
+                   عدد الطلبات المقدمه  : 
+                  <strong> ( {data?.proposals.length} )</strong>
                 </p>
               </div>
 

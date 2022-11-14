@@ -8,12 +8,14 @@ import { Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 import Notfind from "../notfind/Notfind";
 import { useSelector } from "react-redux";
 import  {io}  from "socket.io-client";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function TalpatSending() {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
   const [flagNoMore, setFlagNoMore] = useState(false);
+  const naviga = useNavigate()
   ////////////////////////////////////////////
   // The current user
   const currentUser = useSelector ((state) => state.userReducer.userData);
@@ -190,11 +192,19 @@ useEffect(() => {
                                 style={{ marginBottom: "10px" }}
                               >
                                 <div className="card-body edit_body_jobs_client">
-                                  <h5 className="card-title">
-                                    {one.sanai3yId.firstName +
-                                      " " +
-                                      one.sanai3yId.lastName}
-                                  </h5>
+                                  {/* <NavLink to={`/showprofile/${one.sanai3yId._id}`}
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                                  > */}
+
+                                    <h5 className="card-title"
+                                                                        
+                                    >
+                                      {one.sanai3yId.firstName +
+                                        " " +
+                                        one.sanai3yId.lastName}
+                                    </h5>
+                                  {/* </NavLink> */}
                                   <p
                                     className="card-text"
                                     style={{
