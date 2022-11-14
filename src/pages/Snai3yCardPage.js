@@ -56,14 +56,14 @@ function Snai3yCardPage() {
       </div>
       <div className='row' style={{ position: "relative" }}>
         {/* Sidepar */}
-        <div className='col-4 ' >
+        <div className='col-3 ' >
           <Snai3ySidepar filter1={fliterSkills} filter2={fliterAddressSnai3y}
             style={{ position: "fixed", right: "0" }}
           />
         </div>
 
         {/* Snai3y Card */}
-        <div className='col-8' style={{ backgroundColor: "#eee", padding: "20px" }} >
+        <div className='col-9' style={{ backgroundColor: "#eee", padding: "20px" }} >
 
           {data.map((item, index) =>
             <ClintCard datas={item} key={index} />
