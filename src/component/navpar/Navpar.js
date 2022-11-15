@@ -21,10 +21,12 @@ function Navpar({ socket }) {
     // const [click, setClick] = useState(false)
     // sanai3y notifications
     const [sanai3yNotifications, setSanai3yNotifications] = useState([]);
+    // client notifications
+    const [clientNotifications, setClientNotifications] = useState([])
     // New notifications
     const [newNotifications, setNewNotifications] = useState([])
-    // The job id
-    const [jobId, setJobId] = useState("");
+    // // The job id
+    // const [jobId, setJobId] = useState("");
 
     // The current User
     const currentUser = useSelector((state) => state.userReducer.userData);
@@ -45,7 +47,7 @@ function Navpar({ socket }) {
         // Getting add job notification
         socket?.on("getJob", (data) => {
             if (currentUser?.skills === data.skills) {
-                setJobId(data.jobId);
+                // setJobId(data.jobId);
                 setBadge(true);
                 setNewNotifications(data);
 
@@ -54,10 +56,22 @@ function Navpar({ socket }) {
 
         // Getting accept job notification
         socket?.on("getAcceptedJob", (data) => {
-            setJobId(data.jobId);
+            // setJobId(data.jobId);
             setBadge(true);
             setNewNotifications(data);
             console.log(data);
+        })
+
+        // Getting proposal notification
+        socket?.on("getproposal", (data) => {
+            setBadge(true);
+            setNewNotifications(data);
+        })
+
+        // Confirm compeleting the job notification
+        socket?.on("getconfirm", (data) => {
+            setBadge(true);
+            setNewNotifications(data);
         })
 
 
@@ -69,14 +83,20 @@ function Navpar({ socket }) {
     useEffect(() => {
         // let finalNotifications = newNotifications?.concat(sanai3yNotifications)
         // setSanai3yNotifications((prev) => newNotifications?.concat(prev))
-        setSanai3yNotifications((prev) => [newNotifications, ...prev])
+        if (currentUser.rule === "sanai3y") {
+            setSanai3yNotifications((prev) => [newNotifications, ...prev])
+        }
+        else if (currentUser.rule === "client") {
+            setClientNotifications((prev) => [newNotifications, ...prev])
+        }
+        
     }, [newNotifications])
 
     // Fetching the notifications of the currentUser
     useEffect(() => {
         const headers = { authorization: currentUser?.token }
         if (currentUser.rule === "sanai3y") {
-            const getNotifications = async () => {
+            let getNotifications = async () => {
                 const res = await axios.get(`http://localhost:7000/sanai3y/notifications`, { headers: headers });
                 console.log(res.data.data.newNotifications)
                 console.log(res.data.data.oldNotifications)
@@ -88,7 +108,17 @@ function Navpar({ socket }) {
             }
             getNotifications();
         } else if (currentUser.rule === "client") {
-
+            let getNotifications = async () => {
+                const res = await axios.get(`http://localhost:7000/client/notifications`, { headers: headers });
+                console.log(res.data.data.newNotifications)
+                console.log(res.data.data.oldNotifications)
+                if (res.data.data.newNotifications.length !== 0) {
+                    setBadge(true);
+                }
+                let notifications = res.data.data.newNotifications.concat(res.data.data.oldNotifications);
+                setClientNotifications(notifications)
+            }
+            getNotifications();
         }
 
     }, [currentUser])
@@ -103,18 +133,32 @@ function Navpar({ socket }) {
             setBadge(false);
         }
         else if (currentUser.rule === "client") {
-
+            const res = await axios.put(`http://localhost:7000/client/readnotification`, {}, { headers: headers });
+            setBadge(false);
         }
 
     }
 
-    const onNavigating = (notificationObj) => {
+    const onSanai3yNavigating = (notificationObj) => {
         if(notificationObj.type === "addjob") {
             navigate(`/home/${notificationObj.jobId}`)
             window.location.reload(true)
         }
         else if (notificationObj.type === "acceptjob") {
             navigate("/profileS/two");
+            window.location.reload(true)
+
+        }
+    }
+
+    const onClientNavigating = (notificationObj) => {
+        if(notificationObj.type === "addproposal") {
+            navigate(`/profileC/${notificationObj.jobId}`)
+            window.location.reload(true)
+        }
+        else if (notificationObj.type === "confirmjob") {
+            navigate(`/profileC/${notificationObj.jobId}`)
+            window.location.reload(true)
 
         }
     }
@@ -288,7 +332,7 @@ function Navpar({ socket }) {
                                 </div>
                                 {/* if the current user is sanai3y */}
                                 {currentUser.rule === "sanai3y" && <div id='notification' className='collapse  notification_toggle'>
-                                    {sanai3yNotifications?.map((notificationObj) => <div onClick={ () => {onNavigating(notificationObj)} } className='one_notification'>
+                                    {sanai3yNotifications?.map((notificationObj) => <div onClick={ () => {onSanai3yNavigating(notificationObj)} } className='one_notification'>
                                         {notificationObj?.notification}
                                     </div>)}
 
@@ -296,9 +340,9 @@ function Navpar({ socket }) {
                                 {/* if the current user is client */}
                                 {currentUser.rule === "client" && <div id='notification' className='collapse  notification_toggle'>
 
-                                    <div className='one_notification' >
-                                        I am a clinet
-                                    </div>
+                                {clientNotifications?.map((notificationObj) => <div onClick={ () => {onClientNavigating(notificationObj)} } className='one_notification'>
+                                        {notificationObj?.notification}
+                                    </div>)}
                                 </div>}
 
                                 {/* Chat  */}

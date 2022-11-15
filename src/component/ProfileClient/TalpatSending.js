@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import  {io}  from "socket.io-client";
 import { NavLink, useNavigate } from "react-router-dom";
 
-function TalpatSending() {
+function TalpatSending({navigatedJob}) {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
@@ -42,7 +42,7 @@ useEffect(() => {
         axios.put("http://localhost:7000/sanai3y/acceptjobnotification", body).then((res) => {
           // console.log(res.data.data)
           socket.emit("acceptJob", res.data.data);
-
+          window.location.reload(true)
 
 
         }).catch((err) => {
@@ -97,8 +97,14 @@ useEffect(() => {
         headers: { Authorization: `${token}` },
       })
       .then((res) => {
-        let jobClient = res.data.Data;
-        setJobs([...jobClient]);
+        if (navigatedJob.length !== 0){
+          setJobs([...navigatedJob])
+        }
+        else {
+          let jobClient = res.data.Data;
+          setJobs([...jobClient]);
+        }
+        
       });
   }, []);
 
@@ -126,6 +132,10 @@ useEffect(() => {
         console.log(err);
       });
   }
+
+
+  
+
 
   return (
     <>
@@ -219,7 +229,7 @@ useEffect(() => {
                                   <span className="parent_two_button">
                                     <span>{one.sanai3yId.skills}</span>
 
-                                    {d.status == "in progress" ? (
+                                    {d.status == "in progress" || d.status == "compelete"  ? (
                                       <button
                                         
                                         className="btn btn-info edit_button_no"
