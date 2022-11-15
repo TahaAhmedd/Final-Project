@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import  {io}  from "socket.io-client";
 import { NavLink, useNavigate } from "react-router-dom";
 
-function TalpatSending() {
+function TalpatSending({navigatedJob}) {
   const [Job, setJobs] = useState([]);
   const [open, setOpen] = useState(false);
   const [oopeen, setOpenUp] = useState(false);
@@ -97,8 +97,14 @@ useEffect(() => {
         headers: { Authorization: `${token}` },
       })
       .then((res) => {
-        let jobClient = res.data.Data;
-        setJobs([...jobClient]);
+        if (navigatedJob.length !== 0){
+          setJobs([...navigatedJob])
+        }
+        else {
+          let jobClient = res.data.Data;
+          setJobs([...jobClient]);
+        }
+        
       });
   }, []);
 

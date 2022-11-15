@@ -112,13 +112,15 @@ function App() {
           </Route>
 
           <Route
-            path="/profileC"
+            path="/profileC/"
             element={
               <AuthGuard>
                 <ProfilesClients />
               </AuthGuard>
             }
-          ></Route>
+          >
+            <Route path=':jobId' element={<AuthGuard><ProfilesClients /></AuthGuard>} />
+          </Route>
           <Route path='/home/' element={<AuthGuard><Home /></AuthGuard>}>
 
             <Route path=':jobId' element={<AuthGuard><Home /></AuthGuard>} />

@@ -14,7 +14,39 @@ import { getDataClient } from "../Redux/Slices/ClientReducer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
+import { useParams } from "react-router-dom";
 function ProfilesClients() {
+  
+  // The params
+  const navigatedJobdId = useParams().jobId
+  // console.log(navigatedJobdId)
+
+  // The navigated job
+  const [navigatedJob, setNavigatedJob] = useState([])
+
+  // fetching the navigated job
+  useEffect(() => {
+    try {
+      if (navigatedJobdId) {
+        const getNavigatedJob = async () => {
+          const res = await axios.get(`http://localhost:7000/jobs/job/${navigatedJobdId}`);
+          // console.log(res.data.data)
+          let job = navigatedJob.push(res.data.data)
+          setNavigatedJob(job)
+    
+        }
+        getNavigatedJob();
+      }
+      
+    }catch(err) {
+      console.log(err)
+    }
+    
+  }, [navigatedJobdId])
+
+
+
+  /////////////////////////////////////////////////////////////////
   // Toastify When Edite Profile With User
   const notify = () =>
     toast.success("جاري التعديل علي البيانات ...", {
@@ -360,7 +392,7 @@ function ProfilesClients() {
           )}
         </div>
         <div style={{ backgroundColor: "#eee", marginTop: "50px" }}>
-          <TalpatSending />
+          <TalpatSending navigatedJob={navigatedJob}/>
         </div>
         {/* Start Edite Profile */}
         <Modal

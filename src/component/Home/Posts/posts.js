@@ -4,6 +4,7 @@ import dateFormat, { masks } from "dateformat";
 import axios from "axios";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { io } from "socket.io-client";
 
 function Posts({ datas }) {
   const sanai3y = useSelector((state) => state.Snai3yReducer.data);
@@ -32,7 +33,17 @@ function Posts({ datas }) {
     setDis(event.target.value);
     // console.log(dis)
   }
-///////////////////////////////////////////////
+  ///////////////////////////////////////////////
+
+  // The socket
+  const [socket, setSocket] = useState(null)
+
+  useEffect(() => {
+    setSocket(io("http://localhost:7000", {
+      transport: ['websocket', 'polling', 'flashsocket'],
+      // withCredentials: true 
+    }))
+  }, [])
   // The current User
   const currentUser = useSelector((state) => state.userReducer.userData);
   let headers = {
@@ -48,16 +59,27 @@ function Posts({ datas }) {
         headers: headers,
       })
       .then((result) => {
-        console.log(result.data.data.clientId)
+        console.log(result.data.data._id)
         let sanai3yName = `${currentUser.firstName} ${currentUser.lastName}`;
-        let body = {clientId: result.data.data.clientId, }
+        let body = {
+          clientId: result.data.data.clientId,
+          jobId: result.data.data._id,
+          type: "addproposal",
+          notification: `قام ${sanai3yName} باضافة عرض جديد على وظيفتك`
+        }
 
         if (result.status == 200) {
+          console.log("nnnnnnnnn")
+          axios.put("http://localhost:7000/client/addproposalnotification", body).then((res) => {
+            console.log(res.data.data);
+            socket.emit("addproposal", res.data.data)
+
+            window.location.reload(true);
+          })
 
 
 
 
-          // window.location.reload(true);
         }
       });
   }
@@ -102,7 +124,7 @@ function Posts({ datas }) {
                   {data?.city}
                 </p>
                 <p className="len">
-                   عدد الطلبات المقدمه  : 
+                  عدد الطلبات المقدمه  :
                   <strong> ( {data?.proposals.length} )</strong>
                 </p>
               </div>
@@ -122,7 +144,7 @@ function Posts({ datas }) {
             {/* Chuck About Sanai3y  */}
             {role == "sanai3y" && (
               <div className="buttons col-6">
-                {sanai3y.jobcount > 0 ? 
+                {sanai3y.jobcount > 0 ?
                   <button
                     data-bs-toggle="modal"
                     data-bs-target={`#abdo${data?._id}`}
@@ -130,7 +152,7 @@ function Posts({ datas }) {
                   >
                     طلب
                   </button>
-                 : 
+                  :
                   <button
                     data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop"
@@ -195,7 +217,7 @@ function Posts({ datas }) {
                       type="button"
                       class="btn  btn-secondary edit_close_button "
                       data-bs-dismiss="modal"
-                      style={{fontSize:"18px"}}
+                      style={{ fontSize: "18px" }}
                     >
                       اغلاق
                     </button>
@@ -245,7 +267,7 @@ function Posts({ datas }) {
                         name="description"
                         onChange={disChange}
                         value={dis}
-                        style={{maxHeight:"200px"}}
+                        style={{ maxHeight: "200px" }}
                       ></textarea>
                     </div>
 
@@ -345,7 +367,7 @@ function Posts({ datas }) {
                   <button
                     type="button"
                     className="btn btn-secondary edit_close_button"
-                    style={{fontSize:"1rem !important" }}
+                    style={{ fontSize: "1rem !important" }}
                     data-bs-dismiss="modal"
                   >
                     اغلاق
