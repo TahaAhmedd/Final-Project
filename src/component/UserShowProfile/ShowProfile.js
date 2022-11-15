@@ -10,6 +10,8 @@ import Notfind from '../notfind/Notfind';
 
 
 function Showprofile(props) {
+  // The current user
+  const currentUser = useSelector((state) => state.userReducer.userData);
 
   // let Profile = useSelector((state) => state.Snai3yReducer.data)
   const navigate = useNavigate();
@@ -22,17 +24,17 @@ function Showprofile(props) {
   // console.log(Profile._id);
 
 
-    // Getting all conversations of the current client
-    useEffect(() => {
-      axios.get("http://localhost:7000/conversations/"+clientId).then((res) => {
-          // console.log(res.data.data)
-          setConversations([...res.data.data]);
-      }).catch((err) => {
-          console.log(err)
-      })
+  // Getting all conversations of the current client
+  useEffect(() => {
+    axios.get("http://localhost:7000/conversations/" + clientId).then((res) => {
+      // console.log(res.data.data)
+      setConversations([...res.data.data]);
+    }).catch((err) => {
+      console.log(err)
+    })
 
 
-      window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }, [])
 
 
@@ -45,25 +47,25 @@ function Showprofile(props) {
         setProfile(res.data.Data)
       })
 
-      window.scrollY=0;
+    window.scrollY = 0;
   }, [])
 
 
-    // Making new conversation and routing to the chat page
-    const setNewConversation = async () => {
+  // Making new conversation and routing to the chat page
+  const setNewConversation = async () => {
 
-      const isFriend = conversations.some((conversation) => conversation.members.includes(Profile._id))
-      console.log(isFriend);
-      if(isFriend) {
-          navigate(`/chat/${Profile._id}`);
-      }
-      else {
-          const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id});
-          console.log(res);
-          navigate(`/chat/${Profile._id}`)
+    const isFriend = conversations.some((conversation) => conversation.members.includes(Profile._id))
+    console.log(isFriend);
+    if (isFriend) {
+      navigate(`/chat/${Profile._id}`);
+    }
+    else {
+      const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id });
+      console.log(res);
+      navigate(`/chat/${Profile._id}`)
 
-      }
-      // const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id})
+    }
+    // const res = await axios.post("http://localhost:7000/conversations", { senderId: clientId, recieverId: Profile._id})
   }
 
 
@@ -94,7 +96,7 @@ function Showprofile(props) {
 
                 </li>
                 <li>
-                <i class="fa-solid fa-screwdriver-wrench ed_fonts"></i>
+                  <i class="fa-solid fa-screwdriver-wrench ed_fonts"></i>
                   <span className='ed_text_c'>الحرفة :</span>
                   <span className="data_client"><strong> {Profile.skills}</strong></span>
 
@@ -112,14 +114,14 @@ function Showprofile(props) {
                     <span className="data_client"><strong> {dateFormat(Profile.joinedDate, "fullDate")}</strong></span>
                   </div>
                   <div className='col-lg-4 col-sm-4 text-center'>
-                  <lord-icon
+                    {(currentUser._id !== Profile._id) && <lord-icon
                       src="https://cdn.lordicon.com/hpivxauj.json"
                       trigger="click"
                       colors="primary:#ffb200"
                       style={{ width: '40px', height: '40px' }}
                       onClick={setNewConversation}>
                       {/* <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span> */}
-                    </lord-icon>
+                    </lord-icon>}
                     {/* <button type="button" className="btn btn-primary" onClick={setNewConversation}>Button</button> */}
                   </div>
 
@@ -145,7 +147,7 @@ function Showprofile(props) {
 
 
             {/* Slider From Swiper Liprary */}
-           {photo.length > 0 && <Swiper
+            {photo.length > 0 && <Swiper
               slidesPerView={3}
               spaceBetween={30}
               slidesPerGroup={3}
@@ -180,7 +182,7 @@ function Showprofile(props) {
 
 
             </Swiper>}
-              { photo.length == 0 &&<Notfind data={"لايوجد صور حاليا"}/>}
+            {photo.length == 0 && <Notfind data={"لايوجد صور حاليا"} />}
           </div>
         </div>
       </div>

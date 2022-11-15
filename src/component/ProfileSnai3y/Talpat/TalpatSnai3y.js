@@ -29,7 +29,8 @@ function TalpatSnai3y() {
     )
 
   },[])
-
+//////////////////////////////////////////////////////////////
+const currentUser = useSelector((state) => state.userReducer.userData);
   function compeleteJob(){
     axios.put("http://localhost:7000/sanai3y/jobcompelete",{},{headers:headers}).then(
       (res)=>{
