@@ -36,7 +36,9 @@ const currentUser = useSelector((state) => state.userReducer.userData);
       (res)=>{
         console.log(res)
         if(res.status == 200){
-          console.log("succes")
+          // console.log("succes")
+          window.location.reload(true)
+
         }
       }
     ).catch((err)=> console.log(err))

@@ -5,10 +5,11 @@ import axios from "axios";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { toast, ToastContainer } from "react-toastify";
 
 function Posts({ datas }) {
   const sanai3y = useSelector((state) => state.Snai3yReducer.data);
-  console.log(sanai3y);
+  // console.log(sanai3y);
   let role = localStorage.getItem("snai3yRole");
   let token = localStorage.getItem("token");
   const [data, setData] = useState(datas);
@@ -49,39 +50,63 @@ function Posts({ datas }) {
   let headers = {
     Authorization: token,
   };
+
+  const notifyErr = () =>
+  toast.error("التقديم بعد الانتهاء من العمل الحالي", {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+
   function sendid(id) {
     let body = {
       sanai3yProposal: dis,
     };
     // console.log(body);
-    axios
-      .put(`http://localhost:7000/jobs/addproposal/${id}`, body, {
-        headers: headers,
-      })
-      .then((result) => {
-        console.log(result.data.data._id)
-        let sanai3yName = `${currentUser.firstName} ${currentUser.lastName}`;
-        let body = {
-          clientId: result.data.data.clientId,
-          jobId: result.data.data._id,
-          type: "addproposal",
-          notification: `قام ${sanai3yName} باضافة عرض جديد على وظيفتك`
-        }
+    if(sanai3y.status == "free"){
 
-        if (result.status == 200) {
-          console.log("nnnnnnnnn")
-          axios.put("http://localhost:7000/client/addproposalnotification", body).then((res) => {
-            console.log(res.data.data);
-            socket.emit("addproposal", res.data.data)
+      axios
+        .put(`http://localhost:7000/jobs/addproposal/${id}`, body, {
+          headers: headers,
+        })
+        .then((result) => {
+  
+          console.log(result.data.data._id)
+          let sanai3yName = `${currentUser.firstName} ${currentUser.lastName}`;
+          let body = {
+            clientId: result.data.data.clientId,
+            jobId: result.data.data._id,
+            type: "addproposal",
+            notification: `قام ${sanai3yName} باضافة عرض جديد على وظيفتك`
+          }
+  
+          if (result.status == 200) {
+            console.log("nnnnnnnnn")
+            axios.put("http://localhost:7000/client/addproposalnotification", body).then((res) => {
+              console.log(res.data.data);
+              socket.emit("addproposal", res.data.data)
+  
+              window.location.reload(true);
+            }).catch((err) => {
+              console.log(err)
+            })
+  
+  
+  
+  
+          }
+        });
+    }else{
 
-            window.location.reload(true);
-          })
+      notifyErr()
 
 
-
-
-        }
-      });
+    }
   }
 
   /////////////////////////////////////////
@@ -236,6 +261,8 @@ function Posts({ datas }) {
               </div>
             </div>
           </div>
+
+<ToastContainer />
 
           <div
             className="modal fade"
