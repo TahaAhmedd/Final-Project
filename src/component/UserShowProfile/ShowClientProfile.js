@@ -148,7 +148,15 @@ function ShowClientProfile() {
                     <span className="data_client"><strong> {dateFormat(Profile.joinedDate, "fullDate")}</strong></span>
                   </div>
                   <div className='col-lg-4 col-sm-4 text-center'>
-                    <button type="button" className="btn btn-primary" onClick={setNewConversation}>Button</button>
+                    <lord-icon
+                      src="https://cdn.lordicon.com/hpivxauj.json"
+                      trigger="click"
+                      colors="primary:#ffb200"
+                      style={{ width: '40px', height: '40px' }}
+                      onClick={setNewConversation}>
+                      {/* <span className='badge badge-danger bg-danger d-flex justify-content-center align-items-center ' style={{ width: '10px', height: '10px', fontSize: '1px' }}></span> */}
+                    </lord-icon>
+                    {/* <button onClick={setNewConversation}><i class="fa-solid fa-comment-dots" style={{}}></i></button> */}
                   </div>
 
 
