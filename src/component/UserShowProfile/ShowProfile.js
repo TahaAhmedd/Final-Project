@@ -72,13 +72,13 @@ function Showprofile(props) {
       <div className="container" style={{ marginTop: "100px" }}>
         {Profile && <div className="row" style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", padding: "20px" }}>
 
-          <div className="col-lg-4 col-sm-4">
+          <div className="col-lg-4 col-sm-12">
             <div className="image_profile">
               <img src={Profile.img} />
             </div>
           </div>
 
-          <div className="col-lg-8  col-sm-8">
+          <div className="col-lg-8  col-sm-12">
             <div className="data_profile_client">
               <h4>{Profile.firstName + " " + Profile.lastName}</h4>
               <ul>

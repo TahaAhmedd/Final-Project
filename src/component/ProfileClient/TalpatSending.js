@@ -225,7 +225,7 @@ useEffect(() => {
                                   <span className="parent_two_button">
                                     <span>{one.sanai3yId.skills}</span>
 
-                                    {d.status == "in progress" ? (
+                                    {d.status == "in progress" || d.status == "compelete"  ? (
                                       <button
                                         
                                         className="btn btn-info edit_button_no"
