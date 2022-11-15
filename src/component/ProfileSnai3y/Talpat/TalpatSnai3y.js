@@ -57,6 +57,7 @@ function TalpatSnai3y() {
           axios.put("http://localhost:7000/client/confirmcompelete", body).then((res) => {
             console.log(res.data.data);
             socket.emit("confirmjob", res.data.data)
+            window.location.reload(true);
 
           }).catch((err) => {
             console.log(err)

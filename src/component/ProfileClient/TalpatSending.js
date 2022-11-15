@@ -42,7 +42,7 @@ useEffect(() => {
         axios.put("http://localhost:7000/sanai3y/acceptjobnotification", body).then((res) => {
           // console.log(res.data.data)
           socket.emit("acceptJob", res.data.data);
-
+          window.location.reload(true)
 
 
         }).catch((err) => {
@@ -132,6 +132,10 @@ useEffect(() => {
         console.log(err);
       });
   }
+
+
+  
+
 
   return (
     <>
@@ -225,7 +229,7 @@ useEffect(() => {
                                   <span className="parent_two_button">
                                     <span>{one.sanai3yId.skills}</span>
 
-                                    {d.status == "in progress" ? (
+                                    {d.status == "in progress" || d.status == "compelete"  ? (
                                       <button
                                         
                                         className="btn btn-info edit_button_no"
