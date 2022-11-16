@@ -13,6 +13,8 @@ function Showprofile(props) {
   // The current user
   const currentUser = useSelector((state) => state.userReducer.userData);
 
+  // console.log(currentUser.jobs)
+
   // let Profile = useSelector((state) => state.Snai3yReducer.data)
   const navigate = useNavigate();
   let params = useParams().data
@@ -128,6 +130,12 @@ function Showprofile(props) {
 
                 </li>
               </ul>
+              
+              <div>
+                      عدد الوظائف اللتي قبل فيها 
+                      ( {currentUser.jobs.length} )
+
+              </div>
 
 
             </div> {/* end Div Ul */}
