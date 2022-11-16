@@ -68,6 +68,12 @@ function Navpar({ socket }) {
             setNewNotifications(data);
         })
 
+        // Confirm compeleting the job notification
+        socket?.on("getconfirm", (data) => {
+            setBadge(true);
+            setNewNotifications(data);
+        })
+
 
 
     }, [currentUser, socket])
@@ -140,6 +146,7 @@ function Navpar({ socket }) {
         }
         else if (notificationObj.type === "acceptjob") {
             navigate("/profileS/two");
+            window.location.reload(true)
 
         }
     }
@@ -149,8 +156,9 @@ function Navpar({ socket }) {
             navigate(`/profileC/${notificationObj.jobId}`)
             window.location.reload(true)
         }
-        else if (notificationObj.type === "acceptjob") {
-            navigate("/profileS/two");
+        else if (notificationObj.type === "confirmjob") {
+            navigate(`/profileC/${notificationObj.jobId}`)
+            window.location.reload(true)
 
         }
     }

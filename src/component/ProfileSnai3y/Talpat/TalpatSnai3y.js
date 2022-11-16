@@ -7,6 +7,7 @@ import axios from "axios";
 import { Snai3ycontext } from "../context";
 import { useSelector } from "react-redux";
 import Notfind from "../../notfind/Notfind";
+import { io } from "socket.io-client";
 
 
 function TalpatSnai3y() {
@@ -14,34 +15,59 @@ function TalpatSnai3y() {
   let token = localStorage.getItem("token");
   let d = useSelector(state => state.Snai3yReducer.data)
 
-  let [data,setData] = useState([])
+  let [data, setData] = useState([])
   let headers = {
     'Authorization': token
-}
+  }
 
-  useEffect(()=>{
-    axios.get("http://localhost:7000/sanai3y/jobs",{headers:headers}).then(
-      (res)=>{
+  useEffect(() => {
+    axios.get("http://localhost:7000/sanai3y/jobs", { headers: headers }).then(
+      (res) => {
         console.log(res.data.Data)
         setData(res.data.Data)
 
       }
     )
 
-  },[])
-//////////////////////////////////////////////////////////////
-const currentUser = useSelector((state) => state.userReducer.userData);
-  function compeleteJob(){
-    axios.put("http://localhost:7000/sanai3y/jobcompelete",{},{headers:headers}).then(
-      (res)=>{
-        console.log(res)
-        if(res.status == 200){
-          // console.log("succes")
-          window.location.reload(true)
+  }, [])
+  //////////////////////////////////////////////////////////////
+  // The socket
+  const [socket, setSocket] = useState(null)
 
+  useEffect(() => {
+    setSocket(io("http://localhost:7000", {
+      transport: ['websocket', 'polling', 'flashsocket'],
+      // withCredentials: true 
+    }))
+  }, [])
+
+  const currentUser = useSelector((state) => state.userReducer.userData);
+  function compeleteJob() {
+    axios.put("http://localhost:7000/sanai3y/jobcompelete", {}, { headers: headers }).then(
+      (result) => {
+        console.log(result.data.data)
+        let sanai3yName = `${currentUser.firstName} ${currentUser.lastName}`;
+        let body = {
+          clientId: result.data.data.clientId,
+          jobId: result.data.data._id,
+          type: "confirmjob",
+          notification: `هل قام ${sanai3yName} بانهاء الوظيفة المطلوبة ؟   برجاء التأكيد!!! `
+        }
+        if (result.status == 200) {
+          axios.put("http://localhost:7000/client/confirmcompelete", body).then((res) => {
+            console.log(res.data.data);
+            socket.emit("confirmjob", res.data.data)
+            window.location.reload(true);
+
+          }).catch((err) => {
+            console.log(err)
+          })
+
+
+          console.log("succes")
         }
       }
-    ).catch((err)=> console.log(err))
+    ).catch((err) => console.log(err))
   }
   // console.log(data)
   return (
@@ -64,27 +90,27 @@ const currentUser = useSelector((state) => state.userReducer.userData);
 
               <div className="conatiner-body_post_client">
                 <p>{item.description}</p>
-                
+
                 <div className="proposels_sanai3y">
-                <p>طلبك المقدم</p>
+                  <p>طلبك المقدم</p>
                   {item.proposals.map((one) => (
                     <span>
                       {one.sanai3yProposal}
-                    </span>                
+                    </span>
                   ))}
                 </div>
 
               </div>
               <div className="d-flex justify-content-end">
-                <button onClick={compeleteJob} className={item.status == "compelete"?"btn btn-secondary": "finish_btn"}>
+                <button onClick={compeleteJob} className={item.status == "compelete" ? "btn btn-secondary" : "finish_btn"}>
                   تم الانتهاء
-                  {item.status == "compelete" &&<i class="fa-solid fa-lock me-1" style={{color:"#000"}}></i>}
+                  {item.status == "compelete" && <i class="fa-solid fa-lock me-1" style={{ color: "#000" }}></i>}
                 </button>
               </div>
             </div>
           ))}
         </div>
-        {data.length == 0 && <Notfind data={"لاتوجد طلبات مقدمة"}/>}
+        {data.length == 0 && <Notfind data={"لاتوجد طلبات مقدمة"} />}
       </div>
     </>
   );
