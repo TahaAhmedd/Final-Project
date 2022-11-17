@@ -96,9 +96,6 @@ function Posts({ datas }) {
               console.log(err)
             })
   
-  
-  
-  
           }
         });
     }else{

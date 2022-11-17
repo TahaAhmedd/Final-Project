@@ -19,6 +19,9 @@ function TalpatSending({navigatedJob}) {
   ////////////////////////////////////////////
   // The current user
   const currentUser = useSelector ((state) => state.userReducer.userData);
+
+  // console.log(currentUser)
+
     // The socket
 const [socket, setSocket] = useState(null)
 
@@ -97,6 +100,7 @@ useEffect(() => {
         headers: { Authorization: `${token}` },
       })
       .then((res) => {
+        // console.log(res.data.Data)
         if (navigatedJob.length !== 0){
           setJobs([...navigatedJob])
         }
@@ -134,7 +138,21 @@ useEffect(() => {
   }
 
 
-  
+// console.log("hello" + idClient)
+
+  // Function Close Job
+  function compeleteConfirmJob(idSanaiy){
+    axios.put("http://localhost:7000/client/confirmjob",{'sanai3yId':idSanaiy}).then(
+      (res)=>{
+        console.log(res)
+        if(res.status == 200){
+          // console.log("succes Man")
+          window.location.reload(true)
+
+        }
+      }
+    ).catch((err)=> console.log(err))
+  }
 
 
   return (
@@ -171,6 +189,24 @@ useEffect(() => {
                   ></lord-icon>
                   <span> ( {d.proposals.length} ) </span>
                 </button>
+
+                {/* Button Last End The Job With Client */}
+                <div className="d-flex justify-content-end" style={{marginBottom:'10px', marginRight:'10px'}}>
+                 
+                {d.status == 'pending' ? (
+
+                  <div style={{fontSize:'15px', backgroundColor:'#EEE', padding:'10px', marginLeft:'10px'}}>حتي الان لم توظف احد </div>
+                ):(
+                  <button onClick={() =>  compeleteConfirmJob(d.sanai3yId)} className={d.status == "compelete"?"btn btn-secondary": "finish_btn"}>
+                  التاكيد علي الانتهاء
+                  {d.status == "compelete" &&<i class="fa-solid fa-lock me-1" style={{color:"#000"}}></i>}
+                </button>
+                )}
+
+
+                
+
+                </div>
 
                 <div
                   className="modal fade"
